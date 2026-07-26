@@ -17,14 +17,14 @@
 <table>
   <tr>
     <td width="50%" valign="top">
-      <h4><a href="https://github.com/<YOUR_USERNAME>/EIPsInsight" style="color: #FAFAFA; text-decoration: none;">🔍 EIPsInsight</a></h4>
+      <h4><a href="https://github.com/AyuShetty/EIPsInsight" style="color: #FAFAFA; text-decoration: none;">🔍 EIPsInsight</a></h4>
       <p style="color: #A1A1AA; font-size: 13px;">
         Developer platform for exploring Ethereum Improvement Proposals with high-precision search and analytics.
       </p>
       <p style="font-size: 11px; color: #DC2626;"><code>Next.js</code> • <code>TypeScript</code> • <code>Ethereum</code> • <code>Analytics</code></p>
     </td>
     <td width="50%" valign="top">
-      <h4><a href="https://github.com/<YOUR_USERNAME>/ai-browser-agent" style="color: #FAFAFA; text-decoration: none;">🤖 AI Browser Agent</a></h4>
+      <h4><a href="https://github.com/AyuShetty/ai-browser-agent" style="color: #FAFAFA; text-decoration: none;">🤖 AI Browser Agent</a></h4>
       <p style="color: #A1A1AA; font-size: 13px;">
         Local autonomous AI browser system utilizing Playwright, Ollama, Docker, and customized execution loops.
       </p>
@@ -33,14 +33,14 @@
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <h4><a href="https://github.com/<YOUR_USERNAME>/Eth.ed" style="color: #FAFAFA; text-decoration: none;">🎓 Eth.ed</a></h4>
+      <h4><a href="https://github.com/AyuShetty/Eth.ed" style="color: #FAFAFA; text-decoration: none;">🎓 Eth.ed</a></h4>
       <p style="color: #A1A1AA; font-size: 13px;">
         Decentralized education platform combining Web3 learning with blockchain-native verifiable credentials.
       </p>
       <p style="font-size: 11px; color: #DC2626;"><code>Solidity</code> • <code>Web3</code> • <code>TypeScript</code> • <code>Wagmi</code></p>
     </td>
     <td width="50%" valign="top">
-      <h4><a href="https://github.com/<YOUR_USERNAME>/portfolio" style="color: #FAFAFA; text-decoration: none;">⚡ Portfolio OS</a></h4>
+      <h4><a href="https://github.com/AyuShetty/portfolio" style="color: #FAFAFA; text-decoration: none;">⚡ Portfolio OS</a></h4>
       <p style="color: #A1A1AA; font-size: 13px;">
         Personal workspace and interface showcasing architecture, technical blogs, and developer tooling.
       </p>
