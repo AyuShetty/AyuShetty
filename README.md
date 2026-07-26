@@ -1,38 +1,33 @@
 <div align="center">
 
-  <!-- TOP GRAPHICAL HEADER -->
-  <img src="https://raw.githubusercontent.com/AyuShetty/AyuShetty/main/assets/cyber_hud.svg" width="100%" alt="AYUSH_OS Cyber HUD" />
+<!-- AYU.OS V7 CORE: BOOT SEQUENCE & AUTHENTICATION SCAN -->
+<img src="https://raw.githubusercontent.com/AyuShetty/AyuShetty/main/assets/ayu_os_v7_core.svg" width="100%" alt="[SYSTEM_BOOT_LOG]" />
 
-  <!-- DYNAMIC TYPING TERMINAL PROMPT -->
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=15&pause=1000&color=DC2626&center=true&vCenter=true&width=600&lines=Product+Engineer+%26+Full+Stack+Developer;Building+Autonomous+AI+Browser+Agents;Designing+Developer+Tooling+%26+Ethereum+Protocols;A+curious+mind+is+writing+the+story..." alt="Typing Terminal" />
-  </a>
+<p align="center" style="font-family: monospace; color: #A1A1AA; font-size: 11px; letter-spacing: 2px;">SYS_OS V7.0.0 // AUTHENTICATION_STATUS: 🟢 VISITOR_VERIFIED</p>
 
 </div>
 
 <br>
 
-<table width="100%" style="border-collapse: collapse; border: 1px solid #27272A; background-color: #09090B;">
+<table width="100%" style="border-collapse: collapse; border: 1px solid #1A1A1A; background-color: #0F0F0F; font-family: monospace;">
   <tr>
-    <td width="65%" valign="top" style="padding: 16px; border: none;">
+    <td width="70%" valign="top" style="padding: 24px; border: none;">
       <h3 style="margin-top: 0; color: #DC2626; font-family: monospace;">// SYS.OVERVIEW</h3>
-      <p style="color: #A1A1AA; font-size: 14px; line-height: 1.6;">
-        Product Engineer and Full Stack Developer based in India, holding a B.Tech in Information Science & Engineering. 
-        Focused on bridging <b style="color: #FAFAFA;">AI Infrastructure</b>, <b style="color: #FAFAFA;">Browser Automation</b>, and <b style="color: #FAFAFA;">Decentralized Web Ecosystems</b>.
+      <p style="color: #A1A1AA; font-size: 14px; line-height: 1.8;">
+        Product Engineer and Creative Technologist based in India, running <b style="color: #FAFAFA;">AYU.OS</b>. Bridge of high-performance architecture between <b style="color: #FAFAFA;">AI Systems</b>, <b style="color: #FAFAFA;">Autonomous Workflows</b>, and the <b style="color: #FAFAFA;">Ethereum Protocol</b>.
       </p>
-      <p style="color: #A1A1AA; font-size: 14px; line-height: 1.6;">
-        I design minimal, reliable, and high-performance developer systems from first principles.
+      <p style="color: #A1A1AA; font-size: 14px; line-height: 1.8;">
+        We do not build generic. We engineer memorable digital artifacts. High-impact.
       </p>
     </td>
-    <td width="35%" valign="top" style="padding: 16px; border-left: 1px solid #27272A;">
+    <td width="30%" valign="top" style="padding: 24px; border-left: 1px solid #1A1A1A;">
       <h3 style="margin-top: 0; color: #DC2626; font-family: monospace;">// TELEMETRY</h3>
       <pre style="color: #A1A1AA; background: transparent; font-size: 11px; margin: 0; padding: 0;">
-LOC      : India 🇮🇳
-DEGREE   : B.Tech ISE
-ROLE     : Product Engineer
-STATUS   : 🟢 Active Core
-FOCUS    : Local AI & Web3
-PRIME    : Quality > Volume
+LOC      : INDIA [IN]
+STATUS   : 🟡 ACTIVE
+FOCUS    : AI // WEB3 // DEV_TOOLS
+MISSION  : 🔴 Build refined digital artifacts
+PRIME    : Engineering > Resumes
       </pre>
     </td>
   </tr>
@@ -40,12 +35,11 @@ PRIME    : Quality > Volume
 
 <br>
 
-### 📡 Active Matrix Focus
+### 💻 AYU.OS System Status Diagnostics
 
-```rust
-pub struct CurrentFocus {
-    ai_infra     : &str = "Local LLM Orchestration & Autonomous Workflows",
-    automation   : &str = "Playwright & Engine-level Browser Agents",
-    ethereum     : &str = "EIP Analytics & Protocol Tooling",
-    dev_tooling  : &str = "Developer Experience, System Design & CLI Automation",
-}
+```bash
+# RUNNING SYSDIAG v1.4.3 //
+--------------------------------------------------------------------------------------------------
+SYS_OS_LOAD      : 🔴 CREATIVITY: 92% // 🟠 ENGINEERING: 88% // 🔵 RESEARCH: 84% // 🟢 LEARNING: 90%
+SYSTEM_HEALTH    : 🔴 OPEN_SOURCE: HIGH // 🟠 COLLABORATION: ACTIVE // 🔵 INNOVATION: CRITICAL
+--------------------------------------------------------------------------------------------------
