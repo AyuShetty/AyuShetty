@@ -1,122 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="100%">
-  <defs>
-    <style>
-      @keyframes space-drift {
-        0% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(-10px, -15px) scale(1.02); }
-        100% { transform: translate(0, 0) scale(1); }
-      }
-      @keyframes star-twinkle {
-        0%, 100% { opacity: 0.3; }
-        50% { opacity: 0.9; }
-      }
-      @keyframes cat-walk {
-        0% { transform: translateX(0px); }
-        50% { transform: translateX(450px); }
-        100% { transform: translateX(0px); }
-      }
-      @keyframes hud-pulse {
-        0%, 100% { stroke: #DC2626; filter: drop-shadow(0 0 2px #DC2626); }
-        50% { stroke: #EF4444; filter: drop-shadow(0 0 8px #DC2626); }
-      }
-      @keyframes text-glitch {
-        0%, 100% { opacity: 1; }
-        92% { opacity: 1; }
-        93% { opacity: 0.4; }
-        94% { opacity: 1; }
-      }
+<div align="center">
 
-      .bg-space { fill: #050508; }
-      .star { fill: #FAFAFA; animation: star-twinkle 3s infinite ease-in-out; }
-      .galaxy-cloud { opacity: 0.25; animation: space-drift 12s infinite ease-in-out; }
-      .hud-border { fill: none; stroke-width: 1.5; animation: hud-pulse 4s infinite; }
-      .hud-panel { fill: #09090B; stroke: #27272A; stroke-width: 1; transition: all 0.3s; }
-      .hud-panel:hover { stroke: #DC2626; fill: #120A0D; cursor: pointer; }
-      .cat { animation: cat-walk 18s infinite ease-in-out; }
-      .terminal-text { font-family: 'Courier New', monospace; font-weight: bold; fill: #FAFAFA; }
-      .accent-text { font-family: 'Courier New', monospace; fill: #DC2626; }
-      .glitch { animation: text-glitch 6s infinite; }
-    </style>
+  <!-- CUSTOM ANIMATED SPACE & CAT SVG HUD -->
+  <img src="https://raw.githubusercontent.com/AyuShetty/AyuShetty/main/assets/cyber_hud.svg" width="100%" alt="AYUSH_OS Cyber HUD" />
 
-    <radialGradient id="nebula-red" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#DC2626" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="#050508" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="nebula-purple" cx="80%" cy="20%" r="60%">
-      <stop offset="0%" stop-color="#4C1D95" stop-opacity="0.2"/>
-      <stop offset="100%" stop-color="#050508" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
+  <!-- DYNAMIC TYPING TERMINAL PROMPT -->
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=14&pause=1000&color=DC2626&center=true&vCenter=true&width=600&lines=System.init(%22A+curious+mind+is+writing+the+story...%22);Building+Autonomous+AI+Browser+Agents;Designing+EIPsInsight+%26+Ethereum+Tooling" alt="Typing Terminal" />
+  </a>
 
-  <!-- Deep Space Canvas -->
-  <rect class="bg-space" width="900" height="320" rx="8" />
+</div>
 
-  <!-- Animated Galaxy Nebulas -->
-  <g class="galaxy-cloud">
-    <ellipse cx="450" cy="160" rx="350" ry="120" fill="url(#nebula-red)" />
-    <ellipse cx="700" cy="80" rx="200" ry="100" fill="url(#nebula-purple)" />
-  </g>
+<br>
 
-  <!-- Starfield -->
-  <g>
-    <circle class="star" cx="120" cy="40" r="1" style="animation-delay: 0.2s;" />
-    <circle class="star" cx="280" cy="80" r="1.5" style="animation-delay: 0.7s;" />
-    <circle class="star" cx="420" cy="30" r="1" style="animation-delay: 1.1s;" />
-    <circle class="star" cx="750" cy="110" r="1.5" style="animation-delay: 0.4s;" />
-    <circle class="star" cx="830" cy="40" r="1" style="animation-delay: 1.5s;" />
-    <circle class="star" cx="150" cy="220" r="1" style="animation-delay: 0.9s;" />
-    <circle class="star" cx="620" cy="250" r="1.5" style="animation-delay: 1.3s;" />
-  </g>
+### 💻 System Protocols & Projects
 
-  <!-- Top Header Frame -->
-  <rect class="hud-panel" x="20" y="20" width="860" height="70" rx="4" />
-  <rect class="hud-border" x="20" y="20" width="860" height="70" rx="4" />
-  
-  <text x="450" y="55" text-anchor="middle" class="terminal-text glitch" font-size="26" letter-spacing="4">[ AYUSH SHETTY ]</text>
-  <text x="450" y="78" text-anchor="middle" class="accent-text" font-size="11" letter-spacing="2">&gt; PRODUCT ENGINEER // AI &amp; LOCAL LLM ARCHITECT // ETHEREUM PROTOCOLS</text>
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h4><a href="https://github.com/AyuShetty/EIPsInsight" style="color: #FAFAFA; text-decoration: none;">🔍 EIPsInsight</a></h4>
+      <p style="color: #A1A1AA; font-size: 13px;">
+        Developer platform for exploring Ethereum Improvement Proposals with high-precision search and analytics.
+      </p>
+      <p style="font-size: 11px; color: #DC2626;"><code>Next.js</code> • <code>TypeScript</code> • <code>Ethereum</code> • <code>Analytics</code></p>
+    </td>
+    <td width="50%" valign="top">
+      <h4><a href="https://github.com/AyuShetty/ai-browser-agent" style="color: #FAFAFA; text-decoration: none;">🤖 AI Browser Agent</a></h4>
+      <p style="color: #A1A1AA; font-size: 13px;">
+        Local autonomous AI browser system utilizing Playwright, Ollama, Docker, and customized execution loops.
+      </p>
+      <p style="font-size: 11px; color: #DC2626;"><code>Python</code> • <code>Playwright</code> • <code>Docker</code> • <code>Ollama</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h4><a href="https://github.com/AyuShetty/Eth.ed" style="color: #FAFAFA; text-decoration: none;">🎓 Eth.ed</a></h4>
+      <p style="color: #A1A1AA; font-size: 13px;">
+        Decentralized education platform combining Web3 learning with blockchain-native verifiable credentials.
+      </p>
+      <p style="font-size: 11px; color: #DC2626;"><code>Solidity</code> • <code>Web3</code> • <code>TypeScript</code> • <code>Wagmi</code></p>
+    </td>
+    <td width="50%" valign="top">
+      <h4><a href="https://github.com/AyuShetty/portfolio" style="color: #FAFAFA; text-decoration: none;">⚡ Portfolio OS</a></h4>
+      <p style="color: #A1A1AA; font-size: 13px;">
+        Personal workspace and interface showcasing architecture, technical blogs, and developer tooling.
+      </p>
+      <p style="font-size: 11px; color: #DC2626;"><code>Next.js</code> • <code>Tailwind CSS</code> • <code>UI/UX</code></p>
+    </td>
+  </tr>
+</table>
 
-  <!-- Walking Red Pixel Cat Rail -->
-  <line x1="40" y1="110" x2="860" y2="110" stroke="#27272A" stroke-width="1" stroke-dasharray="4 4" />
-  
-  <g class="cat">
-    <!-- Pixel Cat Body -->
-    <path d="M 20 102 h 12 v 6 h -12 z" fill="#DC2626" />
-    <!-- Cat Head & Ears -->
-    <path d="M 30 96 h 6 v 6 h -6 z" fill="#DC2626" />
-    <path d="M 30 94 h 2 v 2 h -2 z" fill="#DC2626" />
-    <path d="M 34 94 h 2 v 2 h -2 z" fill="#DC2626" />
-    <!-- Pixel Eyes -->
-    <path d="M 34 98 h 1 v 1 h -1 z" fill="#FAFAFA" />
-    <!-- Pixel Legs -->
-    <path d="M 22 108 h 2 v 3 h -2 z" fill="#DC2626" />
-    <path d="M 28 108 h 2 v 3 h -2 z" fill="#DC2626" />
-    <!-- Tail -->
-    <path d="M 18 98 h 2 v 6 h -2 z" fill="#DC2626" />
-  </g>
+---
 
-  <!-- Panel 1: Profile Sys Overview -->
-  <g>
-    <rect class="hud-panel" x="20" y="130" width="420" height="170" rx="4" />
-    <text x="40" y="155" class="accent-text" font-size="12">// PROFILE: AYUSH_SHETTY</text>
-    <text x="40" y="180" class="terminal-text" font-size="11">B.Tech Information Science &amp; Eng.</text>
-    <text x="40" y="200" class="terminal-text" font-size="11">Crafting minimal, efficient systems in AI,</text>
-    <text x="40" y="220" class="terminal-text" font-size="11">browser automation, and Ethereum.</text>
-    <text x="40" y="250" class="accent-text" font-size="11">SYS_STATUS: ACTIVE [LOCAL_AI_AGENT]</text>
-    <text x="40" y="280" class="terminal-text" font-size="10" fill="#A1A1AA">AYUSH_OS v2.6.0</text>
-  </g>
+### 🛠️ Core Engineering Capabilities
 
-  <!-- Panel 2: Live Focus Stack -->
-  <g>
-    <rect class="hud-panel" x="460" y="130" width="420" height="170" rx="4" />
-    <text x="480" y="155" class="accent-text" font-size="12">// CURRENT_MATRIX: FOCUS</text>
-    
-    <rect x="480" y="170" width="380" height="28" rx="2" fill="#18181B" stroke="#27272A" />
-    <text x="495" y="188" class="terminal-text" font-size="11">🤖 AI Browser Agents (Ollama / Playwright)</text>
-    
-    <rect x="480" y="205" width="380" height="28" rx="2" fill="#18181B" stroke="#27272A" />
-    <text x="495" y="223" class="terminal-text" font-size="11">💎 Ethereum Protocol Tooling &amp; EIPs</text>
-    
-    <rect x="480" y="240" width="380" height="28" rx="2" fill="#18181B" stroke="#27272A" />
-    <text x="495" y="258" class="terminal-text" font-size="11">⚡ Dev Tooling &amp; System Automation</text>
-  </g>
-</svg>
+```rust
+pub struct SystemCapabilities {
+    languages    : [&str; 4] = ["TypeScript", "Python", "Solidity", "HTML/CSS"],
+    frameworks   : [&str; 4] = ["Next.js", "React", "Node.js", "Express"],
+    ai_infra     : [&str; 4] = ["Ollama", "Local LLMs", "Playwright", "AI Agents"],
+    databases    : [&str; 3] = ["PostgreSQL", "MongoDB", "MySQL"],
+    tooling      : [&str; 4] = ["Docker", "Git", "Linux", "VS Code"],
+    web3_stack   : [&str; 4] = ["Ethereum", "Wagmi", "EIPs", "ENS"],
+}
