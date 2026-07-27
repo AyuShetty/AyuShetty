@@ -1,4 +1,18 @@
-# System Overview
+# Boot Sequence
+
+```text
+AyuShetty OS v7.0.0
+Copyright (c) 2024. All rights reserved.
+
+[INFO] Initializing kernel...
+[INFO] Loading modules...
+[OK] Kernel synchronized.
+[OK] System ready.
+```
+
+---
+
+# System Initialization
 
 **AYU.OS v{{version}}** — {{codename}}
 

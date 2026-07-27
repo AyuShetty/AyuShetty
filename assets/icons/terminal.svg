@@ -1,13 +1,2 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  AYU.OS - Terminal Icon
-  Purpose: Terminal module indicator
-  Version: 1.0
--->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
-  <title>Terminal</title>
-  <desc>Terminal icon for AYU.OS modules.</desc>
-  <rect x="8" y="12" width="48" height="40" rx="4" fill="none" stroke="#FAFAFA" stroke-width="1.5"/>
-  <polyline points="20,32 28,40 20,48" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <line x1="32" y1="48" x2="52" y2="48" stroke="#A1A1AA" stroke-width="2" stroke-linecap="round"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?><!-- AYU.OS - Terminal Icon Purpose: Terminal module indicator Version: 1.0 Spec: COMPONENT_SPEC.md, TOKENS.md
+--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img"><title>Terminal</title><desc>Terminal icon for AYU.OS modules.</desc><defs><style> .ayu-border { fill: none; stroke: #FAFAFA; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; } .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } .ayu-text-muted { stroke: #A1A1AA; stroke-width: 2; stroke-linecap: round; } </style></defs><rect class="ayu-border" x="8" y="12" width="48" height="40" rx="4"/><polyline class="ayu-accent" points="20,32 28,40 20,48"/><line class="ayu-text-muted" x1="32" y1="48" x2="52" y2="48"/></svg>

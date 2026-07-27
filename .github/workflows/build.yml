@@ -1,0 +1,38 @@
+name: AYU.OS Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate SVGs
+        run: python3 scripts/generate_svg.py ayu-ui && python3 scripts/generate_svg.py assets/ui && python3 scripts/generate_svg.py assets/icons
+
+      - name: Build README
+        run: python3 scripts/build.py
+
+      - name: Upload generated README
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-readme
+          path: generated/README.md
+
+      - name: Upload generated assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-assets
+          path: generated/assets/

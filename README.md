@@ -2,7 +2,21 @@
   <img src="assets/cyber_hud.svg" width="100%" alt="AYU.OS Core HUD" />
 </div>
 
-# System Overview
+# Boot Sequence
+
+```text
+AyuShetty OS v7.0.0
+Copyright (c) 2024. All rights reserved.
+
+[INFO] Initializing kernel...
+[INFO] Loading modules...
+[OK] Kernel synchronized.
+[OK] System ready.
+```
+
+---
+
+# System Initialization
 
 **AYU.OS v7.0.0** — AYU.OS Core
 
@@ -37,30 +51,94 @@ Building clean, reliable, high-performance software with an obsessive focus on d
 
 ---
 
-## Kernel Status
+## Developer Profile
 
-### Kernel Status
+Engineering-focused summary. Not a biography.
 
-```rust
-pub struct Kernel {
-    version: "7.0.0",
-    status: "synchronized",
-    uptime: "99.97%",
-    memory: "stable",
-    processes: "nominal"
-}
-```
+- Architecting autonomous AI browser agents with local LLM orchestration
+- Building Ethereum protocol tooling and EIP diagnostics
+- Designing developer infrastructure and systems automation
+- Focus: clean, reliable, high-performance software
 
-System is fully operational. All subsystems responding within acceptable parameters.
+---
+
+### Technology Stack
+
+**Languages**
+- Python
+- TypeScript
+- Solidity
+
+**Infrastructure**
+- Docker
+- Playwright
+- Ollama
+
+**Focus Areas**
+- Systems Design
+- Browser Automation
+- Ethereum Protocols
+- Local AI
 
 
 ---
 
-## System Telemetry
+## Skills
 
-- Repositories: **42**
-- Stars: **1.2k**
-- Commits: **3.4k**
+**Languages**
+- Python | TypeScript | Solidity
+**Infrastructure**
+- Docker | Playwright | Ollama
+**Focus Areas**
+- Systems Design | Browser Automation | Ethereum Protocols | Local AI
+
+
+---
+
+## Projects
+
+- **browser_agents** — Autonomous AI browser automation engine using Ollama and Playwright.
+- **eip_diagnostics** — Ethereum protocol analytics and EIP tooling.
+- **dev_toolkit** — Developer infrastructure and systems automation.
+- **ayu_os** — This repository. A fictional operating system represented through GitHub.
+
+
+---
+
+## Research
+
+- **Artificial Intelligence** — Local LLM orchestration, agent design, reasoning engines.
+- **Ethereum** — Protocol analysis, EIP research, on-chain tooling.
+- **Systems Design** — Distributed systems, developer infrastructure, automation.
+- **Design Systems** — Component architecture, SVG engineering, token-driven UI.
+
+
+---
+
+## Timeline
+
+- **Present** — Product Engineer, focusing on AI browser agents and Ethereum protocols.
+- **Past** — B.Tech Information Science & Engineering.
+
+
+---
+
+## Current Objectives
+
+- Advance autonomous AI browser agent research with local LLM orchestration.
+- Expand Ethereum protocol tooling and contribute to EIP diagnostics.
+- Strengthen developer infrastructure and systems automation patterns.
+
+
+---
+
+## Contact
+
+- **GitHub**: https://github.com/AyuShetty
+- **Email**: user@example.com
+- **Twitter**: @AyuShetty
+- **LinkedIn**: in/ayushshetty
+
 
 ---
 
@@ -78,9 +156,24 @@ $
 
 ---
 
+## Kernel Status
+
+```rust
+pub struct Kernel {
+    version: "7.0.0",
+    status: "synchronized",
+    uptime: "stable",
+    memory: "nominal",
+    processes: "active"
+}
+```
+
+System is fully operational. All subsystems responding within acceptable parameters.
+
+
 ---
 
 > System initialized. All modules deployed.
 
-Last updated: 2026-07-27 | Repository Version: v7.0.0
+Repository Version: v7.0.0
 

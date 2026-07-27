@@ -1,12 +1,10 @@
-### Kernel Status
-
 ```rust
 pub struct Kernel {
     version: "{{version}}",
     status: "synchronized",
-    uptime: "99.97%",
-    memory: "stable",
-    processes: "nominal"
+    uptime: "stable",
+    memory: "nominal",
+    processes: "active"
 }
 ```
 

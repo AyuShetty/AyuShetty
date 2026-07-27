@@ -48,9 +48,7 @@ Public-facing GitHub profile.
 
 Acts as the primary interface visitors see.
 
-Currently maintained manually.
-
-Future versions may be generated automatically.
+Generated from reusable templates by the build system.
 
 ---
 
@@ -229,19 +227,19 @@ Status: Complete
 
 Reusable Component Library
 
-Status: In Progress
+Status: Complete
 
 Documentation
 
-Status: In Progress
+Status: Complete
 
 Automation
 
-Status: Planned
+Status: Complete
 
 README Generation
 
-Status: Planned
+Status: Complete
 
 ---
 

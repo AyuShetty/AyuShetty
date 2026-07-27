@@ -1,23 +1,2 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  AYU.OS - Button Component
-  Purpose: Reusable action button
-  Version: 1.0
--->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" role="img">
-  <title>AYU OS Button</title>
-  <desc>Reusable action button for AYU.OS interface actions.</desc>
-
-  <defs>
-    <style>
-      .ayu-btn-bg { fill: #DC2626; }
-      .ayu-btn-text { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 12px; font-weight: bold; }
-    </style>
-  </defs>
-
-  <!-- Button Background -->
-  <rect class="ayu-btn-bg" width="200" height="60" rx="8"/>
-
-  <!-- Label -->
-  <text class="ayu-btn-text" x="100" y="36" text-anchor="middle">EXECUTE</text>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?><!-- AYU.OS - Button Component Purpose: Reusable action button Version: 1.0 Spec: COMPONENT_SPEC.md, TOKENS.md
+--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" role="img"><title>AYU OS Button</title><desc>Reusable action button for AYU.OS interface actions.</desc><defs><style> .ayu-primary { fill: #DC2626; } .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 12px; font-weight: bold; } </style></defs><!-- Button Background --><rect class="ayu-primary" width="200" height="60" rx="8"/><!-- Label --><text class="ayu-text-primary" x="100" y="36" text-anchor="middle">EXECUTE</text></svg>

@@ -1,8 +1,7 @@
 ### Terminal
 
 ```text
-$ {{terminal_about}}
-$ {{terminal_help}}
+{{terminal_output}}
 ```
 
 Type `help` for available commands.

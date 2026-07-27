@@ -1,14 +1,2 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  AYU.OS - Database Icon
-  Purpose: Database module indicator
-  Version: 1.0
--->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
-  <title>Database</title>
-  <desc>Database icon for AYU.OS modules.</desc>
-  <ellipse cx="32" cy="16" rx="20" ry="8" fill="none" stroke="#FAFAFA" stroke-width="1.5"/>
-  <path d="M 12 16 L 12 48 Q 12 56 32 56 Q 52 56 52 48 L 52 16" fill="none" stroke="#FAFAFA" stroke-width="1.5"/>
-  <ellipse cx="32" cy="48" rx="20" ry="8" fill="none" stroke="#FAFAFA" stroke-width="1.5"/>
-  <path d="M 12 28 L 52 28" stroke="#27272A" stroke-width="1"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?><!-- AYU.OS - Database Icon Purpose: Database module indicator Version: 1.0 Spec: COMPONENT_SPEC.md, TOKENS.md
+--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img"><title>Database</title><desc>Database icon for AYU.OS modules.</desc><defs><style> .ayu-border { fill: none; stroke: #FAFAFA; stroke-width: 1.5; } .ayu-text-muted { stroke: #27272A; stroke-width: 1; } </style></defs><ellipse class="ayu-border" cx="32" cy="16" rx="20" ry="8"/><path class="ayu-border" d="M 12 16 L 12 48 Q 12 56 32 56 Q 52 56 52 48 L 52 16"/><ellipse class="ayu-border" cx="32" cy="48" rx="20" ry="8"/><line class="ayu-text-muted" x1="12" y1="28" x2="52" y2="28"/></svg>

@@ -1,19 +1,2 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  AYU.OS - Corner Component
-  Purpose: Single reusable corner accent bracket
-  Version: 1.0
--->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
-  <title>AYU OS Corner</title>
-  <desc>Single L-shaped corner accent bracket for AYU.OS HUD panels and windows.</desc>
-
-  <defs>
-    <style>
-      .ayu-corner { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; }
-    </style>
-  </defs>
-
-  <!-- Corner Bracket -->
-  <path class="ayu-corner" d="M 20 8 L 20 44 L 8 44"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?><!-- AYU.OS - Corner Component Purpose: Single reusable corner accent bracket Version: 1.0 Spec: COMPONENT_SPEC.md, TOKENS.md Corner length: 24px Corner thickness: 1.5px
+--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img"><title>AYU OS Corner</title><desc>Single L-shaped corner accent bracket for AYU.OS HUD panels and windows.</desc><defs><style> .ayu-corner { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; } </style></defs><!-- Corner Bracket: 24px vertical, 24px horizontal --><path class="ayu-corner" d="M 20 8 L 20 32 L 8 32"/></svg>
