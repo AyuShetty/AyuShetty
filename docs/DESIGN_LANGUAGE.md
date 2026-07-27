@@ -1,171 +1,331 @@
+# DESIGN_LANGUAGE.md
 
 # AYU.OS Design Language
 
-Version: 7.0.0
+Version: 1.0.0
 
 ---
 
-## Philosophy
+# Purpose
 
-AYU.OS is not a GitHub profile.
+This document defines the visual identity of AYU.OS.
 
-It is a fictional operating system.
+Every component, illustration, SVG, README section, and future module must follow these principles.
 
-Every visual element should support that illusion.
-
-Never add something because it looks cool.
-
-Add it because the operating system needs it.
+The goal is consistency rather than decoration.
 
 ---
 
-## Design Principles
+# Design Philosophy
 
-1. Function before decoration.
+AYU.OS is an operating system.
 
-2. Motion has purpose.
+Not a dashboard.
 
-3. Every component feels engineered.
+Not a portfolio.
 
-4. Everything is modular.
+Not a cyberpunk poster.
 
-5. Darkness is the canvas.
-
-6. Empty space is intentional.
-
-7. Every animation communicates state.
-
-8. Never imitate existing GitHub profiles.
-
-9. Never use unnecessary badges.
-
-10. The interface should reward exploration.
+Every interface should feel believable enough that users momentarily forget they are viewing a GitHub profile.
 
 ---
 
-## Inspirations
+# Keywords
 
-Apple Human Interface
+The visual identity should always communicate:
 
-NASA Mission Control
-
-Iron Man Jarvis
-
-Blade Runner 2049
-
-Nothing Operating System
-
-Linux
-
-Monospace terminals
-
-Military HUD systems
+- Precision
+- Confidence
+- Simplicity
+- Engineering
+- Performance
+- Intelligence
+- Reliability
+- Modularity
 
 ---
 
-## Mood
+# Inspiration
 
-Silent
+Primary inspirations:
 
-Calm
+- Apple Human Interface Guidelines
+- Nothing OS
+- NASA Mission Control
+- GitHub
+- Linear
+- Arc Browser
 
-Precise
+Secondary inspiration:
 
-Elegant
+- Iron Man JARVIS
+- Figma
+- Raycast
 
-High-tech
+Avoid copying any single product.
 
-Confident
-
-Purposeful
+Use them only as references.
 
 ---
 
-## Color Tokens
+# Visual Personality
 
-Background
-#050505
+AYU.OS should feel:
 
-Surface
-#09090B
+Calm.
 
-Panel
-#111111
+Minimal.
 
-Border
-#1A1A1A
+Purposeful.
 
-Primary
-#DC2626
+Technical.
 
-Primary Soft
-#991B1B
+Premium.
 
-White
-#FAFAFA
+Professional.
 
-Muted
-#A1A1AA
+Every visual element should have a reason to exist.
+
+---
+
+# Design Principles
+
+## Function First
+
+Every element must communicate something.
+
+Never add decoration without purpose.
+
+---
+
+## Space is a Feature
+
+Whitespace is valuable.
+
+Avoid filling every area.
+
+Interfaces should breathe.
+
+---
+
+## Information Hierarchy
+
+Most important information should immediately attract attention.
+
+Secondary information should remain available without competing.
+
+---
+
+## Consistency
+
+Spacing.
+
+Corners.
+
+Borders.
+
+Typography.
+
+Icons.
+
+Everything should feel like it belongs to one system.
+
+---
+
+# Geometry
+
+Use simple geometry.
+
+Rectangles.
+
+Rounded rectangles.
+
+Lines.
+
+Circles.
+
+Subtle corner accents.
+
+Avoid irregular shapes.
+
+---
+
+# Corners
+
+Corner accents should be:
+
+- thin
+- subtle
+- symmetrical
+
+Corners should reinforce structure rather than become decoration.
+
+---
+
+# Borders
+
+Borders should be:
+
+1px–2px equivalent.
+
+Never thick.
+
+Never glowing.
+
+Never distracting.
+
+---
+
+# Shadows
+
+Avoid large drop shadows.
+
+Prefer depth through spacing and layering.
+
+---
+
+# Color Philosophy
+
+The interface should remain primarily monochrome.
+
+Accent colors should communicate status.
+
+Example:
+
+Neutral
+
+Information
 
 Success
-#22C55E
 
 Warning
-#EAB308
 
-Danger
-#EF4444
+Critical
 
----
-
-## Animation Rules
-
-Nothing moves forever.
-
-Animations wake up.
-
-Respond.
-
-Idle.
-
-Sleep.
-
-Pulse.
-
-Never distract.
+Accent colors should never dominate the interface.
 
 ---
 
-## Typography
+# Motion
 
-Headings
+Motion should feel mechanical.
 
-Premium
+Smooth.
 
-Large
+Intentional.
 
-Confident
+Never flashy.
 
-Body
-
-Readable
-
-Minimal
-
-Terminal
-
-Monospace
-
-Everything aligned.
+Future animations should resemble operating system transitions rather than website animations.
 
 ---
 
-## Component Rule
+# Typography
 
-Every new visual component must be reusable.
+Readable.
 
-Never duplicate SVGs.
+Consistent.
 
-Build systems.
+Engineering focused.
 
-Not graphics.
+Avoid decorative fonts.
+
+Text should prioritize clarity.
+
+---
+
+# Icons
+
+Icons should be:
+
+Simple.
+
+Minimal.
+
+Geometric.
+
+Consistent stroke width.
+
+Avoid filled icons unless necessary.
+
+---
+
+# Panels
+
+Panels are the fundamental building block of AYU.OS.
+
+Every module should exist inside a reusable panel.
+
+Panels should never contain assumptions about their content.
+
+---
+
+# Grid System
+
+Every layout should align to an underlying grid.
+
+Avoid arbitrary positioning.
+
+Spacing should be predictable.
+
+---
+
+# Accessibility
+
+Every SVG should include:
+
+<title>
+
+<desc>
+
+Meaningful IDs.
+
+Semantic grouping.
+
+Readable XML.
+
+Accessibility is a first-class requirement.
+
+---
+
+# Naming Convention
+
+Good:
+
+panel.svg
+
+window.svg
+
+corner.svg
+
+divider.svg
+
+terminal.svg
+
+status-card.svg
+
+Bad:
+
+panel-final.svg
+
+test.svg
+
+new.svg
+
+copy.svg
+
+Rectangle24.svg
+
+Layer 1.svg
+
+---
+
+# Engineering Mindset
+
+Good design is not complexity.
+
+Good design is clarity.
+
+Every future contribution should improve consistency instead of introducing novelty.
+
+If a new component does not fit this design language, redesign the component rather than weakening the system.
