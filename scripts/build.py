@@ -53,7 +53,7 @@ def load_svg_template(name: str) -> str:
 
 def render_section_header(title: str, subtitle: str) -> str:
     """Render a section header SVG with given title and subtitle."""
-    svg_template = COMPONENTS_DIR / "primitives" / "header.svg"
+    svg_template = COMPONENTS_DIR / "layouts" / "header.svg"
     if not svg_template.exists():
         return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
   <title>{title}</title>
@@ -139,7 +139,7 @@ def render_boot_sequence(version: str, codename: str, module_count: int) -> str:
     })
 
 def render_enhanced_project_card(project: dict) -> str:
-    """Generate an enhanced project card SVG programmatically."""
+    """Render a project card from the reusable component template."""
     status_colors = {
         "active": "#22C55E",
         "archived": "#EAB308",
@@ -159,21 +159,21 @@ def render_enhanced_project_card(project: dict) -> str:
     started = project.get("started", "2024")
     license_val = project.get("license", "MIT")
     
-    # Build tech tags
-    tag_svg = []
+    # Build tech tags HTML
+    tech_tag_svg = []
     x_pos = 0
     for tech in tech_stack:
         width = len(tech) * 7 + 16
         text_x = width // 2
-        tag_svg.append(f'''<g transform="translate({x_pos}, 0)">
+        tech_tag_svg.append(f'''<g transform="translate({x_pos}, 0)">
   <rect class="ayu-chip-bg" width="{width}" height="22" rx="4"/>
   <rect class="ayu-chip-border" width="{width}" height="22" rx="4"/>
   <text class="ayu-chip-text" x="{text_x}" y="15" text-anchor="middle">{tech}</text>
 </g>''')
         x_pos += width + 8
-    tech_tags_svg = "\n".join(tag_svg)
+    tech_tags_html = "\n".join(tech_tag_svg)
     
-    # Build highlights
+    # Build highlights HTML
     highlight_svg = []
     for i, h in enumerate(highlights):
         y = i * 20
@@ -181,10 +181,10 @@ def render_enhanced_project_card(project: dict) -> str:
   <circle class="ayu-success" cx="0" cy="9" r="3"/>
   <text class="ayu-text-primary" x="10" y="13" style="font-size: 10px;">{h}</text>
 </g>''')
-    highlights_svg = "\n".join(highlight_svg)
+    highlights_html = "\n".join(highlight_svg)
     
-    # Metrics
-    metrics_svg = f'''<g class="ayu-metric" transform="translate(100, 0)">
+    # Build metrics HTML
+    metrics_html = f'''<g class="ayu-metric" transform="translate(100, 0)">
   <text class="ayu-metric-value" x="0" y="18" text-anchor="middle">—</text>
   <text class="ayu-metric-label" x="0" y="34" text-anchor="middle">FILES</text>
 </g>
@@ -205,95 +205,28 @@ def render_enhanced_project_card(project: dict) -> str:
   <text class="ayu-metric-label" x="0" y="34" text-anchor="middle">STATUS</text>
 </g>'''
     
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
-  <title>{title} — AYU.OS Project</title>
-  <desc>Project card for {title}: {description}</desc>
-  <defs>
-    <style>
-      .ayu-surface {{ fill: #09090B; }}
-      .ayu-surface-raised {{ fill: #111111; }}
-      .ayu-surface-elevated {{ fill: #18181B; }}
-      .ayu-border {{ fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }}
-      .ayu-accent {{ fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }}
-      .ayu-separator {{ stroke: #27272A; stroke-width: 1.5; }}
-      .ayu-text-primary {{ fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 11px; }}
-      .ayu-text-muted {{ fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }}
-      .ayu-text-heading {{ fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }}
-      .ayu-text-label {{ fill: #D4D4D8; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; font-weight: 500; }}
-      .ayu-success {{ fill: #22C55E; }}
-      .ayu-warning {{ fill: #EAB308; }}
-      .ayu-error {{ fill: #EF4444; }}
-      .ayu-info {{ fill: #38BDF8; }}
-      .ayu-chip-bg {{ fill: #1A1A1A; }}
-      .ayu-chip-border {{ fill: none; stroke: #27272A; stroke-width: 1; }}
-      .ayu-chip-text {{ fill: #D4D4D8; font-family: "JetBrains Mono", Menlo, monospace; font-size: 9px; }}
-      .ayu-metric-value {{ fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 18px; font-weight: 600; }}
-      .ayu-metric-label {{ fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 9px; }}
-      .ayu-link {{ fill: #DC2626; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; text-decoration: underline; }}
-    </style>
-  </defs>
-
-  <rect class="ayu-surface" width="1000" height="280" rx="12"/>
-  <rect class="ayu-border" width="1000" height="280" rx="12"/>
-
-  <g id="ayu-corner-group">
-    <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
-    <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
-    <path class="ayu-accent" d="M 28 268 L 28 252 L 12 252"/>
-    <path class="ayu-accent" d="M 972 268 L 972 252 L 988 252"/>
-  </g>
-
-  <g id="ayu-header" transform="translate(32, 32)">
-    <text class="ayu-text-heading" x="0" y="0">{title}</text>
-    <g transform="translate(600, -14)">
-      <rect class="ayu-chip-bg" width="120" height="28" rx="6"/>
-      <rect class="ayu-chip-border" width="120" height="28" rx="6"/>
-      <circle fill="{status_color}" cx="16" cy="14" r="4"/>
-      <text class="ayu-chip-text" x="24" y="18">{status}</text>
-    </g>
-    <g transform="translate(740, -14)">
-      <rect class="ayu-chip-bg" width="80" height="28" rx="6"/>
-      <rect class="ayu-chip-border" width="80" height="28" rx="6"/>
-      <text class="ayu-chip-text" x="40" y="18" text-anchor="middle">{ptype}</text>
-    </g>
-    <g transform="translate(840, -14)">
-      <rect class="ayu-chip-bg" width="60" height="28" rx="6"/>
-      <rect class="ayu-chip-border" width="60" height="28" rx="6"/>
-      <text class="ayu-chip-text" x="30" y="18" text-anchor="middle">★ {stars}</text>
-    </g>
-  </g>
-
-  <line class="ayu-separator" x1="32" y1="60" x2="968" y2="60"/>
-
-  <g id="ayu-description" transform="translate(32, 72)">
-    <text class="ayu-text-primary" x="0" y="0" style="font-size: 11px;">{description}</text>
-  </g>
-
-  <g id="ayu-tech-stack" transform="translate(32, 110)">
-    <text class="ayu-text-muted" x="0" y="0">TECH</text>
-    <g id="ayu-tech-tags" transform="translate(50, -6)">
-      {tech_tags_svg}
-    </g>
-  </g>
-
-  <g id="ayu-highlights" transform="translate(32, 150)">
-    <text class="ayu-text-muted" x="0" y="0">HIGHLIGHTS</text>
-    {highlights_svg}
-  </g>
-
-  <g id="ayu-metrics" transform="translate(32, 210)">
-    <line class="ayu-separator" x1="0" y1="-8" x2="936" y2="-8"/>
-    {metrics_svg}
-  </g>
-
-  <line class="ayu-separator" x1="32" y1="248" x2="968" y2="248"/>
-  <g id="ayu-footer" transform="translate(32, 258)">
-    <text class="ayu-text-muted" x="0" y="0">REPO:</text>
-    <a href="{repo_url}" target="_blank">
-      <text class="ayu-link" x="50" y="0">{repo_url}</text>
-    </a>
-  </g>
-</svg>'''
+    # Load component template
+    component_path = COMPONENTS_DIR / "features" / "project-card.svg"
+    if component_path.exists():
+        svg = component_path.read_text(encoding="utf-8")
+    else:
+        return ""
+    
+    # Render simple placeholders
+    svg = render_template(svg, {
+        "TITLE": title,
+        "DESCRIPTION": description,
+        "STATUS": status,
+        "STATUS_COLOR": status_color,
+        "TYPE": ptype,
+        "STARS": stars,
+        "REPO_URL": repo_url,
+        "TECH_TAGS": tech_tags_html,
+        "HIGHLIGHTS": highlights_html,
+        "METRICS": metrics_html,
+    })
+    
+    return svg
 
 def format_skills(skills_data: dict) -> str:
     """Format skills categories as markdown."""

@@ -66,31 +66,52 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
 
 ---
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
-  <title>MISSION CONTROL</title>
-  <desc>Section header for MISSION CONTROL: Active modules and system status</desc>
+  <title>MISSION CONTROL — AYU.OS</title>
+  <desc>Active modules and system status</desc>
   <defs>
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
-      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
-      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
     </style>
   </defs>
+  <!-- Background -->
   <rect class="ayu-surface" width="1000" height="80" rx="12"/>
   <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
   <g id="ayu-corner-group">
     <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
     <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
     <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
     <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
   </g>
-  <line class="ayu-separator" x1="32" y1="52" x2="968" y2="52"/>
-  <text class="ayu-text-primary" x="40" y="36">MISSION CONTROL</text>
-  <text class="ayu-text-muted" x="40" y="56">Active modules and system status</text>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">MISSION CONTROL</text>
+    <text class="ayu-text-muted" x="32" y="56">Active modules and system status</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
 </svg>
+
 
 | Module | Status | Description |
 |--------|--------|-------------|
@@ -105,31 +126,52 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
 
 ---
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
-  <title>DEVELOPER PROFILE</title>
-  <desc>Section header for DEVELOPER PROFILE: Engineering-focused summary. Not a biography.</desc>
+  <title>DEVELOPER PROFILE — AYU.OS</title>
+  <desc>Engineering-focused summary. Not a biography.</desc>
   <defs>
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
-      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
-      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
     </style>
   </defs>
+  <!-- Background -->
   <rect class="ayu-surface" width="1000" height="80" rx="12"/>
   <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
   <g id="ayu-corner-group">
     <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
     <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
     <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
     <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
   </g>
-  <line class="ayu-separator" x1="32" y1="52" x2="968" y2="52"/>
-  <text class="ayu-text-primary" x="40" y="36">DEVELOPER PROFILE</text>
-  <text class="ayu-text-muted" x="40" y="56">Engineering-focused summary. Not a biography.</text>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">DEVELOPER PROFILE</text>
+    <text class="ayu-text-muted" x="32" y="56">Engineering-focused summary. Not a biography.</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
 </svg>
+
 
 **Focus Areas:**
 - Architecting autonomous AI browser agents with local LLM orchestration
@@ -140,31 +182,52 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
 
 ---
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
-  <title>TECHNOLOGY STACK</title>
-  <desc>Section header for TECHNOLOGY STACK: Languages • Infrastructure • Focus Areas</desc>
+  <title>TECHNOLOGY STACK — AYU.OS</title>
+  <desc>Languages • Infrastructure • Focus Areas</desc>
   <defs>
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
-      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
-      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
     </style>
   </defs>
+  <!-- Background -->
   <rect class="ayu-surface" width="1000" height="80" rx="12"/>
   <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
   <g id="ayu-corner-group">
     <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
     <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
     <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
     <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
   </g>
-  <line class="ayu-separator" x1="32" y1="52" x2="968" y2="52"/>
-  <text class="ayu-text-primary" x="40" y="36">TECHNOLOGY STACK</text>
-  <text class="ayu-text-muted" x="40" y="56">Languages • Infrastructure • Focus Areas</text>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">TECHNOLOGY STACK</text>
+    <text class="ayu-text-muted" x="32" y="56">Languages • Infrastructure • Focus Areas</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
 </svg>
+
 
 **Languages**
 `TypeScript` `Python` `Solidity` `Swift` `JavaScript` `Go` `Rust` `Java` `C`
@@ -186,33 +249,60 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
 
 ---
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
-  <title>FEATURED PROJECTS</title>
-  <desc>Section header for FEATURED PROJECTS: Deployed modules. Active repositories.</desc>
+  <title>FEATURED PROJECTS — AYU.OS</title>
+  <desc>Deployed modules. Active repositories.</desc>
   <defs>
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
-      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
-      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
     </style>
   </defs>
+  <!-- Background -->
   <rect class="ayu-surface" width="1000" height="80" rx="12"/>
   <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
   <g id="ayu-corner-group">
     <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
     <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
     <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
     <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
   </g>
-  <line class="ayu-separator" x1="32" y1="52" x2="968" y2="52"/>
-  <text class="ayu-text-primary" x="40" y="36">FEATURED PROJECTS</text>
-  <text class="ayu-text-muted" x="40" y="56">Deployed modules. Active repositories.</text>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">FEATURED PROJECTS</text>
+    <text class="ayu-text-muted" x="32" y="56">Deployed modules. Active repositories.</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
 </svg>
 
+
 <div align="center">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project showcase card for featured projects
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
   <title>LOCAL AI INFRASTRUCTURE — AYU.OS Project</title>
   <desc>Project card for LOCAL AI INFRASTRUCTURE: Distributed AI workflow platform using Python, Ollama, Docker, Playwright and Open WebUI for autonomous orchestration and local LLM execution across multiple systems.</desc>
@@ -220,7 +310,6 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-surface-raised { fill: #111111; }
-      .ayu-surface-elevated { fill: #18181B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
@@ -370,11 +459,18 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     </a>
   </g>
 </svg>
+
 </div>
 
 ---
 
 <div align="center">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project showcase card for featured projects
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
   <title>AI WORKFLOW AUTOMATION — AYU.OS Project</title>
   <desc>Project card for AI WORKFLOW AUTOMATION: Automation framework integrating local AI models with browser automation and custom workflows to handle repetitive engineering tasks and document processing.</desc>
@@ -382,7 +478,6 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-surface-raised { fill: #111111; }
-      .ayu-surface-elevated { fill: #18181B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
@@ -527,11 +622,18 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     </a>
   </g>
 </svg>
+
 </div>
 
 ---
 
 <div align="center">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project showcase card for featured projects
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
   <title>ETH.ED — AI-Powered Web3 Learning Platform — AYU.OS Project</title>
   <desc>Project card for ETH.ED — AI-Powered Web3 Learning Platform: AI-powered Web3 learning platform with gamified lessons, ENS-based certificates, and smart contract micropayments. Next.js + AI + Ethereum.</desc>
@@ -539,7 +641,6 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-surface-raised { fill: #111111; }
-      .ayu-surface-elevated { fill: #18181B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
@@ -689,11 +790,18 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     </a>
   </g>
 </svg>
+
 </div>
 
 ---
 
 <div align="center">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project showcase card for featured projects
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
   <title>EIPSINSIGHT — Ethereum Governance Analytics — AYU.OS Project</title>
   <desc>Project card for EIPSINSIGHT — Ethereum Governance Analytics: Ethereum governance analytics platform for tracking EIP lifecycles, governance signals, and stakeholder influence. Real-time dashboard with on-chain + off-chain data fusion.</desc>
@@ -701,7 +809,6 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-surface-raised { fill: #111111; }
-      .ayu-surface-elevated { fill: #18181B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
@@ -856,11 +963,18 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     </a>
   </g>
 </svg>
+
 </div>
 
 ---
 
 <div align="center">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project showcase card for featured projects
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
   <title>FACIAL KEYGEN — Biometric Cryptographic Key Derivation — AYU.OS Project</title>
   <desc>Project card for FACIAL KEYGEN — Biometric Cryptographic Key Derivation: Python-based biometric authentication system generating cryptographic keys from facial biometrics using computer vision and ML for post-quantum security research.</desc>
@@ -868,7 +982,6 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-surface-raised { fill: #111111; }
-      .ayu-surface-elevated { fill: #18181B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
@@ -1013,11 +1126,18 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     </a>
   </g>
 </svg>
+
 </div>
 
 ---
 
 <div align="center">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project showcase card for featured projects
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
   <title>AIRGESTURE — Touchless Presentation Control — AYU.OS Project</title>
   <desc>Project card for AIRGESTURE — Touchless Presentation Control: Real-time computer vision app using OpenCV and MediaPipe that translates hand gestures into presentation controls for touchless classroom interaction.</desc>
@@ -1025,7 +1145,6 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-surface-raised { fill: #111111; }
-      .ayu-surface-elevated { fill: #18181B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
@@ -1165,11 +1284,18 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     </a>
   </g>
 </svg>
+
 </div>
 
 ---
 
 <div align="center">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project showcase card for featured projects
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
   <title>ETHERWORLD IOS — Scalable iOS App Architecture — AYU.OS Project</title>
   <desc>Project card for ETHERWORLD IOS — Scalable iOS App Architecture: Designed the application architecture and modular structure for the EtherWorld iOS app — scalable navigation, API integration, and maintainable app structure.</desc>
@@ -1177,7 +1303,6 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-surface-raised { fill: #111111; }
-      .ayu-surface-elevated { fill: #18181B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
@@ -1322,11 +1447,18 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     </a>
   </g>
 </svg>
+
 </div>
 
 ---
 
 <div align="center">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project showcase card for featured projects
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
   <title>THIS PORTFOLIO — Immersive 3D Developer Portfolio — AYU.OS Project</title>
   <desc>Project card for THIS PORTFOLIO — Immersive 3D Developer Portfolio: Immersive developer portfolio with a 3D dome gallery, scroll-driven animations, and an editorial bronze design system. Next.js + Three.js + custom design tokens.</desc>
@@ -1334,7 +1466,6 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-surface-raised { fill: #111111; }
-      .ayu-surface-elevated { fill: #18181B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
@@ -1484,11 +1615,18 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     </a>
   </g>
 </svg>
+
 </div>
 
 ---
 
 <div align="center">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project showcase card for featured projects
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
   <title>AYU.OS — This Profile as an Operating System — AYU.OS Project</title>
   <desc>Project card for AYU.OS — This Profile as an Operating System: A fictional operating system expressed through a GitHub profile. Component-driven SVG design system, automated build pipeline, and token-based theming.</desc>
@@ -1496,7 +1634,6 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-surface-raised { fill: #111111; }
-      .ayu-surface-elevated { fill: #18181B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
@@ -1641,37 +1778,59 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
     </a>
   </g>
 </svg>
+
 </div>
 
 ---
 
 ---
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
-  <title>EXPERIENCE TIMELINE</title>
-  <desc>Section header for EXPERIENCE TIMELINE: Career progression. Newest first.</desc>
+  <title>EXPERIENCE TIMELINE — AYU.OS</title>
+  <desc>Career progression. Newest first.</desc>
   <defs>
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
-      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
-      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
     </style>
   </defs>
+  <!-- Background -->
   <rect class="ayu-surface" width="1000" height="80" rx="12"/>
   <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
   <g id="ayu-corner-group">
     <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
     <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
     <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
     <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
   </g>
-  <line class="ayu-separator" x1="32" y1="52" x2="968" y2="52"/>
-  <text class="ayu-text-primary" x="40" y="36">EXPERIENCE TIMELINE</text>
-  <text class="ayu-text-muted" x="40" y="56">Career progression. Newest first.</text>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">EXPERIENCE TIMELINE</text>
+    <text class="ayu-text-muted" x="32" y="56">Career progression. Newest first.</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
 </svg>
+
 
 ### Product Engineer at Avarch
 *2023-01 – Present | Bangalore, India (Remote)*
@@ -1737,31 +1896,52 @@ Focus: Distributed Systems, Compilers, Cryptography, Computer Networks. Final ye
 
 ---
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
-  <title>RESEARCH</title>
-  <desc>Section header for RESEARCH: Current areas of interest and investigation.</desc>
+  <title>RESEARCH — AYU.OS</title>
+  <desc>Current areas of interest and investigation.</desc>
   <defs>
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
-      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
-      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
     </style>
   </defs>
+  <!-- Background -->
   <rect class="ayu-surface" width="1000" height="80" rx="12"/>
   <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
   <g id="ayu-corner-group">
     <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
     <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
     <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
     <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
   </g>
-  <line class="ayu-separator" x1="32" y1="52" x2="968" y2="52"/>
-  <text class="ayu-text-primary" x="40" y="36">RESEARCH</text>
-  <text class="ayu-text-muted" x="40" y="56">Current areas of interest and investigation.</text>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">RESEARCH</text>
+    <text class="ayu-text-muted" x="32" y="56">Current areas of interest and investigation.</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
 </svg>
+
 
 ### Local LLM Orchestration
 Efficient inference pipelines, speculative decoding, and model routing for on-device agent workloads. Building production-grade local AI infrastructure.
@@ -1807,31 +1987,52 @@ Links: [AIRGESTURE Repo](https://github.com/AyuShetty/airgesture)
 
 ---
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
-  <title>CURRENT OBJECTIVES</title>
-  <desc>Section header for CURRENT OBJECTIVES: Active missions and focus areas.</desc>
+  <title>CURRENT OBJECTIVES — AYU.OS</title>
+  <desc>Active missions and focus areas.</desc>
   <defs>
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
-      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
-      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
     </style>
   </defs>
+  <!-- Background -->
   <rect class="ayu-surface" width="1000" height="80" rx="12"/>
   <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
   <g id="ayu-corner-group">
     <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
     <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
     <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
     <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
   </g>
-  <line class="ayu-separator" x1="32" y1="52" x2="968" y2="52"/>
-  <text class="ayu-text-primary" x="40" y="36">CURRENT OBJECTIVES</text>
-  <text class="ayu-text-muted" x="40" y="56">Active missions and focus areas.</text>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">CURRENT OBJECTIVES</text>
+    <text class="ayu-text-muted" x="32" y="56">Active missions and focus areas.</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
 </svg>
+
 
 - 🔄 **Ship LOCAL AI INFRASTRUCTURE v1.0 — Production-Ready Distributed Inference** (65%)
   Complete the distributed local LLM orchestration platform with multi-node inference, browser automation integration, and Open WebUI compatibility. Target: zero-config Docker deployment.
@@ -1855,31 +2056,52 @@ Links: [AIRGESTURE Repo](https://github.com/AyuShetty/airgesture)
 
 ---
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
-  <title>TERMINAL</title>
-  <desc>Section header for TERMINAL: Interactive command reference</desc>
+  <title>TERMINAL — AYU.OS</title>
+  <desc>Interactive command reference</desc>
   <defs>
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
-      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
-      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
     </style>
   </defs>
+  <!-- Background -->
   <rect class="ayu-surface" width="1000" height="80" rx="12"/>
   <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
   <g id="ayu-corner-group">
     <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
     <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
     <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
     <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
   </g>
-  <line class="ayu-separator" x1="32" y1="52" x2="968" y2="52"/>
-  <text class="ayu-text-primary" x="40" y="36">TERMINAL</text>
-  <text class="ayu-text-muted" x="40" y="56">Interactive command reference</text>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">TERMINAL</text>
+    <text class="ayu-text-muted" x="32" y="56">Interactive command reference</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
 </svg>
+
 
 ```text
 $ ayu-os init
@@ -1894,31 +2116,52 @@ $
 
 ---
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
-  <title>CONTACT</title>
-  <desc>Section header for CONTACT: Establish connection</desc>
+  <title>CONTACT — AYU.OS</title>
+  <desc>Establish connection</desc>
   <defs>
     <style>
       .ayu-surface { fill: #09090B; }
       .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
       .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
       .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
-      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
-      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
     </style>
   </defs>
+  <!-- Background -->
   <rect class="ayu-surface" width="1000" height="80" rx="12"/>
   <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
   <g id="ayu-corner-group">
     <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
     <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
     <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
     <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
   </g>
-  <line class="ayu-separator" x1="32" y1="52" x2="968" y2="52"/>
-  <text class="ayu-text-primary" x="40" y="36">CONTACT</text>
-  <text class="ayu-text-muted" x="40" y="56">Establish connection</text>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">CONTACT</text>
+    <text class="ayu-text-muted" x="32" y="56">Establish connection</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
 </svg>
+
 
 - **GitHub**: [AyuShetty](https://github.com/AyuShetty) ★
 - **Email**: [ayush@ayushetty.me](mailto:ayush@ayushetty.me) ★
@@ -1934,6 +2177,6 @@ $
 > Shipping real products. Exploring MPC/TSS security. Code that actually scales.
 
 Repository Version: v7.0.0
-Last Generated: 2026-07-28T11:43:30.593630Z
+Last Generated: 2026-07-28T13:46:49.492505Z
 
 [![Built with AYU.OS](https://img.shields.io/badge/Built%20with-AYU.OS-DC2626?style=flat-square)](https://github.com/AyuShetty/AyuShetty)
