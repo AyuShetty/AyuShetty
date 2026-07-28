@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AYU.OS Interactive Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="os-shell">
+    <header class="os-header">
+      <div class="os-brand">
+        <div class="os-logo" aria-hidden="true">A</div>
+        <div>
+          <div class="os-title">AYU.OS Interactive Demo</div>
+          <div class="os-subtitle">v7.0.0</div>
+        </div>
+      </div>
+      <div class="os-status">
+        <div class="status-dot" aria-hidden="true"></div>
+        <span class="status-text">SYSTEM RUNNING</span>
+      </div>
+    </header>
+
+    <main id="main-content" class="os-main">
+      <!-- Mission Control -->
+      <section class="os-section" aria-labelledby="mission-control-title">
+        <header class="section-header">
+          <div><h2 id="mission-control-title">MISSION CONTROL</h2></div>
+          <div class="section-actions"><a href="#projects" class="btn btn--ghost">VIEW PROJECTS</a></div>
+        </header>
+        <div class="section-body">
+          <div class="module-grid">
+            <!-- Modules will be rendered dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="os-section" aria-labelledby="projects-title" id="projects">
+        <header class="section-header">
+          <div><h2 id="projects-title">FEATURED PROJECTS</h2></div>
+          <div class="section-actions"><a href="https://github.com/AyuShetty?tab=repositories" class="btn btn--ghost" target="_blank">ALL REPOSITORIES</a></div>
+        </header>
+        <div class="section-body">
+          <div class="projects-grid">
+            <!-- Project cards will be generated here -->
+          </div>
+        </div>
+      </section>
+
+      <script src="script.js"></script>
+  </div>
+</body>
+</html>

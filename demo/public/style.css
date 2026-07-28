@@ -1,0 +1,33 @@
+:root {
+  --bg-0: #050505;
+  --bg-100: #09090B;
+  --bg-200: #111111;
+  --bg-300: #18181B;
+  --border-subtle: #1A1A1A;
+  --border-default: #27272A;
+  --fg-primary: #FAFAFA;
+  --accent-primary: #DC2626;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--bg-0);
+  color: var(--fg-primary);
+}
+
+.os-shell { padding: 40px; }
+.os-header { background: var(--bg-100); padding: 20px; }
+.os-logo { width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent-primary), #EF4444); }
+.os-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-primary); }
+.timeline-item::before { width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--border-default); }
+
+/\* Animations \*/
+@keyframes status-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes timeline-reveal {
+  to { opacity: 1; }
+}

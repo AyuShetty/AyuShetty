@@ -4,15 +4,16 @@ AYU.OS Build System v2.0
 Builds the GitHub profile README from data-driven templates and SVG components.
 """
 import json
-import shutil
-from pathlib import Path
-from datetime import datetime
-from string import Template
 import re
+import shutil
+from datetime import datetime
+from pathlib import Path
+from typing import Optional
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
 COMPONENTS_DIR = ROOT / "components"
+TEMPLATES_DIR = ROOT / "templates"
 DIST_DIR = ROOT / "dist"
 ASSETS_DIR = DIST_DIR / "assets"
 ROOT_README = ROOT / "README.md"
@@ -31,7 +32,6 @@ def render_template(template_str: str, context: dict) -> str:
     """Simple template rendering with {{VAR}} substitution."""
     def replace_var(match):
         key = match.group(1).strip()
-        # Handle nested keys like profile.name
         keys = key.split('.')
         value = context
         for k in keys:
@@ -44,17 +44,17 @@ def render_template(template_str: str, context: dict) -> str:
     
     return re.sub(r'\{\{([^}]+)\}\}', replace_var, template_str)
 
-def load_svg_component(component_path: Path) -> str:
-    """Load an SVG component file."""
-    if component_path.exists():
-        return component_path.read_text(encoding="utf-8")
+def load_svg_template(name: str) -> str:
+    """Load an SVG template file."""
+    path = TEMPLATES_DIR / "svg" / f"{name}.svg"
+    if path.exists():
+        return path.read_text(encoding="utf-8")
     return ""
 
 def render_section_header(title: str, subtitle: str) -> str:
     """Render a section header SVG with given title and subtitle."""
     svg_template = COMPONENTS_DIR / "primitives" / "header.svg"
     if not svg_template.exists():
-        # Fallback inline
         return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
   <title>{title}</title>
   <desc>Section header for {title}: {subtitle}</desc>
@@ -87,7 +87,7 @@ def render_section_header(title: str, subtitle: str) -> str:
 
 def render_boot_sequence(version: str, codename: str, module_count: int) -> str:
     """Render the boot sequence SVG."""
-    svg_template = COMPONENTS_DIR / "primitives" / "boot-sequence.svg"
+    svg_template = TEMPLATES_DIR / "svg" / "boot-sequence.svg"
     if svg_template.exists():
         svg_content = svg_template.read_text(encoding="utf-8")
     else:
@@ -138,6 +138,163 @@ def render_boot_sequence(version: str, codename: str, module_count: int) -> str:
         "MODULE_COUNT": str(module_count)
     })
 
+def render_enhanced_project_card(project: dict) -> str:
+    """Generate an enhanced project card SVG programmatically."""
+    status_colors = {
+        "active": "#22C55E",
+        "archived": "#EAB308",
+        "planned": "#38BDF8",
+        "maintenance": "#EAB308"
+    }
+    status_color = status_colors.get(project.get("status", "active"), "#22C55E")
+    
+    title = project.get("title", project.get("name", "Untitled"))
+    description = project.get("description", "")
+    status = project.get("status", "active").upper()
+    ptype = project.get("type", "solo").upper()
+    stars = str(project.get("stars", 0))
+    repo_url = project.get("repo_url", "")
+    tech_stack = project.get("tech_stack", [])
+    highlights = project.get("highlights", [])[:4]
+    started = project.get("started", "2024")
+    license_val = project.get("license", "MIT")
+    
+    # Build tech tags
+    tag_svg = []
+    x_pos = 0
+    for tech in tech_stack:
+        width = len(tech) * 7 + 16
+        text_x = width // 2
+        tag_svg.append(f'''<g transform="translate({x_pos}, 0)">
+  <rect class="ayu-chip-bg" width="{width}" height="22" rx="4"/>
+  <rect class="ayu-chip-border" width="{width}" height="22" rx="4"/>
+  <text class="ayu-chip-text" x="{text_x}" y="15" text-anchor="middle">{tech}</text>
+</g>''')
+        x_pos += width + 8
+    tech_tags_svg = "\n".join(tag_svg)
+    
+    # Build highlights
+    highlight_svg = []
+    for i, h in enumerate(highlights):
+        y = i * 20
+        highlight_svg.append(f'''<g transform="translate(50, {y})">
+  <circle class="ayu-success" cx="0" cy="9" r="3"/>
+  <text class="ayu-text-primary" x="10" y="13" style="font-size: 10px;">{h}</text>
+</g>''')
+    highlights_svg = "\n".join(highlight_svg)
+    
+    # Metrics
+    metrics_svg = f'''<g class="ayu-metric" transform="translate(100, 0)">
+  <text class="ayu-metric-value" x="0" y="18" text-anchor="middle">—</text>
+  <text class="ayu-metric-label" x="0" y="34" text-anchor="middle">FILES</text>
+</g>
+<g class="ayu-metric" transform="translate(300, 0)">
+  <text class="ayu-metric-value" x="0" y="18" text-anchor="middle">{stars}</text>
+  <text class="ayu-metric-label" x="0" y="34" text-anchor="middle">STARS</text>
+</g>
+<g class="ayu-metric" transform="translate(500, 0)">
+  <text class="ayu-metric-value" x="0" y="18" text-anchor="middle">{license_val}</text>
+  <text class="ayu-metric-label" x="0" y="34" text-anchor="middle">LICENSE</text>
+</g>
+<g class="ayu-metric" transform="translate(700, 0)">
+  <text class="ayu-metric-value" x="0" y="18" text-anchor="middle">{started}</text>
+  <text class="ayu-metric-label" x="0" y="34" text-anchor="middle">SINCE</text>
+</g>
+<g class="ayu-metric" transform="translate(900, 0)">
+  <text class="ayu-metric-value" x="0" y="18" text-anchor="middle">{status}</text>
+  <text class="ayu-metric-label" x="0" y="34" text-anchor="middle">STATUS</text>
+</g>'''
+    
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
+  <title>{title} — AYU.OS Project</title>
+  <desc>Project card for {title}: {description}</desc>
+  <defs>
+    <style>
+      .ayu-surface {{ fill: #09090B; }}
+      .ayu-surface-raised {{ fill: #111111; }}
+      .ayu-surface-elevated {{ fill: #18181B; }}
+      .ayu-border {{ fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }}
+      .ayu-accent {{ fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }}
+      .ayu-separator {{ stroke: #27272A; stroke-width: 1.5; }}
+      .ayu-text-primary {{ fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 11px; }}
+      .ayu-text-muted {{ fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }}
+      .ayu-text-heading {{ fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }}
+      .ayu-text-label {{ fill: #D4D4D8; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; font-weight: 500; }}
+      .ayu-success {{ fill: #22C55E; }}
+      .ayu-warning {{ fill: #EAB308; }}
+      .ayu-error {{ fill: #EF4444; }}
+      .ayu-info {{ fill: #38BDF8; }}
+      .ayu-chip-bg {{ fill: #1A1A1A; }}
+      .ayu-chip-border {{ fill: none; stroke: #27272A; stroke-width: 1; }}
+      .ayu-chip-text {{ fill: #D4D4D8; font-family: "JetBrains Mono", Menlo, monospace; font-size: 9px; }}
+      .ayu-metric-value {{ fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 18px; font-weight: 600; }}
+      .ayu-metric-label {{ fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 9px; }}
+      .ayu-link {{ fill: #DC2626; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; text-decoration: underline; }}
+    </style>
+  </defs>
+
+  <rect class="ayu-surface" width="1000" height="280" rx="12"/>
+  <rect class="ayu-border" width="1000" height="280" rx="12"/>
+
+  <g id="ayu-corner-group">
+    <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
+    <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
+    <path class="ayu-accent" d="M 28 268 L 28 252 L 12 252"/>
+    <path class="ayu-accent" d="M 972 268 L 972 252 L 988 252"/>
+  </g>
+
+  <g id="ayu-header" transform="translate(32, 32)">
+    <text class="ayu-text-heading" x="0" y="0">{title}</text>
+    <g transform="translate(600, -14)">
+      <rect class="ayu-chip-bg" width="120" height="28" rx="6"/>
+      <rect class="ayu-chip-border" width="120" height="28" rx="6"/>
+      <circle fill="{status_color}" cx="16" cy="14" r="4"/>
+      <text class="ayu-chip-text" x="24" y="18">{status}</text>
+    </g>
+    <g transform="translate(740, -14)">
+      <rect class="ayu-chip-bg" width="80" height="28" rx="6"/>
+      <rect class="ayu-chip-border" width="80" height="28" rx="6"/>
+      <text class="ayu-chip-text" x="40" y="18" text-anchor="middle">{ptype}</text>
+    </g>
+    <g transform="translate(840, -14)">
+      <rect class="ayu-chip-bg" width="60" height="28" rx="6"/>
+      <rect class="ayu-chip-border" width="60" height="28" rx="6"/>
+      <text class="ayu-chip-text" x="30" y="18" text-anchor="middle">★ {stars}</text>
+    </g>
+  </g>
+
+  <line class="ayu-separator" x1="32" y1="60" x2="968" y2="60"/>
+
+  <g id="ayu-description" transform="translate(32, 72)">
+    <text class="ayu-text-primary" x="0" y="0" style="font-size: 11px;">{description}</text>
+  </g>
+
+  <g id="ayu-tech-stack" transform="translate(32, 110)">
+    <text class="ayu-text-muted" x="0" y="0">TECH</text>
+    <g id="ayu-tech-tags" transform="translate(50, -6)">
+      {tech_tags_svg}
+    </g>
+  </g>
+
+  <g id="ayu-highlights" transform="translate(32, 150)">
+    <text class="ayu-text-muted" x="0" y="0">HIGHLIGHTS</text>
+    {highlights_svg}
+  </g>
+
+  <g id="ayu-metrics" transform="translate(32, 210)">
+    <line class="ayu-separator" x1="0" y1="-8" x2="936" y2="-8"/>
+    {metrics_svg}
+  </g>
+
+  <line class="ayu-separator" x1="32" y1="248" x2="968" y2="248"/>
+  <g id="ayu-footer" transform="translate(32, 258)">
+    <text class="ayu-text-muted" x="0" y="0">REPO:</text>
+    <a href="{repo_url}" target="_blank">
+      <text class="ayu-link" x="50" y="0">{repo_url}</text>
+    </a>
+  </g>
+</svg>'''
+
 def format_skills(skills_data: dict) -> str:
     """Format skills categories as markdown."""
     lines = []
@@ -149,32 +306,35 @@ def format_skills(skills_data: dict) -> str:
     return "\n".join(lines)
 
 def format_projects(projects_data: dict) -> str:
-    """Format featured projects as markdown."""
+    """Format featured projects as markdown with enhanced SVG cards."""
     lines = []
     for project in projects_data.get("featured", []):
         if not project.get("featured", True):
             continue
         
-        lines.append(f"### {project.get('name', 'Untitled Project')}")
-        lines.append(f"*{project.get('description', '')}*")
-        lines.append("")
-        
-        # Tech stack
-        tech = project.get("tech_stack", [])
-        if tech:
-            lines.append(f"- **Tech:** {', '.join(tech)}")
-        
-        # Highlights
-        highlights = project.get("highlights", [])
-        if highlights:
-            lines.append(f"- **Highlights:**")
-            for h in highlights[:3]:
-                lines.append(f"  - {h}")
-        
-        # Repo
-        repo_url = project.get("repo_url", "")
-        if repo_url:
-            lines.append(f"- **Repo:** [{repo_url}]({repo_url})")
+        # Try to render enhanced SVG card
+        svg_card = render_enhanced_project_card(project)
+        if svg_card:
+            lines.append(f'<div align="center">\n{svg_card}\n</div>')
+        else:
+            # Fallback to markdown
+            lines.append(f"### {project.get('title', project.get('name', 'Untitled Project'))}")
+            lines.append(f"*{project.get('description', '')}*")
+            lines.append("")
+            
+            tech = project.get("tech_stack", [])
+            if tech:
+                lines.append(f"- **Tech:** {', '.join(tech)}")
+            
+            highlights = project.get("highlights", [])
+            if highlights:
+                lines.append(f"- **Highlights:**")
+                for h in highlights[:3]:
+                    lines.append(f"  - {h}")
+            
+            repo_url = project.get("repo_url", "")
+            if repo_url:
+                lines.append(f"- **Repo:** [{repo_url}]({repo_url})")
         
         lines.append("")
         lines.append("---")
@@ -254,15 +414,8 @@ def format_contact(contact_data: dict) -> str:
     lines.append(f"*Preferred: {contact_data.get('preferred', 'GitHub Issues or Email')}*")
     return "\n".join(lines)
 
-
-def create_github_readme(readme: str) -> None:
-    """Create a GitHub-optimized README that references assets via raw.githubusercontent.com URLs."""
-    # For now, the local assets work fine since we copy them to root/assets
-    # This function is a placeholder for future optimization
-    pass
-
-
 def build_readme() -> str:
+    """Build the complete README from data."""
     
     # Load all data
     profile = load_json(DATA_DIR / "profile.json")
@@ -284,13 +437,19 @@ def build_readme() -> str:
     boot_svg = render_boot_sequence(version, codename, module_count)
     sections.append(f'<div align="center">\n{boot_svg}\n</div>')
     
-    # 2. Profile Header
+    # 2. Profile Header with CTA
     sections.append("---\n")
     sections.append(f"# {profile.get('name', 'Ayush N Shetty')}")
     sections.append(f"**{profile.get('title', 'Product Engineer')}** — {profile.get('subtitle', '')}")
     sections.append(f"*{profile.get('location', 'Bangalore, India')} • {profile.get('timezone', 'UTC+5:30')}*")
     sections.append("")
     sections.append(profile.get('bio', ''))
+    sections.append("")
+    
+    # CTA to portfolio
+    sections.append("> **🚀 [Experience the Interactive Demo →](https://ayushetty.me)** — 3D dome gallery, scroll animations, bronze design system")
+    sections.append("")
+    sections.append("> **🛠️ [View Source on GitHub →](https://github.com/AyuShetty/AyuShetty)** — This profile's component-driven architecture")
     sections.append("")
     
     # 3. Mission Control
@@ -457,9 +616,6 @@ def main():
         shutil.rmtree(ROOT_ASSETS)
     shutil.copytree(ASSETS_DIR, ROOT_ASSETS)
     print(f"  ✓ Synced assets to {ROOT_ASSETS}")
-    
-    # Also create a clean README that references assets from GitHub raw URLs
-    create_github_readme(readme)
     
     print("\n✅ Build complete!")
     print(f"   Version: {version}")
