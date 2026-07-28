@@ -1,38 +1,114 @@
-name: AYU.OS Build
+name: AYU.OS Build & Deploy
 
 on:
+  schedule:
+    # Run daily at 06:00 UTC to refresh stats
+    - cron: '0 6 * * *'
   push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+    branches: [main]
+    paths:
+      - 'data/**'
+      - 'components/**'
+      - 'scripts/**'
+      - 'tokens/**'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  validate-and-build:
+  validate:
+    name: Validate
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
+      
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install --quiet pyyaml
+      
+      - name: Validate JSON data files
+        run: |
+          python3 -c "
+          import json, sys
+          from pathlib import Path
+          for f in Path('data').glob('*.json'):
+              try:
+                  json.loads(f.read_text())
+                  print(f'  ✓ {f}')
+              except json.JSONDecodeError as e:
+                  print(f'  ✗ {f}: {e}')
+                  sys.exit(1)
+          "
+      
+      - name: Validate SVG components
+        run: |
+          python3 scripts/validate_svgs.py components
+      
+      - name: Check Python syntax
+        run: |
+          python3 -m py_compile scripts/build.py
 
-      - name: Validate SVGs
-        run: python3 scripts/generate_svg.py ayu-ui && python3 scripts/generate_svg.py assets/ui && python3 scripts/generate_svg.py assets/icons
-
+  build:
+    name: Build & Deploy
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Fetch GitHub stats
+        if: env.GH_TOKEN != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 scripts/fetch_github_stats.py
+      
       - name: Build README
-        run: python3 scripts/build.py
-
-      - name: Upload generated README
+        run: |
+          python3 scripts/build.py
+      
+      - name: Commit & Push README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          if git diff --quiet README.md; then
+            echo "No changes to README.md"
+          else
+            git add README.md assets/
+            git commit -m "chore: rebuild profile README [skip ci]"
+            git push
+            echo "README updated and pushed"
+          fi
+      
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: generated-readme
-          path: generated/README.md
+          name: ayu-os-build
+          path: |
+            dist/
+            README.md
+          retention-days: 7
 
-      - name: Upload generated assets
-        uses: actions/upload-artifact@v4
-        with:
-          name: generated-assets
-          path: generated/assets/
+  notify:
+    name: Notify on Failure
+    needs: [validate, build]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send failure notification
+        run: |
+          echo "Build failed! Check Actions tab for details."
+          # Could add Slack/Discord webhook here

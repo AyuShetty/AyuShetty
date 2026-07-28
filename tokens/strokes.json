@@ -1,0 +1,16 @@
+{
+  "widths": {
+    "hairline": 0.5,
+    "thin": 1,
+    "default": 1.5,
+    "medium": 2,
+    "thick": 3
+  },
+  "border": {
+    "panel": 1.5,
+    "window": 1.5,
+    "chip": 1.5,
+    "badge": 1.5,
+    "divider": 1.5
+  }
+}

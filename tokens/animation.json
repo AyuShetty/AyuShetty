@@ -1,0 +1,30 @@
+{
+  "easing": {
+    "easeOut": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+    "easeInOut": "cubic-bezier(0.42, 0, 0.58, 1)",
+    "linear": "linear",
+    "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+  },
+  "duration": {
+    "instant": 0,
+    "fast": 150,
+    "normal": 300,
+    "slow": 600,
+    "verySlow": 1200
+  },
+  "semantics": {
+    "pulse": { "duration": 2000, "easing": "easeInOut", "iterationCount": "infinite", "meaning": "System alive / active" },
+    "scan": { "duration": 3000, "easing": "linear", "iterationCount": "infinite", "meaning": "Searching / scanning" },
+    "rotate": { "duration": 4000, "easing": "linear", "iterationCount": "infinite", "meaning": "Processing / computing" },
+    "blink": { "duration": 1000, "easing": "easeInOut", "iterationCount": "infinite", "meaning": "Awaiting input / attention" },
+    "packet": { "duration": 800, "easing": "easeOut", "iterationCount": "infinite", "meaning": "Network activity" },
+    "orbit": { "duration": 6000, "easing": "linear", "iterationCount": "infinite", "meaning": "AI thinking / reasoning" },
+    "fade": { "duration": 300, "easing": "easeOut", "iterationCount": 1, "meaning": "State transition" },
+    "reveal": { "duration": 600, "easing": "easeOut", "iterationCount": 1, "meaning": "Content entrance" },
+    "type": { "duration": 50, "easing": "linear", "iterationCount": 1, "meaning": "Terminal output" }
+  },
+  "reducedMotion": {
+    "disableAnimations": true,
+    "instantTransitions": true
+  }
+}

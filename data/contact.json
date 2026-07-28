@@ -1,0 +1,48 @@
+{
+  "channels": [
+    {
+      "channel": "GitHub",
+      "handle": "AyuShetty",
+      "url": "https://github.com/AyuShetty",
+      "primary": true,
+      "icon": "github"
+    },
+    {
+      "channel": "Email",
+      "handle": "ayush@ayushetty.me",
+      "url": "mailto:ayush@ayushetty.me",
+      "primary": true,
+      "icon": "mail"
+    },
+    {
+      "channel": "Website / Portfolio",
+      "handle": "ayushetty.me",
+      "url": "https://ayushetty.me",
+      "primary": true,
+      "icon": "globe"
+    },
+    {
+      "channel": "LinkedIn",
+      "handle": "ayushetty",
+      "url": "https://linkedin.com/in/ayushetty",
+      "primary": false,
+      "icon": "linkedin"
+    },
+    {
+      "channel": "X (Twitter)",
+      "handle": "@AyuShettyEth",
+      "url": "https://x.com/AyuShettyEth",
+      "primary": false,
+      "icon": "twitter"
+    },
+    {
+      "channel": "Instagram",
+      "handle": "ayushetty.eth",
+      "url": "https://instagram.com/ayushetty.eth",
+      "primary": false,
+      "icon": "instagram"
+    }
+  ],
+  "preferred": "GitHub Issues or Email",
+  "availability_note": "Open to interesting problems in AI agents, Ethereum protocols, and developer infrastructure"
+}

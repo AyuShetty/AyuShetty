@@ -1,0 +1,74 @@
+{
+  "positions": [
+    {
+      "role": "Product Engineer",
+      "company": "Avarch",
+      "location": "Bangalore, India (Remote)",
+      "start": "2023-01",
+      "end": null,
+      "current": true,
+      "description": "Leading product engineering for Web3 and AI platforms. Architected EIPSINSIGHT governance analytics platform. Building LOCAL AI INFRASTRUCTURE for distributed local LLM inference. Exploring MPC/TSS cryptography for secure key management.",
+      "achievements": [
+        "Architected EIPSINSIGHT — Ethereum governance analytics platform tracking EIP lifecycles and governance signals in real-time",
+        "Built LOCAL AI INFRASTRUCTURE — distributed multi-node local LLM orchestration with Playwright browser automation and Open WebUI integration",
+        "Developed AI WORKFLOW AUTOMATION — framework integrating local AI models with browser automation for repetitive engineering tasks",
+        "Contributed to Ethereum Foundation grant milestones for governance tooling",
+        "Published 200+ Ethereum research articles and governance analyses",
+        "Won ENS Pool Prize at ETHMumbai 2026 hackathon",
+        "Led team of 4 engineers on Web3 product initiatives"
+      ],
+      "technologies": ["TypeScript", "Next.js", "React", "Python", "Ollama", "Playwright", "Solidity", "Ethereum", "Docker", "Kubernetes", "PostgreSQL", "Redis", "GitHub Actions"]
+    },
+    {
+      "role": "President",
+      "company": "COPE (Community of Peer Engineers)",
+      "location": "Bangalore, India",
+      "start": "2022-01",
+      "end": "2023-12",
+      "current": false,
+      "description": "Led 200+ member student engineering community. Organized hackathons, workshops, and industry mentorship programs. Built internal tools for community management.",
+      "achievements": [
+        "Scaled community from 50 to 200+ active members",
+        "Organized 12+ hackathons and technical workshops",
+        "Secured sponsorship from 8+ tech companies",
+        "Built community management platform with automated event workflows",
+        "Mentored 50+ students in full-stack and blockchain development"
+      ],
+      "technologies": ["React", "Node.js", "TypeScript", "PostgreSQL", "Docker", "GitHub Actions"]
+    },
+    {
+      "role": "Software Engineering Intern",
+      "company": "Avarch",
+      "location": "Bangalore, India",
+      "start": "2021-06",
+      "end": "2022-12",
+      "current": false,
+      "description": "Early contributor to EIPSINSIGHT platform. Full-stack development on Ethereum governance tooling. Research on EIP analysis methodologies.",
+      "achievements": [
+        "Built initial EIPSINSIGHT frontend with React + TypeScript",
+        "Implemented EIP lifecycle tracking with on-chain data ingestion",
+        "Research on Ethereum governance mechanisms and stakeholder analysis",
+        "Contributed to ETH.ED platform architecture (AI-powered Web3 learning)"
+      ],
+      "technologies": ["React", "TypeScript", "Ethereum", "Solidity", "The Graph", "Node.js", "PostgreSQL"]
+    },
+    {
+      "role": "B.Tech Information Science & Engineering",
+      "company": "NMAM Institute of Technology (VTU)",
+      "location": "Nitte, Karnataka, India",
+      "start": "2017-08",
+      "end": "2021-05",
+      "current": false,
+      "description": "Focus: Distributed Systems, Compilers, Cryptography, Computer Networks. Final year thesis: 'Efficient State Synchronization in Byzantine Environments'. Active in ACM student chapter.",
+      "achievements": [
+        "Published research on consensus optimization at [Conference]",
+        "Built experimental blockchain runtime in Rust for thesis",
+        "Teaching Assistant for Operating Systems & Computer Networks",
+        "ACM Student Chapter Vice Chair — organized 15+ technical events",
+        "Google Developer Student Club Core Team member",
+        "Finalist at Smart India Hackathon 2020"
+      ],
+      "technologies": ["Rust", "C++", "Go", "Linux Kernel", "Distributed Systems", "Cryptography", "Compilers"]
+    }
+  ]
+}

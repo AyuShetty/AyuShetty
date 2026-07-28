@@ -1,0 +1,61 @@
+{
+  "areas": [
+    {
+      "name": "Local LLM Orchestration",
+      "description": "Efficient inference pipelines, speculative decoding, and model routing for on-device agent workloads. Building production-grade local AI infrastructure.",
+      "status": "active",
+      "links": [
+        { "label": "LOCAL AI INFRASTRUCTURE Repo", "url": "https://github.com/AyuShetty/local_ai_infrastructure" },
+        { "label": "AI Workflow Automation Repo", "url": "https://github.com/AyuShetty/ai_workflow_automation" }
+      ],
+      "keywords": ["LLM", "Inference", "Quantization", "Agents", "Ollama", "Distributed Systems"]
+    },
+    {
+      "name": "Ethereum Protocol Analysis",
+      "description": "Static analysis, formal verification, and gas optimization for EIPs and core protocol changes. Governance analytics for transparent decision-making.",
+      "status": "active",
+      "links": [
+        { "label": "EIPSINSIGHT Platform", "url": "https://github.com/AyuShetty/eipsinsight" },
+        { "label": "EIP Diagnostics (Legacy)", "url": "https://github.com/AyuShetty/eip_diagnostics" }
+      ],
+      "keywords": ["Ethereum", "EIP", "Formal Verification", "Gas Optimization", "Governance", "EIPsInsight"]
+    },
+    {
+      "name": "Systems Design & Developer Infrastructure",
+      "description": "Patterns for scalable, maintainable developer tooling: monorepos, CI/CD, observability, automation, and platform engineering.",
+      "status": "active",
+      "links": [
+        { "label": "Dev Toolkit (Legacy)", "url": "https://github.com/AyuShetty/dev_toolkit" }
+      ],
+      "keywords": ["DX", "Monorepo", "CI/CD", "Platform Engineering", "Automation", "GitHub Actions"]
+    },
+    {
+      "name": "Design Systems & SVG Engineering",
+      "description": "Token-driven, accessible SVG component libraries with programmatic composition. Treating design systems as engineering products.",
+      "status": "active",
+      "links": [
+        { "label": "AYU.OS Design System", "url": "https://github.com/AyuShetty/AyuShetty/tree/main/components" },
+        { "label": "Portfolio 3D Design System", "url": "https://github.com/AyuShetty/portfolio" }
+      ],
+      "keywords": ["Design Systems", "SVG", "Accessibility", "Tokens", "Component Architecture", "WCAG"]
+    },
+    {
+      "name": "Biometric Cryptography & Post-Quantum Security",
+      "description": "Novel key derivation from biometric features for post-quantum cryptographic primitives. Intersection of computer vision and cryptography.",
+      "status": "active",
+      "links": [
+        { "label": "FACIAL KEYGEN Repo", "url": "https://github.com/AyuShetty/facial_keygen" }
+      ],
+      "keywords": ["Biometrics", "Post-Quantum Crypto", "Key Derivation", "Computer Vision", "Cryptography"]
+    },
+    {
+      "name": "Human-Computer Interaction (Touchless Interfaces)",
+      "description": "Real-time gesture recognition for presentation control and accessibility. MediaPipe + OpenCV pipelines for edge deployment.",
+      "status": "active",
+      "links": [
+        { "label": "AIRGESTURE Repo", "url": "https://github.com/AyuShetty/airgesture" }
+      ],
+      "keywords": ["HCI", "Gesture Recognition", "MediaPipe", "OpenCV", "Accessibility", "Edge ML"]
+    }
+  ]
+}

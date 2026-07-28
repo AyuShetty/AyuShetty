@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Kernel Status Component
+Purpose: System kernel status display with version, uptime, and health metrics
+Composes: panel, chip, badge
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" role="img">
+  <title>AYU OS Kernel Status</title>
+  <desc>Kernel status panel showing version, uptime, memory, and process health for AYU.OS.</desc>
+  <defs>
+    <style>
+      .ayu-surface { fill: #09090B; }
+      .ayu-surface-raised { fill: #111111; }
+      .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+      .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
+      .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 11px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-heading { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
+      .ayu-text-mono { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 11px; }
+      .ayu-success { fill: #22C55E; }
+      .ayu-warning { fill: #EAB308; }
+      .ayu-error { fill: #EF4444; }
+      .ayu-code { fill: #DC2626; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+    </style>
+  </defs>
+
+  <!-- Background Panel -->
+  <rect class="ayu-surface" width="1000" height="300" rx="12"/>
+  <rect class="ayu-border" width="1000" height="300" rx="12"/>
+
+  <!-- Corner Accents -->
+  <g id="ayu-corner-group">
+    <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
+    <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
+    <path class="ayu-accent" d="M 28 288 L 28 272 L 12 272"/>
+    <path class="ayu-accent" d="M 972 288 L 972 272 L 988 272"/>
+  </g>
+
+  <!-- Header -->
+  <g id="ayu-header-group">
+    <text class="ayu-text-heading" x="40" y="44">KERNEL STATUS</text>
+    <text class="ayu-text-muted" x="40" y="64">Runtime information and system health</text>
+    <line class="ayu-separator" x1="32" y1="76" x2="968" y2="76"/>
+  </g>
+
+  <!-- Version Card -->
+  <g id="ayu-version-card" transform="translate(40, 100)">
+    <rect class="ayu-surface-raised" width="300" height="140" rx="8"/>
+    <rect class="ayu-border" width="300" height="140" rx="8"/>
+    <text class="ayu-text-muted" x="16" y="32">VERSION</text>
+    <text class="ayu-text-primary" x="16" y="58" font-size="24" font-weight="700">{{VERSION}}</text>
+    <text class="ayu-text-muted" x="16" y="80">{{CODENAME}}</text>
+    <line class="ayu-separator" x1="16" y1="92" x2="284" y2="92"/>
+    <g transform="translate(16, 104)">
+      <text class="ayu-text-muted" x="0" y="0">BUILD</text>
+      <text class="ayu-code" x="0" y="18">{{BUILD_DATE}}</text>
+      <text class="ayu-text-muted" x="150" y="0">COMMIT</text>
+      <text class="ayu-code" x="150" y="18">{{COMMIT_SHA}}</text>
+    </g>
+  </g>
+
+  <!-- Status Grid -->
+  <g id="ayu-status-grid" transform="translate(360, 100)">
+    <!-- Status Item: Uptime -->
+    <g class="ayu-status-item" transform="translate(0, 0)">
+      <rect class="ayu-surface-raised" width="300" height="60" rx="8"/>
+      <rect class="ayu-border" width="300" height="60" rx="8"/>
+      <text class="ayu-text-muted" x="16" y="24">UPTIME</text>
+      <text class="ayu-text-primary" x="16" y="46">{{UPTIME}}</text>
+    </g>
+    <!-- Status Item: Memory -->
+    <g class="ayu-status-item" transform="translate(320, 0)">
+      <rect class="ayu-surface-raised" width="300" height="60" rx="8"/>
+      <rect class="ayu-border" width="300" height="60" rx="8"/>
+      <text class="ayu-text-muted" x="16" y="24">MEMORY</text>
+      <text class="ayu-text-primary" x="16" y="46">{{MEMORY_USAGE}}</text>
+      <text class="ayu-text-muted" x="200" y="46">{{MEMORY_PERCENT}}%</text>
+    </g>
+    <!-- Status Item: Processes -->
+    <g class="ayu-status-item" transform="translate(0, 80)">
+      <rect class="ayu-surface-raised" width="300" height="60" rx="8"/>
+      <rect class="ayu-border" width="300" height="60" rx="8"/>
+      <text class="ayu-text-muted" x="16" y="24">PROCESSES</text>
+      <text class="ayu-text-primary" x="16" y="46">{{PROCESS_COUNT}} active</text>
+      <circle class="ayu-success" cx="270" cy="38" r="4"/>
+    </g>
+    <!-- Status Item: Health -->
+    <g class="ayu-status-item" transform="translate(320, 80)">
+      <rect class="ayu-surface-raised" width="300" height="60" rx="8"/>
+      <rect class="ayu-border" width="300" height="60" rx="8"/>
+      <text class="ayu-text-muted" x="16" y="24">HEALTH</text>
+      <text class="ayu-text-primary" x="16" y="46">{{HEALTH_STATUS}}</text>
+      <circle class="ayu-success" cx="270" cy="38" r="4"/>
+    </g>
+  </g>
+
+  <!-- Subsystem Status Row -->
+  <g id="ayu-subsystems" transform="translate(40, 250)">
+    <text class="ayu-text-muted" x="0" y="0">SUBSYSTEMS</text>
+    <g transform="translate(0, 18)">
+      <!-- Perception -->
+      <rect class="ayu-surface-raised" x="0" y="0" width="180" height="32" rx="6"/>
+      <rect class="ayu-border" x="0" y="0" width="180" height="32" rx="6"/>
+      <circle class="ayu-success" cx="16" cy="16" r="6"/>
+      <text class="ayu-text-primary" x="32" y="21">PERCEPTION</text>
+      <text class="ayu-text-muted" x="130" y="21">LOADED</text>
+      <!-- Automation -->
+      <rect class="ayu-surface-raised" x="200" y="0" width="180" height="32" rx="6"/>
+      <rect class="ayu-border" x="200" y="0" width="180" height="32" rx="6"/>
+      <circle class="ayu-success" cx="216" cy="16" r="6"/>
+      <text class="ayu-text-primary" x="232" y="21">AUTOMATION</text>
+      <text class="ayu-text-muted" x="340" y="21">LOADED</text>
+      <!-- Ethereum -->
+      <rect class="ayu-surface-raised" x="400" y="0" width="180" height="32" rx="6"/>
+      <rect class="ayu-border" x="400" y="0" width="180" height="32" rx="6"/>
+      <circle class="ayu-success" cx="416" cy="16" r="6"/>
+      <text class="ayu-text-primary" x="432" y="21">ETHEREUM</text>
+      <text class="ayu-text-muted" x="540" y="21">LOADED</text>
+      <!-- AI Core -->
+      <rect class="ayu-surface-raised" x="600" y="0" width="180" height="32" rx="6"/>
+      <rect class="ayu-border" x="600" y="0" width="180" height="32" rx="6"/>
+      <circle class="ayu-success" cx="616" cy="16" r="6"/>
+      <text class="ayu-text-primary" x="632" y="21">AI CORE</text>
+      <text class="ayu-text-muted" x="730" y="21">OPTIMAL</text>
+      <!-- Auth -->
+      <rect class="ayu-surface-raised" x="800" y="0" width="180" height="32" rx="6"/>
+      <rect class="ayu-border" x="800" y="0" width="180" height="32" rx="6"/>
+      <circle class="ayu-warning" cx="816" cy="16" r="6"/>
+      <text class="ayu-text-primary" x="832" y="21">AUTHN</text>
+      <text class="ayu-text-muted" x="900" y="21">SCANNING</text>
+    </g>
+  </g>
+</svg>

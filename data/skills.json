@@ -1,0 +1,79 @@
+{
+  "categories": [
+    {
+      "name": "Languages",
+      "items": [
+        { "name": "TypeScript", "level": "Expert", "years": 5, "icon": "typescript" },
+        { "name": "Python", "level": "Expert", "years": 6, "icon": "python" },
+        { "name": "Solidity", "level": "Advanced", "years": 3, "icon": "solidity" },
+        { "name": "Swift", "level": "Advanced", "years": 3, "icon": "swift" },
+        { "name": "JavaScript", "level": "Expert", "years": 5, "icon": "javascript" },
+        { "name": "Go", "level": "Intermediate", "years": 2, "icon": "go" },
+        { "name": "Rust", "level": "Learning", "years": 1, "icon": "rust" },
+        { "name": "Java", "level": "Intermediate", "years": 2, "icon": "java" },
+        { "name": "C", "level": "Intermediate", "years": 2, "icon": "c" }
+      ]
+    },
+    {
+      "name": "Frontend & Interaction",
+      "items": [
+        { "name": "Next.js", "level": "Expert", "years": 4 },
+        { "name": "React", "level": "Expert", "years": 5 },
+        { "name": "React Native", "level": "Advanced", "years": 3 },
+        { "name": "iOS / SwiftUI", "level": "Advanced", "years": 3 },
+        { "name": "Tailwind CSS", "level": "Expert", "years": 4 },
+        { "name": "Framer Motion", "level": "Advanced", "years": 3 },
+        { "name": "Three.js / 3D Web", "level": "Advanced", "years": 2 },
+        { "name": "WebGL / Shaders", "level": "Intermediate", "years": 1 }
+      ]
+    },
+    {
+      "name": "Systems & Cloud",
+      "items": [
+        { "name": "Docker", "level": "Expert", "years": 5 },
+        { "name": "Kubernetes", "level": "Advanced", "years": 3 },
+        { "name": "AWS / GCP", "level": "Advanced", "years": 3 },
+        { "name": "Linux Systems", "level": "Expert", "years": 6 },
+        { "name": "CI/CD (GitHub Actions)", "level": "Expert", "years": 4 },
+        { "name": "PostgreSQL", "level": "Advanced", "years": 4 },
+        { "name": "Redis", "level": "Advanced", "years": 3 },
+        { "name": "gRPC / Protocol Buffers", "level": "Advanced", "years": 2 }
+      ]
+    },
+    {
+      "name": "AI & Local LLMs",
+      "items": [
+        { "name": "Ollama", "level": "Expert", "years": 2 },
+        { "name": "Playwright", "level": "Expert", "years": 3 },
+        { "name": "LangGraph / LangChain", "level": "Advanced", "years": 2 },
+        { "name": "Local LLM Orchestration", "level": "Expert", "years": 2 },
+        { "name": "Browser Automation", "level": "Expert", "years": 3 },
+        { "name": "Open WebUI", "level": "Advanced", "years": 1 },
+        { "name": "Computer Vision (OpenCV, MediaPipe)", "level": "Advanced", "years": 3 }
+      ]
+    },
+    {
+      "name": "Blockchain & Web3",
+      "items": [
+        { "name": "Ethereum Protocol", "level": "Expert", "years": 4 },
+        { "name": "EIP Analysis & Tooling", "level": "Expert", "years": 3 },
+        { "name": "Solidity / Smart Contracts", "level": "Advanced", "years": 3 },
+        { "name": "MPC / TSS Cryptography", "level": "Advanced", "years": 2 },
+        { "name": "ENS / ENS-based Systems", "level": "Advanced", "years": 2 },
+        { "name": "Foundry / Hardhat", "level": "Expert", "years": 3 },
+        { "name": "Governance Analytics", "level": "Advanced", "years": 2 }
+      ]
+    },
+    {
+      "name": "Focus Areas",
+      "items": [
+        { "name": "Systems Design", "level": "Expert", "years": 5 },
+        { "name": "Developer Experience (DX)", "level": "Expert", "years": 4 },
+        { "name": "Product Engineering", "level": "Expert", "years": 4 },
+        { "name": "Autonomous AI Agents", "level": "Expert", "years": 2 },
+        { "name": "Design Systems & SVG Engineering", "level": "Advanced", "years": 2 },
+        { "name": "IoT / Embedded (ESP32)", "level": "Intermediate", "years": 2 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AYU.OS Design Tokens",
+  "version": "2.0.0",
+  "description": "Single source of truth for all design decisions. Machine-readable for tooling.",
+  "color": "./colors.json",
+  "spacing": "./spacing.json",
+  "radius": "./radius.json",
+  "strokes": "./strokes.json",
+  "typography": "./typography.json",
+  "animation": "./animation.json",
+  "shadows": "./shadows.json",
+  "zIndex": {
+    "base": 0,
+    "dropdown": 100,
+    "sticky": 200,
+    "modal": 300,
+    "popover": 400,
+    "tooltip": 500,
+    "toast": 600
+  },
+  "breakpoints": {
+    "sm": 640,
+    "md": 768,
+    "lg": 1024,
+    "xl": 1280,
+    "2xl": 1536
+  },
+  "grid": {
+    "base": 4,
+    "major": 32,
+    "minor": 8
+  }
+}

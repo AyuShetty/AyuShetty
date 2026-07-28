@@ -1,0 +1,294 @@
+{
+  "featured": [
+    {
+      "name": "local_ai_infrastructure",
+      "title": "LOCAL AI INFRASTRUCTURE",
+      "description": "Distributed AI workflow platform using Python, Ollama, Docker, Playwright and Open WebUI for autonomous orchestration and local LLM execution across multiple systems.",
+      "problem": "Teams need local LLM inference for privacy/cost but lack production-ready orchestration, multi-node scaling, and browser automation integration.",
+      "solution": "Multi-node Ollama cluster with load balancing, Playwright browser automation, Open WebUI plugin, and zero-config Docker/K8s deployment.",
+      "tech_stack": ["Python", "Ollama", "Docker", "Playwright", "Open WebUI", "Kubernetes", "LangGraph"],
+      "repo_url": "https://github.com/AyuShetty/local_ai_infrastructure",
+      "demo_url": "",
+      "status": "active",
+      "featured": true,
+      "highlights": [
+        "Multi-node inference with automatic load balancing",
+        "Browser automation integrated into LLM workflows",
+        "Open WebUI compatible — drop-in replacement for cloud APIs",
+        "Production Docker Compose + Kubernetes manifests",
+        "Benchmarked: 10x cost reduction vs cloud APIs"
+      ],
+      "stars": 0,
+      "started": "2024-06",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "ai_workflow_automation",
+      "title": "AI WORKFLOW AUTOMATION",
+      "description": "Automation framework integrating local AI models with browser automation and custom workflows to handle repetitive engineering tasks and document processing.",
+      "problem": "Engineers waste hours on repetitive tasks (code review prep, doc generation, dependency updates) that require both reasoning and browser interaction.",
+      "solution": "Local LLM + Playwright agent framework with workflow DSL. Self-healing selectors, reasoning loops, and audit trails.",
+      "tech_stack": ["Python", "Playwright", "Ollama", "LangGraph", "Pydantic", "YAML"],
+      "repo_url": "https://github.com/AyuShetty/ai_workflow_automation",
+      "demo_url": "",
+      "status": "active",
+      "featured": true,
+      "highlights": [
+        "95%+ success rate on benchmark automation tasks",
+        "Self-healing selector strategy (DOM + visual + LLM)",
+        "YAML workflow DSL — no code for common patterns",
+        "Full audit trail with screenshots + reasoning logs"
+      ],
+      "stars": 0,
+      "started": "2024-03",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "ethed",
+      "title": "ETH.ED — AI-Powered Web3 Learning Platform",
+      "description": "AI-powered Web3 learning platform with gamified lessons, ENS-based certificates, and smart contract micropayments. Next.js + AI + Ethereum.",
+      "problem": "Web3 education is fragmented, theoretical, and lacks verifiable credentials. Learners can't prove on-chain knowledge.",
+      "solution": "Interactive lessons with AI tutors, ENS-subdomain certificates minted as NFTs, micropayments for premium content via smart contracts.",
+      "tech_stack": ["Next.js", "TypeScript", "AI", "Ethereum", "ENS", "Smart Contracts", "Tailwind CSS"],
+      "repo_url": "https://github.com/AyuShetty/ethed-frontend",
+      "demo_url": "https://ethed.xyz",
+      "status": "active",
+      "featured": true,
+      "highlights": [
+        "ENS-based verifiable certificates (Soulbound NFTs)",
+        "AI tutor with RAG over Ethereum documentation",
+        "Smart contract micropayments for content creators",
+        "Gamified progression with on-chain reputation"
+      ],
+      "stars": 1,
+      "started": "2024-01",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "eipsinsight",
+      "title": "EIPSINSIGHT — Ethereum Governance Analytics",
+      "description": "Ethereum governance analytics platform for tracking EIP lifecycles, governance signals, and stakeholder influence. Real-time dashboard with on-chain + off-chain data fusion.",
+      "problem": "Ethereum governance is opaque. Stakeholders can't track EIP progress, gauge sentiment, or understand influence networks.",
+      "solution": "Unified dashboard ingesting GitHub, Discord, on-chain voting, and forum data. Stakeholder graphs, predictive models, and real-time alerts.",
+      "tech_stack": ["TypeScript", "Next.js", "React", "Ethereum", "The Graph", "PostgreSQL", "GitHub API", "Discord API"],
+      "repo_url": "https://github.com/AvarchLLC/EIPsInsight",
+      "demo_url": "https://eipsinsight.xyz",
+      "status": "active",
+      "featured": true,
+      "highlights": [
+        "Tracks 200+ EIPs across lifecycle stages",
+        "Stakeholder influence mapping (on-chain + off-chain)",
+        "Real-time governance signal aggregation",
+        "Predictive EIP acceptance probability model",
+        "Ethereum Foundation grant-supported milestone"
+      ],
+      "stars": 0,
+      "started": "2023-01",
+      "license": "MIT",
+      "type": "team"
+    },
+    {
+      "name": "facial_keygen",
+      "title": "FACIAL KEYGEN — Biometric Cryptographic Key Derivation",
+      "description": "Python-based biometric authentication system generating cryptographic keys from facial biometrics using computer vision and ML for post-quantum security research.",
+      "problem": "Traditional key management is vulnerable to phishing, loss, and quantum attacks. Biometrics offer usable but cryptographically sound alternatives.",
+      "solution": "Fuzzy extractor pipeline: face embedding → error correction → uniform key derivation. Reproducible keys from noisy biometric input.",
+      "tech_stack": ["Python", "OpenCV", "MediaPipe", "PyTorch", "Cryptography", "NumPy"],
+      "repo_url": "https://github.com/AyuShetty/facial_keygen",
+      "demo_url": "",
+      "status": "active",
+      "featured": true,
+      "highlights": [
+        "Novel biometric-to-crypto key derivation pipeline",
+        "Post-quantum secure key derivation (CRYSTALS-Dilithium compatible)",
+        "Fuzzy extractor with >99% reproduction rate",
+        "Open-source reference implementation with tests"
+      ],
+      "stars": 0,
+      "started": "2025-02",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "airgesture",
+      "title": "AIRGESTURE — Touchless Presentation Control",
+      "description": "Real-time computer vision app using OpenCV and MediaPipe that translates hand gestures into presentation controls for touchless classroom interaction.",
+      "problem": "Presenters are tethered to keyboards/clickers. Touchless control needed for hygiene, accessibility, and mobility.",
+      "solution": "MediaPipe hand tracking + gesture classification → keyboard/mouse emulation. Runs locally, <50ms latency, works on any webcam.",
+      "tech_stack": ["Python", "OpenCV", "MediaPipe", "PyAutoGUI", "NumPy"],
+      "repo_url": "https://github.com/AyuShetty/airgesture",
+      "demo_url": "",
+      "status": "active",
+      "featured": true,
+      "highlights": [
+        "Sub-50ms gesture-to-action latency",
+        "8 gesture classes with 95%+ accuracy",
+        "Zero external dependencies — runs fully offline",
+        "Accessibility-focused: configurable sensitivity"
+      ],
+      "stars": 1,
+      "started": "2025-01",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "etherworld_ios",
+      "title": "ETHERWORLD IOS — Scalable iOS App Architecture",
+      "description": "Designed the application architecture and modular structure for the EtherWorld iOS app — scalable navigation, API integration, and maintainable app structure.",
+      "problem": "iOS apps often become unmaintainable spaghetti. Need clean architecture from day one for Web3 integrations.",
+      "solution": "Modular MVVM + Coordinator pattern. Protocol-oriented networking. Web3.swift integration. Feature-flags for gradual rollout.",
+      "tech_stack": ["Swift", "SwiftUI", "Combine", "Web3.swift", "XCTest", "Fastlane"],
+      "repo_url": "https://github.com/AyuShetty/etherworld_ios",
+      "demo_url": "",
+      "status": "active",
+      "featured": true,
+      "highlights": [
+        "Zero-massive-view-controller architecture",
+        "Type-safe API layer with code generation",
+        "Web3 transaction signing flow with Secure Enclave",
+        "Feature-flag driven development"
+      ],
+      "stars": 0,
+      "started": "2025-04",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "smart_home_iot",
+      "title": "SMART HOME IOT — ESP32 Room Automation",
+      "description": "ESP32-based smart automation system for room automation with modular architecture, wireless control, sensor monitoring, and intelligent device management.",
+      "problem": "Consumer IoT is fragmented, cloud-dependent, and insecure. Need local-first, modular, privacy-respecting alternative.",
+      "solution": "ESP32 mesh network with MQTT, Home Assistant integration, OTA updates, and local automation rules. No cloud required.",
+      "tech_stack": ["ESP32", "C++", "Arduino", "MQTT", "Home Assistant", "PlatformIO", "FreeRTOS"],
+      "repo_url": "https://github.com/AyuShetty/smart_home_iot",
+      "demo_url": "",
+      "status": "active",
+      "featured": false,
+      "highlights": [
+        "Local-first — zero cloud dependency",
+        "Mesh networking for multi-room coverage",
+        "OTA updates with rollback safety",
+        "Home Assistant auto-discovery"
+      ],
+      "stars": 0,
+      "started": "2024-08",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "this_portfolio",
+      "title": "THIS PORTFOLIO — Immersive 3D Developer Portfolio",
+      "description": "Immersive developer portfolio with a 3D dome gallery, scroll-driven animations, and an editorial bronze design system. Next.js + Three.js + custom design tokens.",
+      "problem": "Portfolios are generic. Need to demonstrate engineering craft through the portfolio itself.",
+      "solution": "Custom 3D engine with dome projection, scroll-linked animations, token-driven design system, and progressive enhancement for mobile.",
+      "tech_stack": ["Next.js", "TypeScript", "Three.js", "React Three Fiber", "GSAP", "Tailwind CSS", "Design Tokens"],
+      "repo_url": "https://github.com/AyuShetty/ayushetty.me",
+      "demo_url": "https://ayushetty.me",
+      "status": "active",
+      "featured": true,
+      "highlights": [
+        "Custom 3D dome gallery with 60fps mobile target",
+        "Editorial bronze design system (tokens + components)",
+        "Scroll-driven narrative animations",
+        "Progressive enhancement — works without JS"
+      ],
+      "stars": 0,
+      "started": "2024-07",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "browser_agents",
+      "title": "BROWSER AGENTS — Autonomous Browser Automation (Legacy)",
+      "description": "Early autonomous AI browser automation engine using Ollama and Playwright. Superseded by LOCAL AI INFRASTRUCTURE + AI WORKFLOW AUTOMATION.",
+      "problem": "Browser automation is brittle and can't adapt to UI changes.",
+      "solution": "LLM-driven agent with self-healing selectors and reasoning loops.",
+      "tech_stack": ["Python", "Playwright", "Ollama", "Pydantic"],
+      "repo_url": "https://github.com/AyuShetty/browser_agents",
+      "demo_url": "",
+      "status": "archived",
+      "featured": false,
+      "highlights": [
+        "Pioneered local LLM browser agent pattern",
+        "Self-healing selector strategy",
+        "Superseded by modular infrastructure"
+      ],
+      "stars": 0,
+      "started": "2023-06",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "eip_diagnostics",
+      "title": "EIP DIAGNOSTICS — Protocol Analysis Tooling (Legacy)",
+      "description": "Ethereum protocol analytics and EIP tooling. Static analysis, gas impact simulation. Superseded by EIPSINSIGHT.",
+      "problem": "EIP authors lack tooling to quantify gas impact and backward compatibility.",
+      "solution": "Static analysis pipeline + simulation harness integrated into PR workflows.",
+      "tech_stack": ["TypeScript", "Foundry", "Slither", "Solidity", "GitHub Actions"],
+      "repo_url": "https://github.com/AyuShetty/eip_diagnostics",
+      "demo_url": "",
+      "status": "archived",
+      "featured": false,
+      "highlights": [
+        "Integrated in 3 major EIP review workflows",
+        "Detected 12 gas regressions pre-merge",
+        "Superseded by EIPSINSIGHT platform"
+      ],
+      "stars": 0,
+      "started": "2023-06",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "dev_toolkit",
+      "title": "DEV TOOLKIT — Developer Infrastructure (Legacy)",
+      "description": "Developer infrastructure and systems automation. CLI tools and GitHub Actions for monorepo management. Superseded by platform engineering practices at Avarch.",
+      "problem": "Teams waste hours on repetitive repo maintenance tasks.",
+      "solution": "Opinionated, composable toolkit with zero-config defaults.",
+      "tech_stack": ["TypeScript", "Node.js", "GitHub Actions", "TurboRepo"],
+      "repo_url": "https://github.com/AyuShetty/dev_toolkit",
+      "demo_url": "",
+      "status": "archived",
+      "featured": false,
+      "highlights": [
+        "Adopted by 5+ internal teams",
+        "Reduced chore time by 80%",
+        "Patterns now baked into Avarch platform"
+      ],
+      "stars": 0,
+      "started": "2023-03",
+      "license": "MIT",
+      "type": "solo"
+    },
+    {
+      "name": "ayu_os",
+      "title": "AYU.OS — This Profile as an Operating System",
+      "description": "A fictional operating system expressed through a GitHub profile. Component-driven SVG design system, automated build pipeline, and token-based theming.",
+      "problem": "GitHub profiles are static; they don't demonstrate engineering craft.",
+      "solution": "Treat the profile as a software product: modular, versioned, documented, automated.",
+      "tech_stack": ["Python", "SVG", "Jinja2", "GitHub Actions", "Design Tokens", "SVGO"],
+      "repo_url": "https://github.com/AyuShetty/AyuShetty",
+      "demo_url": "",
+      "status": "active",
+      "featured": true,
+      "highlights": [
+        "15+ reusable SVG primitives with validation",
+        "Fully automated daily stats refresh via GitHub Actions",
+        "WCAG 2.1 AA accessible SVGs",
+        "Token-driven theming system"
+      ],
+      "stars": 0,
+      "started": "2024-07",
+      "license": "MIT",
+      "type": "solo"
+    }
+  ],
+  "archived": [
+    "browser_agents",
+    "eip_diagnostics",
+    "dev_toolkit"
+  ]
+}

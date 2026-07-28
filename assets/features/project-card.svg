@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Project Card Component
+Purpose: Reusable project card for featured projects section
+Composes: panel, chip, divider
+Spec: COMPONENT_SPEC.md, TOKENS.md
+Parameters: {{TITLE}}, {{DESCRIPTION}}, {{TECH_STACK}}, {{STATUS}}, {{TYPE}}, {{HIGHLIGHTS}}, {{REPO_URL}}, {{STARS}}
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200" role="img">
+  <title>{{TITLE}} — AYU.OS Project</title>
+  <desc>Project card for {{TITLE}}: {{DESCRIPTION}}</desc>
+  <defs>
+    <style>
+      .ayu-surface { fill: #09090B; }
+      .ayu-surface-raised { fill: #111111; }
+      .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+      .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
+      .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 11px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 10px; }
+      .ayu-text-heading { fill: #FAFAFA; font-family: "JetBrains Mono", Menlo, monospace; font-size: 14px; font-weight: 600; }
+      .ayu-success { fill: #22C55E; }
+      .ayu-warning { fill: #EAB308; }
+      .ayu-standby { fill: #71717A; }
+      .ayu-tech-tag { fill: #1A1A1A; stroke: #27272A; stroke-width: 1; }
+      .ayu-tech-text { fill: #D4D4D8; font-family: "JetBrains Mono", Menlo, monospace; font-size: 9px; }
+    </style>
+  </defs>
+
+  <!-- Background Panel -->
+  <rect class="ayu-surface" width="1000" height="200" rx="12"/>
+  <rect class="ayu-border" width="1000" height="200" rx="12"/>
+
+  <!-- Corner Accents -->
+  <g id="ayu-corner-group">
+    <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
+    <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
+    <path class="ayu-accent" d="M 28 188 L 28 172 L 12 172"/>
+    <path class="ayu-accent" d="M 972 188 L 972 172 L 988 172"/>
+  </g>
+
+  <!-- Header Row -->
+  <g id="ayu-header" transform="translate(32, 32)">
+    <text class="ayu-text-heading" x="0" y="0">{{TITLE}}</text>
+    <!-- Status Chip -->
+    <g transform="translate(600, -14)">
+      <rect class="ayu-surface-raised" width="120" height="28" rx="6"/>
+      <rect class="ayu-border" width="120" height="28" rx="6"/>
+      <circle class="{{STATUS_COLOR}}" cx="16" cy="14" r="4"/>
+      <text class="ayu-text-primary" x="24" y="18">{{STATUS}}</text>
+    </g>
+    <!-- Type Badge -->
+    <g transform="translate(740, -14)">
+      <rect class="ayu-surface-raised" width="80" height="28" rx="6"/>
+      <rect class="ayu-border" width="80" height="28" rx="6"/>
+      <text class="ayu-text-primary" x="40" y="18" text-anchor="middle">{{TYPE}}</text>
+    </g>
+    <!-- Stars -->
+    <g transform="translate(840, -14)">
+      <rect class="ayu-surface-raised" width="60" height="28" rx="6"/>
+      <rect class="ayu-border" width="60" height="28" rx="6"/>
+      <text class="ayu-text-muted" x="30" y="18" text-anchor="middle">★ {{STARS}}</text>
+    </g>
+  </g>
+
+  <line class="ayu-separator" x1="32" y1="60" x2="968" y2="60"/>
+
+  <!-- Description -->
+  <g id="ayu-description" transform="translate(32, 72)">
+    <text class="ayu-text-primary" x="0" y="0" style="font-size: 11px;">{{DESCRIPTION}}</text>
+  </g>
+
+  <!-- Tech Stack Tags -->
+  <g id="ayu-tech-stack" transform="translate(32, 110)">
+    {{#each TECH_STACK}}
+    <g class="ayu-tech-tag-group" transform="translate({{x}}, 0)">
+      <rect class="ayu-tech-tag" x="0" y="0" width="{{width}}" height="24" rx="4"/>
+      <text class="ayu-tech-text" x="{{textX}}" y="16" text-anchor="middle">{{name}}</text>
+    </g>
+    {{/each}}
+  </g>
+
+  <!-- Highlights -->
+  <g id="ayu-highlights" transform="translate(32, 150)">
+    <text class="ayu-text-muted" x="0" y="0">Highlights:</text>
+    {{#each HIGHLIGHTS}}
+    <text class="ayu-success" x="80" y="{{y}}">▸</text>
+    <text class="ayu-text-primary" x="96" y="{{y}}" style="font-size: 10px;">{{this}}</text>
+    {{/each}}
+  </g>
+
+  <!-- Footer -->
+  <line class="ayu-separator" x1="32" y1="172" x2="968" y2="172"/>
+  <g id="ayu-footer" transform="translate(32, 180)">
+    <text class="ayu-text-muted" x="0" y="0">Repository:</text>
+    <a href="{{REPO_URL}}" target="_blank">
+      <text class="ayu-text-primary" x="80" y="0" style="text-decoration: underline;">{{REPO_URL}}</text>
+    </a>
+  </g>
+</svg>

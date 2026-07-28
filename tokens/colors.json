@@ -1,0 +1,48 @@
+{
+  "bg": {
+    "0": "#050505",
+    "100": "#09090B",
+    "200": "#111111",
+    "300": "#18181B",
+    "400": "#1F1F1F"
+  },
+  "border": {
+    "subtle": "#1A1A1A",
+    "default": "#27272A",
+    "strong": "#303030",
+    "focus": "#DC2626"
+  },
+  "fg": {
+    "primary": "#FAFAFA",
+    "secondary": "#D4D4D8",
+    "muted": "#A1A1AA",
+    "disabled": "#71717A",
+    "inverse": "#09090B"
+  },
+  "accent": {
+    "primary": "#DC2626",
+    "soft": "#991B1B",
+    "glow": "rgba(220,38,38,0.15)",
+    "light": "#EF4444"
+  },
+  "status": {
+    "success": "#22C55E",
+    "warning": "#EAB308",
+    "error": "#EF4444",
+    "info": "#38BDF8",
+    "active": "#22C55E",
+    "standby": "#EAB308",
+    "offline": "#71717A"
+  },
+  "semantic": {
+    "kernel": "#DC2626",
+    "ai": "#38BDF8",
+    "ethereum": "#627EEA",
+    "automation": "#22C55E",
+    "research": "#A855F7",
+    "terminal": "#22C55E",
+    "network": "#06B6D4",
+    "storage": "#F59E0B",
+    "security": "#EF4444"
+  }
+}

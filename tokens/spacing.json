@@ -1,0 +1,41 @@
+{
+  "base": 4,
+  "scale": {
+    "0": 0,
+    "1": 4,
+    "2": 8,
+    "3": 12,
+    "4": 16,
+    "5": 20,
+    "6": 24,
+    "7": 28,
+    "8": 32,
+    "9": 36,
+    "10": 40,
+    "11": 44,
+    "12": 48,
+    "13": 52,
+    "14": 56,
+    "15": 60,
+    "16": 64,
+    "20": 80,
+    "24": 96,
+    "32": 128
+  },
+  "component": {
+    "panelPadding": 32,
+    "sectionGap": 48,
+    "componentGap": 24,
+    "smallGap": 16,
+    "microGap": 8,
+    "iconGap": 12,
+    "textGap": 8
+  },
+  "layout": {
+    "maxWidth": 1000,
+    "sidebarWidth": 280,
+    "headerHeight": 80,
+    "footerHeight": 60,
+    "terminalRowHeight": 20
+  }
+}
