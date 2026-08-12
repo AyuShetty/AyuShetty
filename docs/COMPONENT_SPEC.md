@@ -10,7 +10,7 @@ Version: 1.0.0
 
 This document defines the engineering standards for every reusable SVG component in AYU.OS.
 
-Every component inside `ayu-ui/` must comply with these rules.
+Every component inside `components/` must comply with these rules.
 
 No exceptions.
 

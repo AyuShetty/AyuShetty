@@ -35,7 +35,7 @@
 
   <!-- Header -->
   <text class="ayu-text-primary" x="40" y="36">BOOT SEQUENCE</text>
-  <text class="ayu-text-muted" x="40" y="56">AYU.OS v7.0.0 • AYU.OS Core • Initializing...</text>
+  <text class="ayu-text-muted" x="40" y="56">AYU.OS v2.0.0 • AYU.OS Core • Initializing...</text>
 
   <!-- Status Indicator -->
   <circle class="ayu-success" cx="920" cy="36" r="4"/>
@@ -2188,6 +2188,71 @@ Version: 2.0
 Spec: COMPONENT_SPEC.md, TOKENS.md
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
+  <title>TELEMETRY — AYU.OS</title>
+  <desc>GitHub statistics and system metrics</desc>
+  <defs>
+    <style>
+      .ayu-surface { fill: #09090B; }
+      .ayu-border { fill: none; stroke: #27272A; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+      .ayu-accent { fill: none; stroke: #DC2626; stroke-width: 1.5; opacity: 0.6; stroke-linecap: round; stroke-linejoin: round; }
+      .ayu-separator { stroke: #27272A; stroke-width: 1.5; }
+      .ayu-text-primary { fill: #FAFAFA; font-family: Menlo, monospace; font-size: 14px; }
+      .ayu-text-muted { fill: #A1A1AA; font-family: Menlo, monospace; font-size: 10px; }
+      .ayu-success { fill: #22C55E; }
+    </style>
+  </defs>
+  <!-- Background -->
+  <rect class="ayu-surface" width="1000" height="80" rx="12"/>
+  <rect class="ayu-border" width="1000" height="80" rx="12"/>
+  <!-- Corner Accents -->
+  <g id="ayu-corner-group">
+    <path class="ayu-accent" d="M 28 12 L 28 28 L 12 28"/>
+    <path class="ayu-accent" d="M 972 12 L 972 28 L 988 28"/>
+    <path class="ayu-accent" d="M 28 68 L 28 52 L 12 52"/>
+    <path class="ayu-accent" d="M 972 68 L 972 52 L 988 52"/>
+  </g>
+  <!-- Title -->
+  <g id="ayu-title-group">
+    <text class="ayu-text-primary" x="32" y="36">TELEMETRY</text>
+    <text class="ayu-text-muted" x="32" y="56">GitHub statistics and system metrics</text>
+  </g>
+  <!-- Status -->
+  <g id="ayu-status-group">
+    <circle class="ayu-success" cx="920" cy="36" r="4"/>
+    <text class="ayu-text-muted" x="936" y="40">ACTIVE</text>
+  </g>
+  <!-- Separator -->
+  <g id="ayu-separator-group">
+    <line class="ayu-separator" x1="32" y1="68" x2="968" y2="68"/>
+  </g>
+</svg>
+
+
+- **Public Repositories:** 19
+- **Total Stars:** 4
+- **Total Forks:** 2
+- **Commits (1yr):** 391
+- **Followers:** 4
+- **Following:** 9
+- **Current Streak:** 10 days
+- **Longest Streak:** 10 days
+
+**Top Languages:**
+- TypeScript: 84.7%
+- JavaScript: 4.9%
+- Swift: 4.3%
+- CSS: 2.8%
+- Python: 1.5%
+
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AYU.OS - Header Component
+Purpose: Page header with title and status
+Version: 2.0
+Spec: COMPONENT_SPEC.md, TOKENS.md
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 80" role="img">
   <title>CONTACT — AYU.OS</title>
   <desc>Establish connection</desc>
   <defs>
@@ -2241,7 +2306,7 @@ Spec: COMPONENT_SPEC.md, TOKENS.md
 
 > Shipping real products. Exploring MPC/TSS security. Code that actually scales.
 
-Repository Version: v7.0.0
-Last Generated: 2026-07-30T08:24:52.745349Z
+> Repository Version: v2.0.0
+> Last Generated: 2026-08-12T11:29:56.453616Z
 
 [![Built with AYU.OS](https://img.shields.io/badge/Built%20with-AYU.OS-DC2626?style=flat-square)](https://github.com/AyuShetty/AyuShetty)

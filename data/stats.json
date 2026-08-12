@@ -1,0 +1,17 @@
+{
+  "public_repos": 19,
+  "total_stars": 4,
+  "total_forks": 2,
+  "total_commits_1y": 391,
+  "followers": 4,
+  "following": 9,
+  "streak_current": 10,
+  "streak_longest": 10,
+  "top_languages": [
+    { "language": "TypeScript", "percentage": 84.7 },
+    { "language": "JavaScript", "percentage": 4.9 },
+    { "language": "Swift", "percentage": 4.3 },
+    { "language": "CSS", "percentage": 2.8 },
+    { "language": "Python", "percentage": 1.5 }
+  ]
+}

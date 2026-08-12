@@ -81,7 +81,7 @@ def main():
     if target.is_file() and target.suffix == ".svg":
         results = [validate_svg(target)]
     else:
-        for subdir in ["primitives", "layouts", "features"]:
+        for subdir in ["primitives", "primitives/icons", "layouts", "features"]:
             sub = target / subdir
             if sub.exists():
                 results.extend(validate_directory(sub))

@@ -44,12 +44,14 @@ def render_template(template_str: str, context: dict) -> str:
     
     return re.sub(r'\{\{([^}]+)\}\}', replace_var, template_str)
 
-def load_svg_template(name: str) -> str:
-    """Load an SVG template file."""
-    path = TEMPLATES_DIR / "svg" / f"{name}.svg"
-    if path.exists():
-        return path.read_text(encoding="utf-8")
-    return ""
+def get_meta(profile: dict) -> dict:
+    """Read build metadata from profile.json#meta, with sane fallbacks."""
+    meta = profile.get("meta", {}) if isinstance(profile, dict) else {}
+    return {
+        "version": str(meta.get("version", "2.0.0")),
+        "codename": meta.get("codename", "AYU.OS"),
+        "module_count": int(meta.get("module_count", 8)),
+    }
 
 def render_section_header(title: str, subtitle: str) -> str:
     """Render a section header SVG with given title and subtitle."""
@@ -360,10 +362,11 @@ def build_readme() -> str:
     contact = load_json(DATA_DIR / "contact.json")
     stats = load_json(DATA_DIR / "stats.json")
     
-    version = "7.0.0"
-    codename = "AYU.OS Core"
-    module_count = 8
-    
+    meta = get_meta(profile)
+    version = meta["version"]
+    codename = meta["codename"]
+    module_count = meta["module_count"]
+
     sections = []
     
     # 1. Boot Sequence
@@ -487,6 +490,32 @@ def build_readme() -> str:
                 sections.append(f"- {lang['language']}: {lang.get('percentage', '—')}%")
         sections.append("")
     
+    # 11. GitHub Stats (always rendered; uses committed baseline when offline)
+    if stats:
+        stats_block = stats
+    else:
+        stats_block = {
+            "public_repos": "—", "total_stars": "—", "total_forks": "—",
+            "total_commits_1y": "—", "followers": "—", "following": "—",
+            "streak_current": "—", "streak_longest": "—", "top_languages": [],
+        }
+    sections.append("---\n")
+    sections.append(render_section_header("TELEMETRY", "GitHub statistics and system metrics"))
+    sections.append("")
+    sections.append(f"- **Public Repositories:** {stats_block.get('public_repos', '—')}")
+    sections.append(f"- **Total Stars:** {stats_block.get('total_stars', '—')}")
+    sections.append(f"- **Total Forks:** {stats_block.get('total_forks', '—')}")
+    sections.append(f"- **Commits (1yr):** {stats_block.get('total_commits_1y', '—')}")
+    sections.append(f"- **Followers:** {stats_block.get('followers', '—')}")
+    sections.append(f"- **Following:** {stats_block.get('following', '—')}")
+    sections.append(f"- **Current Streak:** {stats_block.get('streak_current', '—')} days")
+    sections.append(f"- **Longest Streak:** {stats_block.get('streak_longest', '—')} days")
+    if stats_block.get('top_languages'):
+        sections.append("\n**Top Languages:**")
+        for lang in stats_block['top_languages'][:5]:
+            sections.append(f"- {lang['language']}: {lang.get('percentage', '—')}%")
+    sections.append("")
+
     # 12. Contact
     sections.append("---\n")
     sections.append(render_section_header("CONTACT", "Establish connection"))
@@ -497,12 +526,10 @@ def build_readme() -> str:
     # Footer
     sections.append("---\n")
     sections.append(f"> {profile.get('tagline', 'Shipping real products. Exploring MPC/TSS security. Code that actually scales.')}")
-    sections.append("")
-    sections.append(f"Repository Version: v{version}")
-    sections.append(f"Last Generated: {datetime.utcnow().isoformat()}Z")
-    sections.append("")
+    sections.append(f"\n> Repository Version: v{version}\n> Last Generated: {datetime.utcnow().isoformat()}Z\n")
     sections.append("[![Built with AYU.OS](https://img.shields.io/badge/Built%20with-AYU.OS-DC2626?style=flat-square)](https://github.com/AyuShetty/AyuShetty)")
-    
+    sections.append("")
+
     return "\n".join(sections)
 
 def copy_assets():
@@ -524,36 +551,28 @@ def copy_assets():
 def main():
     print("AYU.OS Build System v2.0")
     print("=" * 40)
-    
-    version = "7.0.0"
-    
+
+    meta = get_meta(load_json(DATA_DIR / "profile.json"))
+    version = meta["version"]
+
     # Create dist directory
     DIST_DIR.mkdir(parents=True, exist_ok=True)
-    
+
     # Build README
     print("Building README...")
     readme = build_readme()
     (DIST_DIR / "README.md").write_text(readme, encoding="utf-8")
     print(f"  ✓ Generated {DIST_DIR / 'README.md'}")
-    
-    # Copy assets
+
+    # Copy assets to dist/ (build output; gitignored)
     print("Copying assets...")
     copy_assets()
-    
-    # Copy to root for GitHub profile
-    shutil.copy2(DIST_DIR / "README.md", ROOT_README)
-    print(f"  ✓ Updated {ROOT_README}")
-    
-    # Copy assets to root/assets for GitHub rendering
-    if ROOT_ASSETS.exists():
-        shutil.rmtree(ROOT_ASSETS)
-    shutil.copytree(ASSETS_DIR, ROOT_ASSETS)
-    print(f"  ✓ Synced assets to {ROOT_ASSETS}")
-    
+
     print("\n✅ Build complete!")
     print(f"   Version: {version}")
     print(f"   Output: {DIST_DIR}")
-    print(f"   Profile README: {ROOT_README}")
+    print("   NOTE: dist/ and assets/ are generated. To refresh the live profile,")
+    print("         commit dist/README.md as the repo README.md and push.")
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,6 @@
 /generated/
-/__pycache__/
+/dist/
+/assets/
+__pycache__/
 *.pyc
 .DS_Store

@@ -10,5 +10,10 @@
   "availability": "Open to interesting problems",
   "started_coding": 2018,
   "website": "https://ayushetty.me",
-  "tagline": "Shipping real products. Exploring MPC/TSS security. Code that actually scales."
+  "tagline": "Shipping real products. Exploring MPC/TSS security. Code that actually scales.",
+  "meta": {
+    "version": "2.0.0",
+    "codename": "AYU.OS Core",
+    "module_count": 8
+  }
 }
