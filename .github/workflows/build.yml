@@ -78,6 +78,9 @@ jobs:
       - name: Build README
         run: |
           python3 scripts/build.py
+          # Sync generated output to the live profile README (root).
+          # dist/ and assets/ are gitignored build outputs; only README.md is tracked.
+          cp dist/README.md README.md
       
       - name: Commit & Push README
         run: |
@@ -87,7 +90,7 @@ jobs:
           if git diff --quiet README.md; then
             echo "No changes to README.md"
           else
-            git add README.md assets/
+            git add README.md
             git commit -m "chore: rebuild profile README [skip ci]"
             git push
             echo "README updated and pushed"
