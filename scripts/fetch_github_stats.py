@@ -120,7 +120,8 @@ def process_stats(user_data: dict) -> dict:
             else:
                 current_streak = 0
     
-    # Current streak from end
+    # Current streak from end. Reset the accumulator after calculating the longest streak.
+    streak_current = 0
     today = datetime.now(timezone.utc).date()
     for week in reversed(calendar.get("weeks", [])):
         for day in reversed(week.get("contributionDays", [])):
@@ -150,7 +151,7 @@ def process_stats(user_data: dict) -> dict:
 
 def main():
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
-    login = os.environ.get("GITHUB_ACTOR", "AyuShetty")
+    login = os.environ.get("GITHUB_PROFILE_LOGIN", "AyuShetty")
     
     if not token:
         print("GH_TOKEN or GITHUB_TOKEN environment variable required", file=sys.stderr)

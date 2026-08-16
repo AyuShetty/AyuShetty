@@ -11,6 +11,7 @@ on:
       - 'components/**'
       - 'scripts/**'
       - 'tokens/**'
+      - '.github/workflows/build.yml'
   workflow_dispatch:
 
 permissions:
@@ -28,31 +29,21 @@ jobs:
         with:
           python-version: '3.11'
       
-      - name: Install dependencies
-        run: |
-          pip install --quiet pyyaml
-      
       - name: Validate JSON data files
         run: |
-          python3 -c "
-          import json, sys
-          from pathlib import Path
-          for f in Path('data').glob('*.json'):
-              try:
-                  json.loads(f.read_text())
-                  print(f'  ✓ {f}')
-              except json.JSONDecodeError as e:
-                  print(f'  ✗ {f}: {e}')
-                  sys.exit(1)
-          "
+          for file in data/*.json; do
+            python3 -m json.tool "$file" >/dev/null
+          done
       
       - name: Validate SVG components
         run: |
           python3 scripts/validate_svgs.py components
       
       - name: Check Python syntax
-        run: |
-          python3 -m py_compile scripts/build.py
+        run: python3 -m compileall -q scripts
+
+      - name: Check profile contract
+        run: python3 scripts/validate_profile.py
 
   build:
     name: Build & Deploy
@@ -69,31 +60,28 @@ jobs:
           python-version: '3.11'
       
       - name: Fetch GitHub stats
-        if: env.GH_TOKEN != ''
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python3 scripts/fetch_github_stats.py
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_PROFILE_LOGIN: AyuShetty
+        run: python3 scripts/fetch_github_stats.py
       
-      - name: Build README
-        run: |
-          python3 scripts/build.py
-          # Sync generated output to the live profile README (root).
-          # dist/ and assets/ are gitignored build outputs; only README.md is tracked.
-          cp dist/README.md README.md
+      - name: Build README and visual assets
+        run: python3 scripts/build.py
+
+      - name: Re-run profile contract checks
+        run: python3 scripts/validate_profile.py
       
       - name: Commit & Push README
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          if git diff --quiet README.md; then
-            echo "No changes to README.md"
+          git add README.md assets/profile data/stats.json
+          if git diff --cached --quiet; then
+            echo "No generated changes to publish"
           else
-            git add README.md
-            git commit -m "chore: rebuild profile README [skip ci]"
+            git commit -m "chore: refresh profile README [skip ci]"
             git push
-            echo "README updated and pushed"
           fi
       
       - name: Upload build artifacts
@@ -101,8 +89,9 @@ jobs:
         with:
           name: ayu-os-build
           path: |
-            dist/
             README.md
+            assets/profile/
+            dist/README.md
           retention-days: 7
 
   notify:
