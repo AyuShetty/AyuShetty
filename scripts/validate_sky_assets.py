@@ -35,7 +35,7 @@ def main() -> None:
         raise SystemExit(f"sky assets have unexpected dimensions: {gif_size}, {still_size}")
     if frame_count < 2:
         raise SystemExit("sky-cat.gif is not animated")
-    print(f"[PASS] sky-cat.gif has at least {frame_count} image frames at {gif_size}; static fallback is {still_size}")
+    print(f"[PASS] sky-cat.gif is animated at {gif_size}; static fallback is {still_size}")
 
 
 if __name__ == "__main__":
