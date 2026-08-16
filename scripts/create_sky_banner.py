@@ -46,18 +46,18 @@ def make_cat() -> Image.Image:
 def gradient_background() -> Image.Image:
     image = Image.new("RGB", (WIDTH, HEIGHT))
     pixels = image.load()
-    top = (99, 178, 235)
-    bottom = (225, 244, 255)
+    top = (5, 10, 30)
+    bottom = (26, 17, 58)
     for y in range(HEIGHT):
         ratio = y / max(1, HEIGHT - 1)
         for x in range(WIDTH):
-            shimmer = int(5 * math.sin((x / WIDTH) * math.pi * 2))
+            shimmer = int(3 * math.sin((x / WIDTH) * math.pi * 2))
             pixels[x, y] = tuple(max(0, min(255, int(top[i] * (1 - ratio) + bottom[i] * ratio) + shimmer)) for i in range(3))
     return image
 
 
 def draw_cloud(draw: ImageDraw.ImageDraw, x: int, y: int, scale: float, alpha: int = 170) -> None:
-    fill = (255, 255, 255, alpha)
+    fill = (174, 183, 226, alpha)
     cloud = Image.new("RGBA", (260, 120), (0, 0, 0, 0))
     cloud_draw = ImageDraw.Draw(cloud)
     cloud_draw.ellipse((12, 45, 120, 108), fill=fill)
@@ -72,10 +72,11 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     frame = gradient_background().convert("RGBA")
     draw = ImageDraw.Draw(frame, "RGBA")
 
-    # Sun halo and soft atmospheric bands.
-    for radius, alpha in [(106, 18), (80, 24), (56, 34)]:
-        draw.ellipse((930 - radius, 68 - radius, 930 + radius, 68 + radius), fill=(255, 245, 190, alpha))
-    draw.ellipse((900, 38, 960, 98), fill=(255, 235, 145, 235))
+    # Moon halo and soft midnight atmospheric bands.
+    for radius, alpha in [(130, 10), (102, 15), (78, 24)]:
+        draw.ellipse((930 - radius, 72 - radius, 930 + radius, 72 + radius), fill=(157, 145, 255, alpha))
+    draw.ellipse((900, 42, 960, 102), fill=(231, 233, 255, 245))
+    draw.ellipse((919, 52, 979, 112), fill=(26, 24, 63, 240))
 
     # Parallax clouds: distant clouds drift slowly; the foreground cloud crosses
     # the cat's route, making the loop feel like a tiny world rather than a sticker.
@@ -84,16 +85,24 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     draw_cloud(draw, 300 - (index * 10) % 1500, 280, 1.15, 165)
 
     random.seed(41)
-    for _ in range(34):
+    for _ in range(52):
         x = random.randint(0, WIDTH - 1)
-        y = random.randint(22, 210)
-        r = random.choice([1, 1, 2])
-        draw.ellipse((x - r, y - r, x + r, y + r), fill=(255, 255, 255, random.randint(80, 170)))
-
+        y = random.randint(18, 240)
+        r = random.choice([1, 1, 1, 2])
+        draw.ellipse((x - r, y - r, x + r, y + r), fill=(232, 235, 255, random.randint(110, 240)))
+    # Constellation threads and an occasional shooting star.
+    constellation = [(160, 124), (222, 88), (284, 122), (340, 72), (405, 110)]
+    draw.line(constellation, fill=(173, 175, 255, 120), width=1)
+    for x, y in constellation:
+        draw.ellipse((x - 3, y - 3, x + 3, y + 3), fill=(217, 215, 255, 230))
+    streak_x = (index * 38) % 1320 - 120
+    streak_y = 155 - (index * 3) % 70
+    draw.line((streak_x, streak_y, streak_x + 80, streak_y - 28), fill=(255, 225, 244, 190), width=2)
     # Distant mountain silhouettes.
     mountain = [(0, 352), (115, 278), (220, 342), (342, 252), (480, 345), (610, 270), (755, 350), (885, 250), (1030, 342), (1130, 286), (1200, 340), (1200, 420), (0, 420)]
-    draw.polygon(mountain, fill=(75, 138, 190, 100))
-    draw.polygon([(0, 380), (170, 322), (330, 375), (520, 302), (700, 380), (920, 308), (1200, 376), (1200, 420), (0, 420)], fill=(49, 105, 157, 120))
+    draw.polygon(mountain, fill=(30, 33, 78, 235))
+    draw.polygon([(0, 380), (170, 322), (330, 375), (520, 302), (700, 380), (920, 308), (1200, 376), (1200, 420), (0, 420)], fill=(12, 16, 43, 250))
+
 
     # Cat roaming left-to-right, then looping back through the sky.
     progress = (index / (FRAME_COUNT - 1))
@@ -104,10 +113,10 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
 
     # A tiny motion trail and status labels keep the scene tied to AYU.OS.
     draw = ImageDraw.Draw(frame, "RGBA")
-    draw.line((40, 38, 215, 38), fill=(255, 255, 255, 110), width=2)
-    draw.text((40, 50), "AYU.OS / SKY ROUTE", fill=(255, 255, 255, 210))
-    draw.text((40, 70), "cat navigator online", fill=(232, 247, 255, 220))
-    draw.text((1010, 382), "WIND 03 · ALT 420", fill=(235, 250, 255, 200))
+    draw.line((40, 38, 215, 38), fill=(194, 188, 255, 180), width=2)
+    draw.text((40, 50), "AYU.OS / NIGHT ROUTE", fill=(235, 233, 255, 230))
+    draw.text((40, 70), "Nova // cat navigator online", fill=(188, 198, 255, 230))
+    draw.text((1010, 382), "MOON 01 · ALT 420", fill=(206, 208, 255, 220))
     return frame.convert("RGB")
 
 
