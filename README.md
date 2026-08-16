@@ -1,5 +1,5 @@
-<p align="center"><img src="assets/profile/sky-cat.gif" alt="Animated dark sky scene with moonlight, constellations, and Nova the cat navigator roaming through clouds" width="100%"></p>
-<p align="center"><sub>Nova, the AYU.OS night navigator · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>
+<p align="center"><img src="assets/profile/sky-cat.gif" alt="Animated full-profile dark sky journey with moonlight, constellations, and Nova the cat navigator roaming from the clouds to the mountains" width="100%"></p>
+<p align="center"><sub>Nova, the AYU.OS night navigator · roaming across the full profile canvas · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>
 
 # Ayush N Shetty
 **Product Engineer** · Bangalore, India · UTC+5:30
