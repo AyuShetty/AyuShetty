@@ -179,11 +179,68 @@ def draw_solar_system(draw: ImageDraw.ImageDraw, index: int) -> None:
 
 
 def draw_motion_guide(draw: ImageDraw.ImageDraw, index: int) -> None:
-    """Subtle route rails make the content placement feel intentional."""
+    """Sparse observatory rails guide the eye without turning the canvas into a dashboard."""
     points = [(40, 155), (590, 420), (40, 480), (1160, 820), (40, 800), (1160, 1145), (40, 1200), (1160, 1510)]
-    draw.line(points, fill=(126, 137, 219, 38), width=2)
-    pulse = points[(index // 6) % len(points)]
-    draw.ellipse((pulse[0] - 5, pulse[1] - 5, pulse[0] + 5, pulse[1] + 5), fill=(216, 191, 255, 140))
+    draw.line(points, fill=(126, 137, 219, 26), width=2)
+    pulse = points[(index // 8) % len(points)]
+    glow = 4 + int(3 * (0.5 + 0.5 * math.sin(index * 0.42)))
+    draw.ellipse((pulse[0] - glow, pulse[1] - glow, pulse[0] + glow, pulse[1] + glow), fill=(216, 191, 255, 150))
+
+
+def draw_vignette(frame: Image.Image) -> None:
+    vignette = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
+    px = vignette.load()
+    cx, cy = WIDTH / 2, HEIGHT / 2
+    max_dist = math.sqrt(cx * cx + cy * cy)
+    for y in range(HEIGHT):
+        for x in range(WIDTH):
+            dist = math.sqrt((x - cx) ** 2 + (y - cy) ** 2) / max_dist
+            alpha = int(max(0, min(105, (dist ** 2.2) * 115)))
+            px[x, y] = (0, 0, 12, alpha)
+    frame.alpha_composite(vignette)
+
+
+def draw_observatory(draw: ImageDraw.ImageDraw, index: int) -> None:
+    """A quiet mission-control frame turns the profile into a place, not a poster."""
+    scan_y = 120 + int((index * 22) % 1520)
+    draw.line((24, scan_y, WIDTH - 24, scan_y), fill=(130, 206, 255, 26), width=1)
+    draw.line((24, scan_y + 1, WIDTH - 24, scan_y + 1), fill=(202, 161, 255, 12), width=1)
+    draw.line((34, 122, 34, 1620), fill=(145, 174, 255, 55), width=2)
+    draw.line((1166, 122, 1166, 1620), fill=(145, 174, 255, 55), width=2)
+    for y in range(155, 1580, 96):
+        draw.line((28, y, 40, y), fill=(185, 196, 255, 90), width=2)
+        draw.line((1160, y, 1172, y), fill=(185, 196, 255, 90), width=2)
+    draw.text((52, 112), "DEEP FIELD / MISSION 01", font=profile_font(14, True), fill=(167, 198, 255, 185))
+    draw.text((950, 112), "BANGALORE · UTC+5:30", font=profile_font(13), fill=(167, 198, 255, 170))
+    phase = (index / FRAME_COUNT) * math.pi * 2
+    signal = int(50 + 28 * (0.5 + 0.5 * math.sin(phase)))
+    draw.text((52, 1645), f"SIGNAL {signal:02d}%  /  NOVA NAVIGATION ONLINE", font=profile_font(13, True), fill=(180, 206, 255, 190))
+    draw.text((920, 1645), "AYU.OS // THE DEEP FIELD", font=profile_font(13), fill=(180, 206, 255, 170))
+
+
+def draw_signal_constellations(draw: ImageDraw.ImageDraw, index: int) -> None:
+    """Turn selected work into a few intentional data constellations."""
+    groups = [
+        ([(590, 470), (645, 430), (700, 450), (750, 410)], (111, 220, 255, 155)),
+        ([(500, 820), (560, 850), (620, 830), (675, 875)], (218, 151, 255, 145)),
+        ([(560, 1180), (630, 1150), (700, 1188), (760, 1140)], (255, 194, 125, 145)),
+    ]
+    for gi, (points, color) in enumerate(groups):
+        draw.line(points, fill=color, width=2)
+        pulse_index = (index // 4 + gi) % len(points)
+        for pi, (x, y) in enumerate(points):
+            radius = 5 if pi == pulse_index else 3
+            alpha = 220 if pi == pulse_index else 150
+            draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=(*color[:3], alpha))
+
+
+def draw_transmission(draw: ImageDraw.ImageDraw, index: int) -> None:
+    """A warm closing transmission gives the profile a human endpoint."""
+    if index < 38:
+        return
+    pulse = int(90 + 45 * (0.5 + 0.5 * math.sin((index - 38) * 0.45)))
+    draw.rounded_rectangle((300, 1545, 900, 1610), radius=30, fill=(20, 22, 60, 150), outline=(255, 191, 133, pulse), width=2)
+    draw.text((362, 1568), "OPEN CHANNEL  ·  ALWAYS CURIOUS  ·  SAY HELLO", font=profile_font(17, True), fill=(255, 225, 190, 238))
 
 
 def draw_cloud(draw: ImageDraw.ImageDraw, x: int, y: int, scale: float, alpha: int = 170) -> None:
@@ -208,6 +265,8 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     draw_nebula(frame, index, 2)
     draw_deep_stars(draw, index)
     draw_solar_system(draw, index)
+    draw_observatory(draw, index)
+    draw_signal_constellations(draw, index)
 
     # Moon halo and soft midnight atmospheric bands.
     for radius, alpha in [(150, 10), (118, 15), (88, 24)]:
@@ -241,12 +300,15 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     # The profile itself is drawn into the canvas so Nova appears to roam
     # around the interface rather than across an empty decorative backdrop.
     draw_profile_copy(draw)
+    draw_transmission(draw, index)
+    draw_vignette(frame)
 
-    # Nova follows a planned multi-stop route. Each stop has a short hold, a
+    # Nova follows a planned multi-stop route.
+    # Each stop has a short hold, a
     # gentle settling motion, and a greeting bubble so the mascot behaves like a
     # host rather than a sticker sliding on a rail.
     route = [(120, 170), (740, 455), (410, 760), (820, 1110), (220, 1390)]
-    greeting_windows = {range(6, 11): "hi — welcome to my orbit", range(22, 28): "thanks for stopping by", range(38, 44): "let's build something real"}
+    greeting_windows = {range(6, 12): "hi — welcome to my orbit", range(22, 29): "thanks for stopping by", range(38, 46): "let's build something real"}
     active_greeting = next((text for window, text in greeting_windows.items() if index in window), None)
     # Reserve real time for each stop: travel occupies the gaps, greetings occupy
     # several frames, and the mascot settles with a small breathing motion.
@@ -270,6 +332,7 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     if active_greeting:
         draw = ImageDraw.Draw(frame, "RGBA")
         draw.ellipse((x - 20, y - 20, x + 205, y + 205), outline=(226, 196, 255, 90), width=3)
+        draw.ellipse((x - 32, y - 32, x + 217, y + 217), outline=(116, 211, 255, 35), width=2)
         bubble_x = min(WIDTH - 390, max(25, x - 25))
         bubble_y = max(70, y - 78)
         draw.rounded_rectangle((bubble_x, bubble_y, bubble_x + 350, bubble_y + 52), radius=18, fill=(25, 22, 66, 225), outline=(228, 191, 255, 210), width=2)
