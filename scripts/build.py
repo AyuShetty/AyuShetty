@@ -163,7 +163,10 @@ def build_readme(data: dict) -> str:
 
     lines = [
         '<p align="center"><img src="assets/profile/sky-cat.gif" alt="Animated full-profile dark sky journey with moonlight, constellations, and Nova the cat navigator roaming from the clouds to the mountains" width="100%"></p>',
-        '<p align="center"><sub>Nova, the AYU.OS night navigator · roaming across the full profile canvas · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>',
+        '<p align="center"><sub>Nova, the AYU.OS night navigator · single continuous canvas · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>',
+        "",
+        "<details>",
+        "<summary>Open accessible text profile, links, and project details</summary>",
         "",
         f"# {profile.get('name', 'Ayush N Shetty')}",
         f"**{profile.get('title', 'Product Engineer')}** · {profile.get('location', 'Bangalore, India')} · {profile.get('timezone', 'UTC+5:30')}",
@@ -239,6 +242,8 @@ def build_readme(data: dict) -> str:
         f"> AYU.OS profile build **v{meta.get('version', '3.0.0')}** · The README is generated from [`data/`](data/) and the visual system lives in [`components/`](components/).",
         "",
         "<p align=\"center\"><sub>Built with care in Bangalore. Designed to be useful before it is impressive.</sub></p>",
+        "",
+        "</details>",
         "",
     ]
     return "\n".join(lines)

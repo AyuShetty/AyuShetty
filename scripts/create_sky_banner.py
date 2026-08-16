@@ -9,7 +9,7 @@ import math
 import random
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSET_DIR = ROOT / "assets" / "profile"
@@ -17,7 +17,7 @@ SOURCE = ASSET_DIR / "cat-mascot-clean.png"
 OUTPUT_GIF = ASSET_DIR / "sky-cat.gif"
 OUTPUT_STILL = ASSET_DIR / "sky-cat-still.png"
 
-WIDTH, HEIGHT = 1200, 1100
+WIDTH, HEIGHT = 1200, 1800
 FRAME_COUNT = 32
 
 
@@ -39,8 +39,86 @@ def remove_checkerboard(image: Image.Image) -> Image.Image:
 
 def make_cat() -> Image.Image:
     mascot = remove_checkerboard(Image.open(SOURCE))
-    mascot.thumbnail((230, 230), Image.Resampling.LANCZOS)
+    mascot.thumbnail((210, 210), Image.Resampling.LANCZOS)
     return mascot
+
+
+def profile_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
+    candidates = [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
+    ]
+    for candidate in candidates:
+        if Path(candidate).exists():
+            return ImageFont.truetype(candidate, size)
+    return ImageFont.load_default()
+
+
+def draw_panel(draw: ImageDraw.ImageDraw, x: int, y: int, width: int, height: int, title: str, lines: list[str], accent=(177, 170, 255, 230)) -> None:
+    draw.rounded_rectangle((x, y, x + width, y + height), radius=22, fill=(8, 12, 38, 188), outline=(127, 134, 213, 135), width=2)
+    draw.line((x + 22, y + 22, x + 170, y + 22), fill=accent, width=3)
+    draw.text((x + 22, y + 38), title.upper(), font=profile_font(22, True), fill=(239, 237, 255, 245))
+    cursor = y + 78
+    for line in lines:
+        draw.text((x + 22, cursor), line, font=profile_font(16), fill=(194, 202, 244, 235))
+        cursor += 28
+
+
+def draw_profile_copy(draw: ImageDraw.ImageDraw) -> None:
+    draw_panel(draw, 40, 155, 550, 265, "AYU.OS / IDENTITY", [
+        "AYUSH N SHETTY",
+        "Product Engineer · Bangalore · UTC+5:30",
+        "iOS + blockchain builder shipping real products.",
+        "Exploring MPC/TSS security, AI infrastructure,",
+        "hackathons, product thinking, and design refinement.",
+        "SYSTEM STATUS  //  ONLINE",
+    ], accent=(226, 186, 255, 235))
+    draw_panel(draw, 40, 480, 520, 260, "WHAT I BUILD", [
+        "AI SYSTEMS       local LLMs · agents",
+        "ETHEREUM         governance · EIPs",
+        "PRODUCT          full-stack · DX",
+        "SECURITY         MPC/TSS · privacy",
+        "FOCUS            useful before impressive",
+    ], accent=(142, 194, 255, 235))
+    draw_panel(draw, 640, 480, 520, 340, "SELECTED WORK", [
+        "ETH.ED           Web3 learning platform",
+        "EIPSINSIGHT      governance analytics",
+        "FACIAL KEYGEN    biometric key research",
+        "AIRGESTURE       touchless control",
+        "ETHERWORLD IOS   scalable app architecture",
+        "THIS PORTFOLIO   immersive 3D experience",
+        "AYU.OS           profile as an operating system",
+    ], accent=(255, 204, 139, 235))
+    draw_panel(draw, 40, 800, 520, 330, "TECHNICAL RANGE", [
+        "TypeScript · Python · Solidity · Swift",
+        "Next.js · React · SwiftUI · Three.js",
+        "Docker · Kubernetes · AWS/GCP · PostgreSQL",
+        "Ollama · Playwright · LangGraph · OpenCV",
+        "Ethereum · ENS · Foundry · Hardhat",
+        "Agents · DX · Design systems · WebGL",
+    ], accent=(123, 225, 203, 235))
+    draw_panel(draw, 640, 880, 520, 265, "EXPERIENCE", [
+        "PRODUCT ENGINEER     Avarch · 2023–Present",
+        "PRESIDENT             COPE · 2022–2023",
+        "SOFTWARE INTERN       Avarch · 2021–2022",
+        "Building Web3 + AI platforms and communities.",
+    ], accent=(233, 172, 255, 235))
+    draw_panel(draw, 40, 1200, 520, 340, "CURRENT OBJECTIVES", [
+        "LOCAL AI INFRA v1       65%",
+        "EIPSINSIGHT v2          15%",
+        "AYU.OS OPEN SOURCE      40%",
+        "FACIAL KEYGEN RESEARCH  30%",
+        "Distributed inference, governance intelligence,",
+        "plugin architecture, and post-quantum research.",
+    ], accent=(255, 182, 199, 235))
+    draw_panel(draw, 640, 1210, 520, 300, "TELEMETRY / CONNECT", [
+        "19 PUBLIC REPOSITORIES",
+        "4 STARS  ·  2 FORKS  ·  368 COMMITS",
+        "3 FOLLOWERS",
+        "ayushetty.me",
+        "github.com/AyuShetty",
+        "linkedin.com/in/ayushetty  ·  @AyuShettyEth",
+    ], accent=(182, 210, 255, 235))
 
 
 def gradient_background() -> Image.Image:
@@ -80,15 +158,15 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
 
     # Parallax clouds: distant clouds drift slowly; the foreground cloud crosses
     # the cat's route, making the loop feel like a tiny world rather than a sticker.
-    draw_cloud(draw, 80 - (index * 3) % 1450, 220, 0.75, 112)
-    draw_cloud(draw, 640 - (index * 6) % 1550, 360, 0.52, 145)
-    draw_cloud(draw, 300 - (index * 10) % 1500, 610, 1.15, 165)
-    draw_cloud(draw, 870 - (index * 8) % 1500, 760, 0.68, 125)
+    draw_cloud(draw, 80 - (index * 3) % 1450, 310, 0.75, 112)
+    draw_cloud(draw, 640 - (index * 6) % 1550, 540, 0.52, 145)
+    draw_cloud(draw, 300 - (index * 10) % 1500, 820, 1.15, 165)
+    draw_cloud(draw, 870 - (index * 8) % 1500, 1120, 0.68, 125)
 
     random.seed(41)
     for _ in range(52):
         x = random.randint(0, WIDTH - 1)
-        y = random.randint(18, 720)
+        y = random.randint(18, 1180)
         r = random.choice([1, 1, 1, 2])
         draw.ellipse((x - r, y - r, x + r, y + r), fill=(232, 235, 255, random.randint(110, 240)))
     # Constellation threads and an occasional shooting star.
@@ -97,29 +175,33 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     for x, y in constellation:
         draw.ellipse((x - 3, y - 3, x + 3, y + 3), fill=(217, 215, 255, 230))
     streak_x = (index * 38) % 1320 - 120
-    streak_y = 420 - (index * 5) % 220
+    streak_y = 600 - (index * 5) % 300
     draw.line((streak_x, streak_y, streak_x + 80, streak_y - 28), fill=(255, 225, 244, 190), width=2)
     # Distant mountain silhouettes.
-    mountain = [(0, 930), (115, 820), (220, 910), (342, 790), (480, 918), (610, 816), (755, 920), (885, 800), (1030, 910), (1130, 838), (1200, 916), (1200, 1100), (0, 1100)]
+    mountain = [(0, 1620), (115, 1500), (220, 1605), (342, 1470), (480, 1610), (610, 1498), (755, 1618), (885, 1488), (1030, 1608), (1130, 1518), (1200, 1605), (1200, 1800), (0, 1800)]
     draw.polygon(mountain, fill=(30, 33, 78, 235))
-    draw.polygon([(0, 1000), (170, 898), (330, 986), (520, 880), (700, 990), (920, 886), (1200, 994), (1200, 1100), (0, 1100)], fill=(12, 16, 43, 250))
+    draw.polygon([(0, 1690), (170, 1578), (330, 1680), (520, 1555), (700, 1688), (920, 1568), (1200, 1690), (1200, 1800), (0, 1800)], fill=(12, 16, 43, 250))
 
+
+    # The profile itself is drawn into the canvas so Nova appears to roam
+    # around the interface rather than across an empty decorative backdrop.
+    draw_profile_copy(draw)
 
     # Cat sweeps diagonally through the entire tall canvas, looping back like a
     # tiny navigator crossing the profile rather than a mascot stuck in a header.
     progress = (index / (FRAME_COUNT - 1))
     x = int(90 + 760 * (0.5 + 0.5 * math.sin(progress * math.pi * 2)))
-    y = int(155 + 700 * progress + 18 * math.sin(progress * math.pi * 6))
+    y = int(165 + 1280 * progress + 18 * math.sin(progress * math.pi * 6))
     bobbed = cat.rotate(3 * math.sin(progress * math.pi * 4), resample=Image.Resampling.BICUBIC, expand=True)
     frame.alpha_composite(bobbed, (x, y))
 
     # A tiny motion trail and status labels keep the scene tied to AYU.OS.
     draw = ImageDraw.Draw(frame, "RGBA")
-    draw.line((40, 42, 275, 42), fill=(194, 188, 255, 180), width=2)
-    draw.text((40, 56), "AYU.OS / FULL PROFILE NIGHT ROUTE", fill=(235, 233, 255, 230))
-    draw.text((40, 78), "Nova // roaming across the canvas", fill=(188, 198, 255, 230))
-    draw.text((40, 1030), "NOVA ROUTE COMPLETE · RETURNING TO ORBIT", fill=(206, 208, 255, 220))
-    draw.text((1010, 1030), "MOON 01 · ALT 420", fill=(206, 208, 255, 220))
+    draw.line((40, 42, 320, 42), fill=(194, 188, 255, 180), width=2)
+    draw.text((40, 56), "AYU.OS / SINGLE-CANVAS PROFILE", fill=(235, 233, 255, 230))
+    draw.text((40, 78), "Nova // roaming through the interface", fill=(188, 198, 255, 230))
+    draw.text((40, 1730), "NOVA ROUTE COMPLETE · RETURNING TO ORBIT", fill=(206, 208, 255, 220))
+    draw.text((1010, 1730), "MOON 01 · ALT 420", fill=(206, 208, 255, 220))
     return frame.convert("RGB")
 
 
