@@ -69,6 +69,9 @@ jobs:
           GITHUB_PROFILE_LOGIN: AyuShetty
         run: python3 scripts/fetch_github_stats.py
       
+      - name: Install sky asset dependency
+        run: python3 -m pip install --quiet pillow
+
       - name: Build sky banner
         run: python3 scripts/create_sky_banner.py
 
