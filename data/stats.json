@@ -1,17 +1,63 @@
 {
+  "generated_at": "2026-08-16T11:09:11.003266+00:00",
   "public_repos": 19,
   "total_stars": 4,
   "total_forks": 2,
-  "total_commits_1y": 391,
-  "followers": 4,
+  "total_commits_1y": 368,
+  "followers": 3,
   "following": 9,
-  "streak_current": 10,
-  "streak_longest": 10,
   "top_languages": [
-    { "language": "TypeScript", "percentage": 84.7 },
-    { "language": "JavaScript", "percentage": 4.9 },
-    { "language": "Swift", "percentage": 4.3 },
-    { "language": "CSS", "percentage": 2.8 },
-    { "language": "Python", "percentage": 1.5 }
-  ]
+    {
+      "language": "TypeScript",
+      "bytes": 5405868,
+      "percentage": 84.9
+    },
+    {
+      "language": "JavaScript",
+      "bytes": 313597,
+      "percentage": 4.9
+    },
+    {
+      "language": "Swift",
+      "bytes": 275974,
+      "percentage": 4.3
+    },
+    {
+      "language": "CSS",
+      "bytes": 178748,
+      "percentage": 2.8
+    },
+    {
+      "language": "Python",
+      "bytes": 85023,
+      "percentage": 1.3
+    },
+    {
+      "language": "HTML",
+      "bytes": 69173,
+      "percentage": 1.1
+    },
+    {
+      "language": "Rust",
+      "bytes": 15572,
+      "percentage": 0.2
+    },
+    {
+      "language": "Shell",
+      "bytes": 8854,
+      "percentage": 0.1
+    },
+    {
+      "language": "Java",
+      "bytes": 8438,
+      "percentage": 0.1
+    },
+    {
+      "language": "Batchfile",
+      "bytes": 4709,
+      "percentage": 0.1
+    }
+  ],
+  "streak_current": 27,
+  "streak_longest": 27
 }
