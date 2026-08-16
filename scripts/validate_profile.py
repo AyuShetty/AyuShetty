@@ -44,10 +44,16 @@ def main() -> None:
     readme = readme_path.read_text(encoding="utf-8")
     if "<svg" in readme.lower() or "<?xml" in readme.lower():
         fail("README.md contains raw SVG/XML; use a linked asset instead")
-    if "assets/profile/hero.svg" not in readme:
-        fail("README.md does not reference assets/profile/hero.svg")
-    if not (ROOT / "assets/profile/hero.svg").exists():
-        fail("assets/profile/hero.svg is missing")
+    required_assets = {
+        "assets/profile/sky-cat.gif": "animated sky banner",
+        "assets/profile/sky-cat-still.png": "static sky fallback",
+        "assets/profile/sky-divider.svg": "sky divider",
+    }
+    for relative_path, label in required_assets.items():
+        if relative_path not in readme:
+            fail(f"README.md does not reference {label}: {relative_path}")
+        if not (ROOT / relative_path).exists():
+            fail(f"{label} is missing: {relative_path}")
     if re.search(r"\]\(\s*\)", readme):
         fail("README.md contains an empty Markdown link")
 

@@ -10,6 +10,7 @@ on:
       - 'data/**'
       - 'components/**'
       - 'scripts/**'
+      - 'assets/profile/**'
       - 'tokens/**'
       - '.github/workflows/build.yml'
   workflow_dispatch:
@@ -45,6 +46,9 @@ jobs:
       - name: Check profile contract
         run: python3 scripts/validate_profile.py
 
+      - name: Check sky assets
+        run: python3 scripts/validate_sky_assets.py
+
   build:
     name: Build & Deploy
     needs: validate
@@ -65,11 +69,16 @@ jobs:
           GITHUB_PROFILE_LOGIN: AyuShetty
         run: python3 scripts/fetch_github_stats.py
       
+      - name: Build sky banner
+        run: python3 scripts/create_sky_banner.py
+
       - name: Build README and visual assets
         run: python3 scripts/build.py
 
       - name: Re-run profile contract checks
-        run: python3 scripts/validate_profile.py
+        run: |
+          python3 scripts/validate_profile.py
+          python3 scripts/validate_sky_assets.py
       
       - name: Commit & Push README
         run: |

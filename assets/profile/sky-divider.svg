@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 84" role="img" aria-label="A sky divider with drifting clouds and stars">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1">
+      <stop offset="0" stop-color="#8fd3ff"/>
+      <stop offset="0.5" stop-color="#dff4ff"/>
+      <stop offset="1" stop-color="#8fd3ff"/>
+    </linearGradient>
+    <style>
+      .cloud { animation: drift 16s linear infinite; }
+      .cloud.slow { animation-duration: 24s; opacity: .42; }
+      .star { animation: twinkle 2.4s ease-in-out infinite alternate; }
+      @keyframes drift { from { transform: translateX(-80px); } to { transform: translateX(80px); } }
+      @keyframes twinkle { from { opacity: .25; } to { opacity: .95; } }
+      @media (prefers-reduced-motion: reduce) { .cloud, .star { animation: none; } }
+    </style>
+  </defs>
+  <rect width="1200" height="84" rx="18" fill="url(#sky)"/>
+  <path d="M0 74 C160 38 260 94 420 62 S720 43 880 68 S1080 36 1200 66 V84 H0Z" fill="#5e9fd1" opacity=".44"/>
+  <g class="cloud" fill="#fff" opacity=".73">
+    <ellipse cx="150" cy="46" rx="70" ry="18"/><ellipse cx="105" cy="40" rx="28" ry="22"/><ellipse cx="172" cy="34" rx="37" ry="29"/><ellipse cx="224" cy="45" rx="32" ry="18"/>
+  </g>
+  <g class="cloud slow" fill="#fff">
+    <ellipse cx="770" cy="31" rx="76" ry="20"/><ellipse cx="720" cy="28" rx="28" ry="19"/><ellipse cx="795" cy="20" rx="38" ry="27"/><ellipse cx="842" cy="31" rx="32" ry="18"/>
+  </g>
+  <g class="star" fill="#fff">
+    <circle cx="366" cy="25" r="2"/><circle cx="503" cy="50" r="2"/><circle cx="1030" cy="28" r="2"/><circle cx="1110" cy="53" r="2"/>
+  </g>
+</svg>

@@ -1,4 +1,5 @@
-<p align="center"><img src="assets/profile/hero.svg" alt="Ayush N Shetty — Product Engineer" width="100%"></p>
+<p align="center"><img src="assets/profile/sky-cat.gif" alt="Animated sky scene with Nova the cat navigator roaming through clouds" width="100%"></p>
+<p align="center"><sub>Nova, the AYU.OS sky navigator · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>
 
 # Ayush N Shetty
 **Product Engineer** · Bangalore, India · UTC+5:30
@@ -9,6 +10,8 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
 
 > **System status:** online. Open to interesting problems across AI infrastructure, Ethereum protocols, and developer experience.
 
+<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>
+
 ## What I build
 
 | Focus | Current direction |
@@ -17,6 +20,8 @@ iOS + blockchain builder shipping real products, exploring MPC/TSS security, hac
 | **Ethereum** | Governance analytics, EIP diagnostics, protocol tooling, and verifiable learning experiences. |
 | **Product engineering** | Full-stack systems, developer infrastructure, design systems, and reliable delivery. |
 | **Security research** | Biometric key derivation, MPC/TSS exploration, and privacy-preserving local-first systems. |
+
+<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>
 
 ## Selected work
 
@@ -32,6 +37,8 @@ The strongest projects are intentionally presented as products rather than a cat
 | **[THIS PORTFOLIO — Immersive 3D Developer Portfolio](https://github.com/AyuShetty/PortFolio)** | Immersive developer portfolio with a 3D dome gallery, scroll-driven animations, and an editorial bronze design system. Next.js + Three.js + custom design tokens. | `Next.js` · `TypeScript` · `Three.js` · `React Three Fiber` · `GSAP` · `Tailwind CSS` | [Repo](https://github.com/AyuShetty/PortFolio) · [Demo](https://ayushetty.me) |
 | **[AYU.OS — This Profile as an Operating System](https://github.com/AyuShetty/AyuShetty)** | A fictional operating system expressed through a GitHub profile. Component-driven SVG design system, automated build pipeline, and token-based theming. | `Python` · `SVG` · `Jinja2` · `GitHub Actions` · `Design Tokens` · `SVGO` | [Repo](https://github.com/AyuShetty/AyuShetty) |
 
+<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>
+
 ## Technical range
 
 | Area | Tools and technologies |
@@ -43,6 +50,8 @@ The strongest projects are intentionally presented as products rather than a cat
 | **Blockchain & Web3** | `Ethereum Protocol` · `EIP Analysis & Tooling` · `Solidity / Smart Contracts` · `MPC / TSS Cryptography` · `ENS / ENS-based Systems` · `Foundry / Hardhat` · `Governance Analytics` |
 | **Focus Areas** | `Systems Design` · `Developer Experience (DX)` · `Product Engineering` · `Autonomous AI Agents` · `Design Systems & SVG Engineering` · `IoT / Embedded (ESP32)` |
 
+<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>
+
 ## Experience
 
 | Role | Period | Scope |
@@ -50,6 +59,8 @@ The strongest projects are intentionally presented as products rather than a cat
 | **Product Engineer**<br>Avarch | 2023-01 – Present | Leading product engineering for Web3 and AI platforms. Architected EIPSINSIGHT governance analytics platform. Building LOCAL AI INFRASTRUCTURE for distributed local LLM inference. Exploring MPC/TSS cryptography for secure key management. |
 | **President**<br>COPE (Community of Peer Engineers) | 2022-01 – 2023-12 | Led 200+ member student engineering community. Organized hackathons, workshops, and industry mentorship programs. Built internal tools for community management. |
 | **Software Engineering Intern**<br>Avarch | 2021-06 – 2022-12 | Early contributor to EIPSINSIGHT platform. Full-stack development on Ethereum governance tooling. Research on EIP analysis methodologies. |
+
+<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>
 
 ## Current objectives
 
@@ -60,6 +71,8 @@ The strongest projects are intentionally presented as products rather than a cat
 | **Open-Source AYU.OS Design System with Plugin Architecture** | `40%` | Extract the SVG component library, token system, and composition engine as a standalone OSS package. Enable theming, custom primitives, and framework-agnostic usage. |
 | **Publish FACIAL KEYGEN Research — Biometric Key Derivation for Post-Quantum Crypto** | `30%` | Formalize the biometric-to-cryptographic-key derivation pipeline. Submit to cryptography conference. Open-source reproducible implementation with security analysis. |
 
+<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>
+
 ## GitHub telemetry
 
 | Metric | Snapshot |
@@ -68,6 +81,8 @@ The strongest projects are intentionally presented as products rather than a cat
 | Stars / forks | **4 / 2** |
 | Commits in the latest period | **368** |
 | Followers | **3** |
+
+<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>
 
 ## Connect
 

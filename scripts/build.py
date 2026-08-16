@@ -77,8 +77,6 @@ def build_hero(profile: dict, meta: dict) -> str:
 
 def write_assets(profile: dict, meta: dict) -> None:
     """Refresh only the tracked profile asset directory."""
-    if ASSETS_DIR.exists():
-        shutil.rmtree(ASSETS_DIR)
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
     (ASSETS_DIR / "hero.svg").write_text(build_hero(profile, meta), encoding="utf-8")
 
@@ -164,7 +162,8 @@ def build_readme(data: dict) -> str:
     ]
 
     lines = [
-        f'<p align="center"><img src="assets/profile/hero.svg" alt="{attr(profile.get("name", "Ayush N Shetty"))} — {attr(profile.get("title", "Product Engineer"))}" width="100%"></p>',
+        '<p align="center"><img src="assets/profile/sky-cat.gif" alt="Animated sky scene with Nova the cat navigator roaming through clouds" width="100%"></p>',
+        '<p align="center"><sub>Nova, the AYU.OS sky navigator · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>',
         "",
         f"# {profile.get('name', 'Ayush N Shetty')}",
         f"**{profile.get('title', 'Product Engineer')}** · {profile.get('location', 'Bangalore, India')} · {profile.get('timezone', 'UTC+5:30')}",
@@ -175,11 +174,15 @@ def build_readme(data: dict) -> str:
         "",
         "> **System status:** online. Open to interesting problems across AI infrastructure, Ethereum protocols, and developer experience.",
         "",
+        '<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>',
+        "",
         "## What I build",
         "",
         "| Focus | Current direction |",
         "| --- | --- |",
         *focus_rows,
+        "",
+        '<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>',
         "",
         "## Selected work",
         "",
@@ -189,11 +192,15 @@ def build_readme(data: dict) -> str:
         "| --- | --- | --- | --- |",
         *project_rows(projects),
         "",
+        '<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>',
+        "",
         "## Technical range",
         "",
         "| Area | Tools and technologies |",
         "| --- | --- |",
         *language_items,
+        "",
+        '<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>',
         "",
         "## Experience",
         "",
@@ -201,17 +208,23 @@ def build_readme(data: dict) -> str:
         "| --- | --- | --- |",
         *experience_rows(experience),
         "",
+        '<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>',
+        "",
         "## Current objectives",
         "",
         "| Objective | Progress | Direction |",
         "| --- | ---: | --- |",
         *objective_rows(objectives),
         "",
+        '<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>',
+        "",
         "## GitHub telemetry",
         "",
         "| Metric | Snapshot |",
         "| --- | ---: |",
         *stats_rows,
+        "",
+        '<p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>',
         "",
         "## Connect",
         "",
@@ -259,7 +272,7 @@ def main() -> None:
 
     print("AYU.OS profile build complete")
     print(f"  README: {ROOT / 'README.md'}")
-    print(f"  Asset:  {ASSETS_DIR / 'hero.svg'}")
+    print(f"  Assets: {ASSETS_DIR}")
     print(f"  Version: {meta.get('version', '3.0.0')}")
 
 
