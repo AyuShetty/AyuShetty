@@ -18,7 +18,7 @@ OUTPUT_GIF = ASSET_DIR / "sky-cat.gif"
 OUTPUT_STILL = ASSET_DIR / "sky-cat-still.png"
 
 WIDTH, HEIGHT = 1200, 1800
-FRAME_COUNT = 32
+FRAME_COUNT = 48
 
 
 def remove_checkerboard(image: Image.Image) -> Image.Image:
@@ -134,6 +134,58 @@ def gradient_background() -> Image.Image:
     return image
 
 
+def draw_nebula(frame: Image.Image, index: int, layer: int) -> None:
+    """Paint a soft, slowly shifting nebula layer for atmospheric depth."""
+    haze = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
+    haze_draw = ImageDraw.Draw(haze, "RGBA")
+    centers = [(260, 560), (920, 1040), (330, 1440)]
+    cx, cy = centers[layer % len(centers)]
+    drift = int(22 * math.sin(index / FRAME_COUNT * math.pi * 2 + layer))
+    for radius, alpha in [(310, 8), (230, 11), (150, 16)]:
+        haze_draw.ellipse((cx + drift - radius, cy - radius, cx + drift + radius, cy + radius), fill=(116, 74, 220, alpha))
+    haze = haze.filter(ImageFilter.GaussianBlur(36))
+    frame.alpha_composite(haze)
+
+
+def draw_deep_stars(draw: ImageDraw.ImageDraw, index: int) -> None:
+    """Use several parallax star fields instead of one flat random field."""
+    for layer, count in [(0, 42), (1, 30), (2, 18)]:
+        random.seed(100 + layer)
+        drift = int((index * (layer + 1) * 2.3) % WIDTH)
+        for _ in range(count):
+            x = (random.randint(0, WIDTH - 1) + drift) % WIDTH
+            y = random.randint(20, 1450)
+            r = random.choice([1, 1, 1, 2]) if layer < 2 else 2
+            twinkle = int(130 + 100 * (0.5 + 0.5 * math.sin(index * 0.55 + x)))
+            draw.ellipse((x - r, y - r, x + r, y + r), fill=(210, 220, 255, twinkle))
+
+
+def draw_solar_system(draw: ImageDraw.ImageDraw, index: int) -> None:
+    """Render a small orbital system with stable geometry and gentle motion."""
+    cx, cy = 815, 285
+    for radius in (68, 108, 148):
+        draw.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), outline=(138, 145, 230, 72), width=2)
+    draw.ellipse((cx - 32, cy - 32, cx + 32, cy + 32), fill=(255, 194, 105, 245), outline=(255, 231, 170, 220), width=3)
+    draw.ellipse((cx - 20, cy - 20, cx + 20, cy + 20), fill=(255, 223, 142, 220))
+    planets = [(68, 7, (117, 200, 255, 240), 1.0), (108, 10, (221, 133, 255, 240), -0.7), (148, 14, (140, 229, 193, 240), 0.45)]
+    for radius, size, color, speed in planets:
+        angle = index / FRAME_COUNT * math.pi * 2 * speed + radius / 90
+        px = int(cx + math.cos(angle) * radius)
+        py = int(cy + math.sin(angle) * radius * 0.58)
+        draw.ellipse((px - size, py - size, px + size, py + size), fill=color)
+        if radius == 108:
+            draw.ellipse((px - size - 8, py - 3, px + size + 8, py + 3), outline=(239, 210, 255, 160), width=2)
+    draw.text((690, 475), "AYU.OS / ORBITAL INDEX", font=profile_font(15, True), fill=(195, 201, 255, 220))
+
+
+def draw_motion_guide(draw: ImageDraw.ImageDraw, index: int) -> None:
+    """Subtle route rails make the content placement feel intentional."""
+    points = [(40, 155), (590, 420), (40, 480), (1160, 820), (40, 800), (1160, 1145), (40, 1200), (1160, 1510)]
+    draw.line(points, fill=(126, 137, 219, 38), width=2)
+    pulse = points[(index // 6) % len(points)]
+    draw.ellipse((pulse[0] - 5, pulse[1] - 5, pulse[0] + 5, pulse[1] + 5), fill=(216, 191, 255, 140))
+
+
 def draw_cloud(draw: ImageDraw.ImageDraw, x: int, y: int, scale: float, alpha: int = 170) -> None:
     fill = (174, 183, 226, alpha)
     cloud = Image.new("RGBA", (260, 120), (0, 0, 0, 0))
@@ -150,11 +202,18 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     frame = gradient_background().convert("RGBA")
     draw = ImageDraw.Draw(frame, "RGBA")
 
+    # Layered atmospheric depth: nebulae, deep stars, and the orbital system.
+    draw_nebula(frame, index, 0)
+    draw_nebula(frame, index, 1)
+    draw_nebula(frame, index, 2)
+    draw_deep_stars(draw, index)
+    draw_solar_system(draw, index)
+
     # Moon halo and soft midnight atmospheric bands.
     for radius, alpha in [(150, 10), (118, 15), (88, 24)]:
-        draw.ellipse((930 - radius, 120 - radius, 930 + radius, 120 + radius), fill=(157, 145, 255, alpha))
-    draw.ellipse((900, 90, 960, 150), fill=(231, 233, 255, 245))
-    draw.ellipse((919, 100, 979, 160), fill=(26, 24, 63, 240))
+        draw.ellipse((1040 - radius, 140 - radius, 1040 + radius, 140 + radius), fill=(157, 145, 255, alpha))
+    draw.ellipse((1010, 110, 1070, 170), fill=(231, 233, 255, 245))
+    draw.ellipse((1029, 120, 1089, 180), fill=(26, 24, 63, 240))
 
     # Parallax clouds: distant clouds drift slowly; the foreground cloud crosses
     # the cat's route, making the loop feel like a tiny world rather than a sticker.
@@ -163,12 +222,8 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     draw_cloud(draw, 300 - (index * 10) % 1500, 820, 1.15, 165)
     draw_cloud(draw, 870 - (index * 8) % 1500, 1120, 0.68, 125)
 
-    random.seed(41)
-    for _ in range(52):
-        x = random.randint(0, WIDTH - 1)
-        y = random.randint(18, 1180)
-        r = random.choice([1, 1, 1, 2])
-        draw.ellipse((x - r, y - r, x + r, y + r), fill=(232, 235, 255, random.randint(110, 240)))
+    # The planned rails are deliberately quiet so they read as composition, not UI chrome.
+    draw_motion_guide(draw, index)
     # Constellation threads and an occasional shooting star.
     constellation = [(160, 240), (222, 188), (284, 230), (340, 168), (405, 218)]
     draw.line(constellation, fill=(173, 175, 255, 120), width=1)
@@ -187,13 +242,39 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     # around the interface rather than across an empty decorative backdrop.
     draw_profile_copy(draw)
 
-    # Cat sweeps diagonally through the entire tall canvas, looping back like a
-    # tiny navigator crossing the profile rather than a mascot stuck in a header.
-    progress = (index / (FRAME_COUNT - 1))
-    x = int(90 + 760 * (0.5 + 0.5 * math.sin(progress * math.pi * 2)))
-    y = int(165 + 1280 * progress + 18 * math.sin(progress * math.pi * 6))
-    bobbed = cat.rotate(3 * math.sin(progress * math.pi * 4), resample=Image.Resampling.BICUBIC, expand=True)
+    # Nova follows a planned multi-stop route. Each stop has a short hold, a
+    # gentle settling motion, and a greeting bubble so the mascot behaves like a
+    # host rather than a sticker sliding on a rail.
+    route = [(120, 170), (740, 455), (410, 760), (820, 1110), (220, 1390)]
+    greeting_windows = {range(6, 11): "hi — welcome to my orbit", range(22, 28): "thanks for stopping by", range(38, 44): "let's build something real"}
+    active_greeting = next((text for window, text in greeting_windows.items() if index in window), None)
+    # Reserve real time for each stop: travel occupies the gaps, greetings occupy
+    # several frames, and the mascot settles with a small breathing motion.
+    stop_centers = {8: route[1], 24: route[3], 40: route[4]}
+    if active_greeting:
+        nearest = min(stop_centers, key=lambda stop: abs(stop - index))
+        x, y = stop_centers[nearest]
+    else:
+        segment = index / (FRAME_COUNT - 1) * (len(route) - 1)
+        stop_index = min(len(route) - 1, int(segment))
+        local = segment - stop_index
+        easing = local * local * (3 - 2 * local)
+        x0, y0 = route[stop_index]
+        x1, y1 = route[min(stop_index + 1, len(route) - 1)]
+        x = int(x0 + (x1 - x0) * easing + 10 * math.sin(index * 0.35))
+        y = int(y0 + (y1 - y0) * easing + 8 * math.sin(index * 0.5))
+    bob = 2.5 * math.sin(index * 0.42) if not active_greeting else 0.8 * math.sin(index * 0.5)
+    bobbed = cat.rotate(bob, resample=Image.Resampling.BICUBIC, expand=True)
     frame.alpha_composite(bobbed, (x, y))
+
+    if active_greeting:
+        draw = ImageDraw.Draw(frame, "RGBA")
+        draw.ellipse((x - 20, y - 20, x + 205, y + 205), outline=(226, 196, 255, 90), width=3)
+        bubble_x = min(WIDTH - 390, max(25, x - 25))
+        bubble_y = max(70, y - 78)
+        draw.rounded_rectangle((bubble_x, bubble_y, bubble_x + 350, bubble_y + 52), radius=18, fill=(25, 22, 66, 225), outline=(228, 191, 255, 210), width=2)
+        draw.polygon([(bubble_x + 44, bubble_y + 52), (bubble_x + 60, bubble_y + 52), (bubble_x + 52, bubble_y + 66)], fill=(25, 22, 66, 225))
+        draw.text((bubble_x + 18, bubble_y + 17), active_greeting, font=profile_font(17, True), fill=(244, 238, 255, 245))
 
     # A tiny motion trail and status labels keep the scene tied to AYU.OS.
     draw = ImageDraw.Draw(frame, "RGBA")

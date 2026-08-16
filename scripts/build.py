@@ -162,8 +162,8 @@ def build_readme(data: dict) -> str:
     ]
 
     lines = [
-        '<p align="center"><img src="assets/profile/sky-cat.gif" alt="Animated full-profile dark sky journey with moonlight, constellations, and Nova the cat navigator roaming from the clouds to the mountains" width="100%"></p>',
-        '<p align="center"><sub>Nova, the AYU.OS night navigator · single continuous canvas · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>',
+        '<p align="center"><img src="assets/profile/sky-cat.gif" alt="Animated miniature universe profile with parallax nebulae, an orbiting solar system, planned information panels, and Nova the cat navigator stopping to greet visitors" width="100%"></p>',
+        '<p align="center"><sub>Nova, the AYU.OS night navigator · single continuous universe canvas · stops to greet visitors · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>',
         "",
         "<details>",
         "<summary>Open accessible text profile, links, and project details</summary>",
