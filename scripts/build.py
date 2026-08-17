@@ -162,8 +162,8 @@ def build_readme(data: dict) -> str:
     ]
 
     lines = [
-        '<p align="center"><img src="assets/profile/sky-cat.gif" alt="Animated AYU.OS Deep Field observatory with parallax nebulae, orbital systems, illuminated data constellations, mission framing, and Nova greeting visitors" width="100%"></p>',
-        '<p align="center"><sub>Nova, the AYU.OS navigator · Deep Field mission log · stops to greet visitors · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>',
+        '<p align="center"><img src="assets/profile/sky-cat.gif" alt="Animated AYU.OS Interface Exhibition with curated product artifacts, editorial gallery framing, GitHub-native dark mode, and Nova as a roaming curator" width="100%"></p>',
+        '<p align="center"><sub>Nova, the AYU.OS curator · Interface Exhibition · selected artifacts from the workbench · <a href="assets/profile/sky-cat-still.png">static frame</a></sub></p>',
         "",
         "<details>",
         "<summary>Open accessible text profile, links, and project details</summary>",

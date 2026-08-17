@@ -64,61 +64,57 @@ def draw_panel(draw: ImageDraw.ImageDraw, x: int, y: int, width: int, height: in
         cursor += 28
 
 
-def draw_profile_copy(draw: ImageDraw.ImageDraw) -> None:
-    draw_panel(draw, 40, 155, 550, 265, "AYU.OS / IDENTITY", [
-        "AYUSH N SHETTY",
-        "Product Engineer · Bangalore · UTC+5:30",
-        "iOS + blockchain builder shipping real products.",
-        "Exploring MPC/TSS security, AI infrastructure,",
-        "hackathons, product thinking, and design refinement.",
-        "SYSTEM STATUS  //  ONLINE",
-    ], accent=(88, 166, 255, 235))
-    draw_panel(draw, 40, 480, 520, 260, "WHAT I BUILD", [
-        "AI SYSTEMS       local LLMs · agents",
-        "ETHEREUM         governance · EIPs",
-        "PRODUCT          full-stack · DX",
-        "SECURITY         MPC/TSS · privacy",
-        "FOCUS            useful before impressive",
-    ], accent=(88, 166, 255, 235))
-    draw_panel(draw, 640, 480, 520, 340, "SELECTED WORK", [
-        "ETH.ED           Web3 learning platform",
-        "EIPSINSIGHT      governance analytics",
-        "FACIAL KEYGEN    biometric key research",
-        "AIRGESTURE       touchless control",
-        "ETHERWORLD IOS   scalable app architecture",
-        "THIS PORTFOLIO   immersive 3D experience",
-        "AYU.OS           profile as an operating system",
-    ], accent=(210, 153, 34, 235))
-    draw_panel(draw, 40, 800, 520, 330, "TECHNICAL RANGE", [
-        "TypeScript · Python · Solidity · Swift",
-        "Next.js · React · SwiftUI · Three.js",
-        "Docker · Kubernetes · AWS/GCP · PostgreSQL",
-        "Ollama · Playwright · LangGraph · OpenCV",
-        "Ethereum · ENS · Foundry · Hardhat",
-        "Agents · DX · Design systems · WebGL",
-    ], accent=(63, 185, 80, 235))
-    draw_panel(draw, 640, 880, 520, 265, "EXPERIENCE", [
-        "PRODUCT ENGINEER     Avarch · 2023–Present",
-        "PRESIDENT             COPE · 2022–2023",
-        "SOFTWARE INTERN       Avarch · 2021–2022",
-        "Building Web3 + AI platforms and communities.",
-    ], accent=(130, 80, 223, 235))
-    draw_panel(draw, 40, 1200, 520, 340, "CURRENT OBJECTIVES", [
-        "LOCAL AI INFRA v1       65%",
-        "EIPSINSIGHT v2          15%",
-        "AYU.OS OPEN SOURCE      40%",
-        "FACIAL KEYGEN RESEARCH  30%",
-        "Distributed inference, governance intelligence,",
-        "plugin architecture, and post-quantum research.",
-    ], accent=(207, 34, 46, 235))
-    draw_panel(draw, 640, 1210, 520, 300, "TELEMETRY / CONNECT", [
-        "19 PUBLIC REPOSITORIES",
-        "4 STARS  ·  2 FORKS  ·  368 COMMITS",
-        "3 FOLLOWERS",
-        "ayushetty.me",
-        "github.com/AyuShetty",
-        "linkedin.com/in/ayushetty  ·  @AyuShettyEth",
-    ], accent=(88, 166, 255, 235))
+def draw_artifact(draw: ImageDraw.ImageDraw, x: int, y: int, width: int, height: int, number: str, title: str, subtitle: str, accent: tuple[int, int, int, int], index: int, tilt: float = 0.0) -> None:
+    """Frame a project like an exhibition artifact instead of a dashboard card."""
+    shadow = (x + 12, y + 14, x + width + 12, y + height + 14)
+    draw.rounded_rectangle(shadow, radius=8, fill=(1, 4, 7, 150))
+    draw.rounded_rectangle((x, y, x + width, y + height), radius=8, fill=(31, 35, 40, 245), outline=(88, 96, 105, 190), width=2)
+    inset = 18
+    draw.rectangle((x + inset, y + inset, x + width - inset, y + height - 74), fill=(13, 17, 23, 245), outline=(88, 96, 105, 100), width=1)
+    # The artifact image is an abstract interface specimen built from deterministic geometry.
+    for row in range(3):
+        yy = y + inset + 24 + row * 26
+        draw.line((x + inset + 18, yy, x + width - inset - 18, yy), fill=(*accent[:3], 48 + row * 18), width=2)
+    scan = y + inset + 45 + int((index * 11) % max(20, height - 130))
+    draw.line((x + inset + 12, scan, x + width - inset - 12, scan), fill=accent, width=2)
+    for dot in range(4):
+        px = x + inset + 24 + dot * 42
+        py = y + inset + 92 + int(10 * math.sin(index * 0.2 + dot))
+        draw.ellipse((px - 4, py - 4, px + 4, py + 4), fill=(*accent[:3], 180))
+    draw.text((x + 18, y + height - 59), number, font=profile_font(13, True), fill=accent)
+    draw.text((x + 60, y + height - 60), title.upper(), font=profile_font(17, True), fill=(240, 246, 252, 245))
+    draw.text((x + 60, y + height - 36), subtitle, font=profile_font(13), fill=(139, 148, 158, 235))
+
+
+def draw_profile_copy(draw: ImageDraw.ImageDraw, index: int) -> None:
+    """Compose the profile as a curated exhibition wall with real project labels."""
+    draw.text((52, 178), "AYU.OS / INTERFACE EXHIBITION", font=profile_font(25, True), fill=(240, 246, 252, 245))
+    draw.text((52, 216), "A small collection of things I built, researched, and cared enough to finish.", font=profile_font(16), fill=(139, 148, 158, 235))
+    draw.line((52, 250, 1148, 250), fill=(88, 96, 105, 150), width=1)
+    draw.text((52, 276), "ROOM 01  /  SELECTED ARTIFACTS", font=profile_font(13, True), fill=(88, 166, 255, 220))
+    draw_artifact(draw, 52, 310, 510, 270, "01", "ETH.ED", "Web3 learning · AI · ENS", (88, 166, 255, 235), index)
+    draw_artifact(draw, 638, 310, 510, 270, "02", "EIPSINSIGHT", "Ethereum governance · analytics", (210, 153, 34, 235), index + 7)
+    draw_artifact(draw, 52, 640, 510, 270, "03", "LOCAL AI", "Ollama · Docker · Playwright", (63, 185, 80, 235), index + 13)
+    draw_artifact(draw, 638, 640, 510, 270, "04", "FACIAL KEYGEN", "Computer vision · security research", (130, 80, 223, 235), index + 19)
+    draw.text((52, 975), "ROOM 02  /  THE PRACTICE", font=profile_font(13, True), fill=(63, 185, 80, 220))
+    draw.text((52, 1015), "Product engineering", font=profile_font(25, True), fill=(240, 246, 252, 245))
+    draw.text((52, 1052), "AI systems · Ethereum protocols · interfaces · developer experience", font=profile_font(15), fill=(139, 148, 158, 235))
+    draw.line((52, 1090, 1148, 1090), fill=(88, 96, 105, 140), width=1)
+    practice = [
+        ("01", "BUILD", "from idea to shipped product", (88, 166, 255, 220)),
+        ("02", "RESEARCH", "make complex protocols legible", (210, 153, 34, 220)),
+        ("03", "CONNECT", "systems are also people", (63, 185, 80, 220)),
+    ]
+    for row, (num, title, subtitle, color) in enumerate(practice):
+        yy = 1130 + row * 76
+        draw.text((60, yy), num, font=profile_font(14, True), fill=color)
+        draw.text((110, yy), title, font=profile_font(18, True), fill=(240, 246, 252, 245))
+        draw.text((280, yy), subtitle, font=profile_font(15), fill=(139, 148, 158, 235))
+        draw.line((110, yy + 32, 1148, yy + 32), fill=(88, 96, 105, 90), width=1)
+    draw.text((52, 1390), "ROOM 03  /  OPEN ARCHIVE", font=profile_font(13, True), fill=(130, 80, 223, 220))
+    draw.text((52, 1430), "More work, field notes, and links live in the accessible profile below.", font=profile_font(18), fill=(240, 246, 252, 240))
+    draw.text((52, 1470), "GitHub · ayushetty.me · LinkedIn · X · email", font=profile_font(15), fill=(139, 148, 158, 235))
+    draw.line((52, 1510, 1148, 1510), fill=(88, 96, 105, 140), width=1)
 
 
 def gradient_background() -> Image.Image:
@@ -299,7 +295,7 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
 
     # The profile itself is drawn into the canvas so Nova appears to roam
     # around the interface rather than across an empty decorative backdrop.
-    draw_profile_copy(draw)
+    draw_profile_copy(draw, index)
     draw_transmission(draw, index)
     draw_vignette(frame)
 
