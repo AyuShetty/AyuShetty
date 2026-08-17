@@ -18,19 +18,19 @@
       ]
     },
     {
-      "id": "eipsinsight_governance_v2",
-      "title": "EIPSINSIGHT v2 — Real-time Governance Intelligence",
-      "description": "Expand EIPsInsight to cover EOF, Verkle trees, and upcoming protocol upgrades. Add predictive governance signaling and stakeholder influence mapping.",
+      "id": "agenttip_creator_rails",
+      "title": "AGENTTIP — Open Rails for Humans and AI Agents",
+      "description": "Evolve AgentTip into a clearer creator and agent payment layer with reliable x402 verification, USDC settlement, and a simple integration surface.",
       "status": "planned",
       "progress": 15,
       "target_date": "2025-06-01",
-      "related_projects": ["eipsinsight"],
+      "related_projects": ["agenttip"],
       "milestones": [
-        { "title": "EOF (EVM Object Format) static analysis rules", "done": false },
-        { "title": "Verkle tree gas impact simulator", "done": false },
-        { "title": "Stakeholder influence graph (on-chain + off-chain)", "done": false },
-        { "title": "Predictive EIP acceptance probability model", "done": false },
-        { "title": "Real-time Discord/GitHub governance signal ingestion", "done": false }
+        { "title": "One-line creator widget and onboarding flow", "done": false },
+        { "title": "Reliable x402 payment verification", "done": false },
+        { "title": "USDC settlement and creator dashboard", "done": false },
+        { "title": "Agent payment examples and integration docs", "done": false },
+        { "title": "Clear human-first interaction and trust signals", "done": false }
       ]
     },
     {

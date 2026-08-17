@@ -20,7 +20,6 @@
         { "name": "Next.js", "level": "Expert", "years": 4 },
         { "name": "React", "level": "Expert", "years": 5 },
         { "name": "React Native", "level": "Advanced", "years": 3 },
-        { "name": "iOS / SwiftUI", "level": "Advanced", "years": 3 },
         { "name": "Tailwind CSS", "level": "Expert", "years": 4 },
         { "name": "Framer Motion", "level": "Advanced", "years": 3 },
         { "name": "Three.js / 3D Web", "level": "Advanced", "years": 2 },

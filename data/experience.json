@@ -7,9 +7,9 @@
       "start": "2023-01",
       "end": null,
       "current": true,
-      "description": "Leading product engineering for Web3 and AI platforms. Architected EIPSINSIGHT governance analytics platform. Building LOCAL AI INFRASTRUCTURE for distributed local LLM inference. Exploring MPC/TSS cryptography for secure key management.",
+      "description": "Leading product engineering for AI, infrastructure, and product platforms. Building LOCAL AI INFRASTRUCTURE for distributed local LLM inference, AgentTip payment rails, and security-focused systems.",
       "achievements": [
-        "Architected EIPSINSIGHT — Ethereum governance analytics platform tracking EIP lifecycles and governance signals in real-time",
+        "Designed product systems that turn complex technical infrastructure into usable interfaces and workflows",
         "Built LOCAL AI INFRASTRUCTURE — distributed multi-node local LLM orchestration with Playwright browser automation and Open WebUI integration",
         "Developed AI WORKFLOW AUTOMATION — framework integrating local AI models with browser automation for repetitive engineering tasks",
         "Contributed to Ethereum Foundation grant milestones for governance tooling",
@@ -43,12 +43,12 @@
       "start": "2021-06",
       "end": "2022-12",
       "current": false,
-      "description": "Early contributor to EIPSINSIGHT platform. Full-stack development on Ethereum governance tooling. Research on EIP analysis methodologies.",
+      "description": "Early full-stack contributor across developer infrastructure, protocol tooling, and product experiments. Research on distributed systems and secure computation.",
       "achievements": [
-        "Built initial EIPSINSIGHT frontend with React + TypeScript",
-        "Implemented EIP lifecycle tracking with on-chain data ingestion",
+        "Built early product surfaces with React + TypeScript and reusable design-system primitives",
+        "Implemented data ingestion and workflow automation for complex technical systems",
         "Research on Ethereum governance mechanisms and stakeholder analysis",
-        "Contributed to ETH.ED platform architecture (AI-powered Web3 learning)"
+        "Contributed to local-first AI and developer tooling experiments"
       ],
       "technologies": ["React", "TypeScript", "Ethereum", "Solidity", "The Graph", "Node.js", "PostgreSQL"]
     },

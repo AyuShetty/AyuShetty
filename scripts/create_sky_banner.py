@@ -92,13 +92,13 @@ def draw_profile_copy(draw: ImageDraw.ImageDraw, index: int) -> None:
     draw.text((52, 216), "A small collection of things I built, researched, and cared enough to finish.", font=profile_font(16), fill=(139, 148, 158, 235))
     draw.line((52, 250, 1148, 250), fill=(88, 96, 105, 150), width=1)
     draw.text((52, 276), "ROOM 01  /  SELECTED ARTIFACTS", font=profile_font(13, True), fill=(88, 166, 255, 220))
-    draw_artifact(draw, 52, 310, 510, 270, "01", "ETH.ED", "Web3 learning · AI · ENS", (88, 166, 255, 235), index)
-    draw_artifact(draw, 638, 310, 510, 270, "02", "EIPSINSIGHT", "Ethereum governance · analytics", (210, 153, 34, 235), index + 7)
+    draw_artifact(draw, 52, 310, 510, 270, "01", "AYU.OS", "profile systems · design tokens · CI", (88, 166, 255, 235), index)
+    draw_artifact(draw, 638, 310, 510, 270, "02", "AGENTTIP", "x402 · USDC · human + agent payments", (210, 153, 34, 235), index + 7)
     draw_artifact(draw, 52, 640, 510, 270, "03", "LOCAL AI", "Ollama · Docker · Playwright", (63, 185, 80, 235), index + 13)
-    draw_artifact(draw, 638, 640, 510, 270, "04", "FACIAL KEYGEN", "Computer vision · security research", (130, 80, 223, 235), index + 19)
+    draw_artifact(draw, 638, 640, 510, 270, "04", "CLEARVIEW", "calm information systems · product UX", (130, 80, 223, 235), index + 19)
     draw.text((52, 975), "ROOM 02  /  THE PRACTICE", font=profile_font(13, True), fill=(63, 185, 80, 220))
-    draw.text((52, 1015), "Product engineering", font=profile_font(25, True), fill=(240, 246, 252, 245))
-    draw.text((52, 1052), "AI systems · Ethereum protocols · interfaces · developer experience", font=profile_font(15), fill=(139, 148, 158, 235))
+    draw.text((52, 1015), "Systems with a human edge", font=profile_font(25, True), fill=(240, 246, 252, 245))
+    draw.text((52, 1052), "local intelligence · interfaces · security · open protocols · community", font=profile_font(15), fill=(139, 148, 158, 235))
     draw.line((52, 1090, 1148, 1090), fill=(88, 96, 105, 140), width=1)
     practice = [
         ("01", "BUILD", "from idea to shipped product", (88, 166, 255, 220)),
@@ -112,7 +112,7 @@ def draw_profile_copy(draw: ImageDraw.ImageDraw, index: int) -> None:
         draw.text((280, yy), subtitle, font=profile_font(15), fill=(139, 148, 158, 235))
         draw.line((110, yy + 32, 1148, yy + 32), fill=(88, 96, 105, 90), width=1)
     draw.text((52, 1390), "ROOM 03  /  OPEN ARCHIVE", font=profile_font(13, True), fill=(130, 80, 223, 220))
-    draw.text((52, 1430), "More work, field notes, and links live in the accessible profile below.", font=profile_font(18), fill=(240, 246, 252, 240))
+    draw.text((52, 1430), "Ajaia Docs · Facial KeyGen · AirGesture · portfolio · field notes.", font=profile_font(17), fill=(240, 246, 252, 240))
     draw.text((52, 1470), "GitHub · ayushetty.me · LinkedIn · X · email", font=profile_font(15), fill=(139, 148, 158, 235))
     draw.line((52, 1510, 1148, 1510), fill=(88, 96, 105, 140), width=1)
 

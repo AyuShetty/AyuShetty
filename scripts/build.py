@@ -94,7 +94,8 @@ def project_rows(projects: dict) -> list[str]:
             links.append(f"[Demo]({demo})")
         stack = " · ".join(f"`{item}`" for item in project.get("tech_stack", [])[:6])
         description = project.get("description", "").replace("|", "\\|")
-        rows.append(f"| **[{title}]({repo})** | {description} | {stack} | {' · '.join(links)} |")
+        title_cell = f"[{title}]({repo})" if repo else title
+        rows.append(f"| **{title_cell}** | {description} | {stack} | {' · '.join(links)} |")
     return rows
 
 
