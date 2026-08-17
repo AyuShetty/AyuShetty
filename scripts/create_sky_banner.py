@@ -8,12 +8,13 @@ from __future__ import annotations
 import math
 import random
 from pathlib import Path
+from collections import deque
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSET_DIR = ROOT / "assets" / "profile"
-SOURCE = ASSET_DIR / "cat-mascot-clean.png"
+SOURCE = ASSET_DIR / "nova-real-clean.png"
 OUTPUT_GIF = ASSET_DIR / "sky-cat.gif"
 OUTPUT_STILL = ASSET_DIR / "sky-cat-still.png"
 
@@ -22,111 +23,87 @@ FRAME_COUNT = 120
 
 
 def remove_checkerboard(image: Image.Image) -> Image.Image:
-    """Remove the neutral light checkerboard from the generated mascot fallback."""
+    """Remove border-connected neutral checkerboard pixels without erasing fur."""
     image = image.convert("RGBA")
     pixels = image.load()
-    for y in range(image.height):
-        for x in range(image.width):
-            r, g, b, a = pixels[x, y]
-            neutral = max(r, g, b) - min(r, g, b) <= 8
-            if neutral and min(r, g, b) >= 205:
-                pixels[x, y] = (r, g, b, 0)
+    width, height = image.size
+
+    def is_background(x: int, y: int) -> bool:
+        r, g, b, a = pixels[x, y]
+        return a > 0 and max(r, g, b) - min(r, g, b) <= 10 and min(r, g, b) >= 210
+
+    queue: deque[tuple[int, int]] = deque()
+    seen: set[tuple[int, int]] = set()
+    for x in range(width):
+        for y in (0, height - 1):
+            if is_background(x, y):
+                queue.append((x, y))
+                seen.add((x, y))
+    for y in range(height):
+        for x in (0, width - 1):
+            if is_background(x, y):
+                queue.append((x, y))
+                seen.add((x, y))
+
+    while queue:
+        x, y = queue.popleft()
+        pixels[x, y] = (0, 0, 0, 0)
+        for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+            if 0 <= nx < width and 0 <= ny < height and (nx, ny) not in seen and is_background(nx, ny):
+                seen.add((nx, ny))
+                queue.append((nx, ny))
+
     bbox = image.getchannel("A").getbbox()
-    if bbox:
-        image = image.crop(bbox)
-    return image
+    return image.crop(bbox) if bbox else image
 
 
-PIXEL = 2
-PIXEL_PALETTE = {
-    "outline": (13, 17, 23, 255),
-    "fur": (240, 198, 98, 255),
-    "fur_light": (255, 231, 150, 255),
-    "fur_shadow": (139, 96, 30, 255),
-    "cream": (240, 246, 252, 255),
-    "pink": (255, 126, 146, 255),
-    "blue": (88, 166, 255, 255),
-    "green": (63, 185, 80, 255),
+REAL_CAT_FILES = {
+    "base": ASSET_DIR / "nova-real-clean.png",
+    "walk": ASSET_DIR / "nova-real-walk.png",
+    "lick": ASSET_DIR / "nova-real-lick.png",
+    "sleep": ASSET_DIR / "nova-real-sleep.png",
+    "stretch": ASSET_DIR / "nova-real-stretch.png",
+    "acro_sleep": ASSET_DIR / "nova-real-acro.png",
 }
 
 
-def pixel_cat(state: str, phase: int = 0) -> Image.Image:
-    """Draw Nova as a crisp 32px pixel-art character with state-specific poses."""
-    canvas = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
-    d = ImageDraw.Draw(canvas, "RGBA")
-    c = PIXEL_PALETTE
-    def r(x0, y0, x1, y1, color):
-        d.rectangle((x0, y0, x1, y1), fill=color)
-    def p(x, y, color):
-        r(x, y, x, y, color)
+def prepare_real_cat(path: Path, size: int = 220) -> Image.Image:
+    """Normalize a generated pose into a transparent, stable-size natural cat layer."""
+    image = Image.open(path).convert("RGBA")
+    alpha = image.getchannel("A")
+    if alpha.getbbox() is None or alpha.getextrema()[0] > 0:
+        image = remove_checkerboard(image)
+    image.thumbnail((size, size), Image.Resampling.LANCZOS)
+    layer = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    x = (size - image.width) // 2
+    y = (size - image.height) // 2
+    layer.alpha_composite(image, (x, y))
+    return layer
 
-    # Ground shadow and tiny status pixel give the sprite a relationship with the floor.
-    if state not in {"sleep", "acro_sleep"}:
-        r(6, 27, 25, 29, (1, 4, 7, 115))
-        p(26, 27, c["green"])
 
-    if state == "sleep":
-        # Curled crescent: face tucked into tail, paws folded, eyes closed.
-        r(7, 15, 24, 25, c["fur_shadow"])
-        r(9, 12, 23, 23, c["fur"])
-        r(12, 14, 22, 22, c["cream"])
-        r(9, 9, 20, 17, c["fur"])
-        r(10, 7, 13, 10, c["fur"]); r(17, 7, 20, 10, c["fur"])
-        r(11, 9, 18, 14, c["cream"])
-        r(13, 12, 14, 12, c["outline"]); r(17, 12, 18, 12, c["outline"])
-        r(14, 14, 17, 14, c["pink"])
-        for i in range(phase % 3):
-            p(25 + i, 8 - i * 3, c["blue"])
-        r(5, 21, 9, 24, c["fur"]); r(3, 23, 8, 25, c["fur"])
-    elif state == "acro_sleep":
-        # Upside-down acrobatic nap: paws in the air and tail forming a loop.
-        r(8, 15, 23, 23, c["fur_shadow"])
-        r(10, 12, 22, 21, c["fur"])
-        r(12, 14, 20, 20, c["cream"])
-        r(10, 20, 13, 25, c["fur_light"]); r(19, 20, 22, 25, c["fur_light"])
-        r(12, 8, 20, 15, c["fur"])
-        r(11, 6, 14, 10, c["fur"]); r(18, 6, 21, 10, c["fur"])
-        r(13, 9, 19, 13, c["cream"])
-        r(14, 11, 15, 11, c["outline"]); r(17, 11, 18, 11, c["outline"])
-        r(15, 13, 17, 13, c["pink"])
-        r(4, 10, 8, 13, c["fur"]); r(2, 8, 6, 10, c["fur"]); r(2, 6, 3, 8, c["fur_light"])
-        r(23, 8, 27, 11, c["fur"]); r(26, 10, 29, 13, c["fur"])
-        p(27, 6, c["blue"]); p(28, 4, c["blue"])
+def make_cat_poses() -> dict[str, Image.Image]:
+    missing = [str(path) for path in REAL_CAT_FILES.values() if not path.exists()]
+    if missing:
+        raise SystemExit(f"Real cat pose assets missing: {', '.join(missing)}")
+    return {name: prepare_real_cat(path) for name, path in REAL_CAT_FILES.items()}
+
+
+def real_cat(poses: dict[str, Image.Image], state: str, phase: int = 0) -> Image.Image:
+    """Return a softly breathing natural cat pose, with a blended walk stride."""
+    if state == "walk":
+        stride = 0.5 + 0.5 * math.sin(phase * 0.42)
+        image = Image.blend(poses["base"], poses["walk"], stride)
+    elif state == "wake":
+        image = Image.blend(poses["sleep"], poses["base"], min(1.0, phase / 9.0))
+    elif state == "greet":
+        image = Image.blend(poses["base"], poses["stretch"], 0.32 + 0.08 * math.sin(phase * 0.25))
     else:
-        # Upright base pose with expressive, state-driven limbs.
-        walking = state == "walk"
-        licking = state == "lick"
-        greeting = state in {"greet", "wake"}
-        r(9, 15, 22, 25, c["fur_shadow"])
-        r(10, 13, 22, 23, c["fur"])
-        r(12, 15, 20, 21, c["cream"])
-        r(7, 7, 21, 17, c["fur"])
-        r(9, 5, 13, 9, c["fur"]); r(17, 5, 21, 9, c["fur"])
-        r(10, 8, 19, 14, c["cream"])
-        p(12, 10, c["outline"]); p(17, 10, c["outline"])
-        r(14, 12, 16, 12, c["pink"])
-        r(15, 13, 16, 14, c["pink"] if licking else c["outline"])
-        # Tail waves differently while walking, resting, or waking.
-        tail_y = 18 + int(2 * math.sin(phase * 0.9)) if walking else 20
-        r(4, tail_y, 9, tail_y + 3, c["fur"]); r(2, tail_y - 2, 5, tail_y + 1, c["fur"])
-        p(1, tail_y - 3, c["fur_light"])
-        if licking:
-            r(20, 15, 23, 19, c["fur_light"]); r(21, 13, 22, 16, c["fur"])
-            r(16, 14, 17, 16, c["pink"])
-        elif greeting:
-            r(20, 11, 23, 16, c["fur_light"]); r(22, 9, 24, 12, c["fur"]); p(24, 8, c["cream"])
-        else:
-            leg_a = 24 + (phase % 2)
-            leg_b = 24 + ((phase + 1) % 2)
-            r(11, leg_a, 14, 28, c["cream"]); r(18, leg_b, 21, 28, c["cream"])
-            r(10, 28, 14, 29, c["outline"]); r(18, 28, 22, 29, c["outline"])
-        if state == "wake":
-            p(23, 4, c["blue"]); p(25, 3, c["blue"])
-    return canvas.resize((32 * PIXEL, 32 * PIXEL), Image.Resampling.NEAREST)
-
-
-def make_cat() -> Image.Image:
-    return pixel_cat("walk", 0)
+        image = poses.get(state, poses["base"]).copy()
+    breathing = 1.0 + (0.012 * math.sin(phase * 0.18) if state in {"sleep", "acro_sleep", "greet"} else 0.004 * math.sin(phase * 0.2))
+    scaled = image.resize((int(image.width * breathing), int(image.height * breathing)), Image.Resampling.BICUBIC)
+    layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
+    layer.alpha_composite(scaled, ((image.width - scaled.width) // 2, (image.height - scaled.height) // 2))
+    return layer
 
 
 def profile_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
@@ -364,7 +341,7 @@ def draw_cloud(draw: ImageDraw.ImageDraw, x: int, y: int, scale: float, alpha: i
 BASE_BACKGROUND: Image.Image | None = None
 
 
-def draw_frame(index: int, cat: Image.Image) -> Image.Image:
+def draw_frame(index: int, poses: dict[str, Image.Image]) -> Image.Image:
     global BASE_BACKGROUND
     if BASE_BACKGROUND is None:
         BASE_BACKGROUND = gradient_background().convert("RGBA")
@@ -447,13 +424,9 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     else:
         x, y = route[from_idx]
     phase = index - start
-    sprite = pixel_cat(state, phase)
-    if state == "acro_sleep":
-        sprite = sprite.rotate(-5 + int(10 * math.sin(phase * 0.35)), resample=Image.Resampling.BICUBIC, expand=True)
-    elif state == "sleep":
-        sprite = sprite.rotate(int(3 * math.sin(phase * 0.28)), resample=Image.Resampling.BICUBIC, expand=True)
-    elif state in {"walk", "wake", "greet"}:
-        sprite = sprite.rotate(int(1.5 * math.sin(phase * 0.22)), resample=Image.Resampling.BICUBIC, expand=True)
+    sprite = real_cat(poses, state, phase)
+    if state in {"walk", "wake", "greet"}:
+        sprite = sprite.rotate(int(1.2 * math.sin(phase * 0.16)), resample=Image.Resampling.BICUBIC, expand=True)
     frame.alpha_composite(sprite, (x, y))
 
     greeting_text = "hi — welcome to my orbit" if state == "greet" else None
@@ -481,10 +454,8 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
 
 
 def main() -> None:
-    if not SOURCE.exists():
-        raise SystemExit(f"Mascot source missing: {SOURCE}")
-    cat = make_cat()
-    frames = [draw_frame(index, cat) for index in range(FRAME_COUNT)]
+    poses = make_cat_poses()
+    frames = [draw_frame(index, poses) for index in range(FRAME_COUNT)]
     frames[0].save(OUTPUT_GIF, save_all=True, append_images=frames[1:], duration=130, loop=0, optimize=True, disposal=2)
     frames[FRAME_COUNT // 2].save(OUTPUT_STILL, format="PNG", optimize=True)
     print(f"Generated {OUTPUT_GIF}")
