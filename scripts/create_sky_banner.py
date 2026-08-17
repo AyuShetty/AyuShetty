@@ -131,46 +131,66 @@ def gradient_background() -> Image.Image:
 
 
 def draw_nebula(frame: Image.Image, index: int, layer: int) -> None:
-    """Paint a soft, slowly shifting nebula layer for atmospheric depth."""
+    """Paint layered volumetric nebula ribbons with shifting highlights and dust pockets."""
     haze = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
     haze_draw = ImageDraw.Draw(haze, "RGBA")
-    centers = [(260, 560), (920, 1040), (330, 1440)]
+    centers = [(250, 560), (920, 1040), (340, 1430)]
     cx, cy = centers[layer % len(centers)]
-    drift = int(22 * math.sin(index / FRAME_COUNT * math.pi * 2 + layer))
-    for radius, alpha in [(310, 8), (230, 11), (150, 16)]:
-        haze_draw.ellipse((cx + drift - radius, cy - radius, cx + drift + radius, cy + radius), fill=(47, 67, 89, alpha))
-    haze = haze.filter(ImageFilter.GaussianBlur(36))
+    drift = int(32 * math.sin(index / FRAME_COUNT * math.pi * 2 + layer * 0.8))
+    palette = [(44, 66, 92), (72, 54, 110), (38, 83, 86)]
+    color = palette[layer % len(palette)]
+    for radius, alpha in [(360, 5), (290, 8), (225, 12), (160, 17), (105, 22)]:
+        wobble = int(18 * math.sin(index * 0.08 + radius))
+        haze_draw.ellipse((cx + drift - radius, cy + wobble - radius // 2, cx + drift + radius, cy + wobble + radius // 2), fill=(*color, alpha))
+    for dust in range(14):
+        px = cx + drift + int(math.sin(dust * 2.1 + index * 0.04) * (100 + dust * 11))
+        py = cy + int(math.cos(dust * 1.7 + index * 0.03) * (70 + dust * 8))
+        haze_draw.ellipse((px - 3, py - 3, px + 3, py + 3), fill=(139, 148, 158, 35))
+    haze = haze.filter(ImageFilter.GaussianBlur(42 if layer == 0 else 30))
     frame.alpha_composite(haze)
 
 
 def draw_deep_stars(draw: ImageDraw.ImageDraw, index: int) -> None:
-    """Use several parallax star fields instead of one flat random field."""
-    for layer, count in [(0, 42), (1, 30), (2, 18)]:
+    """Use parallax star fields plus tiny dust grains and occasional star flares."""
+    for layer, count in [(0, 150), (1, 78), (2, 34)]:
         random.seed(100 + layer)
         drift = int((index * (layer + 1) * 2.3) % WIDTH)
-        for _ in range(count):
+        for star in range(count):
             x = (random.randint(0, WIDTH - 1) + drift) % WIDTH
-            y = random.randint(20, 1450)
-            r = random.choice([1, 1, 1, 2]) if layer < 2 else 2
-            twinkle = int(130 + 100 * (0.5 + 0.5 * math.sin(index * 0.55 + x)))
-            draw.ellipse((x - r, y - r, x + r, y + r), fill=(201, 209, 217, twinkle))
+            y = random.randint(20, 1500)
+            r = random.choice([1, 1, 1, 1, 2]) if layer < 2 else random.choice([1, 2, 2, 3])
+            twinkle = int(85 + 150 * (0.5 + 0.5 * math.sin(index * (0.25 + layer * 0.12) + x * 0.07)))
+            tint = random.choice([(201, 209, 217), (139, 148, 158), (88, 166, 255), (240, 198, 98)])
+            draw.ellipse((x - r, y - r, x + r, y + r), fill=(*tint, twinkle))
+            if layer == 2 and star % 9 == 0:
+                draw.line((x - r * 4, y, x + r * 4, y), fill=(*tint, max(30, twinkle // 3)), width=1)
+                draw.line((x, y - r * 4, x, y + r * 4), fill=(*tint, max(30, twinkle // 3)), width=1)
 
 
 def draw_solar_system(draw: ImageDraw.ImageDraw, index: int) -> None:
-    """Render a small orbital system with stable geometry and gentle motion."""
+    """Render a dimensional miniature system with glow, shaded worlds, bands, and orbit depth."""
     cx, cy = 815, 285
     for radius in (68, 108, 148):
-        draw.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), outline=(88, 96, 105, 88), width=2)
-    draw.ellipse((cx - 32, cy - 32, cx + 32, cy + 32), fill=(210, 153, 34, 245), outline=(240, 198, 98, 220), width=3)
-    draw.ellipse((cx - 20, cy - 20, cx + 20, cy + 20), fill=(240, 198, 98, 220))
-    planets = [(68, 7, (88, 166, 255, 240), 1.0), (108, 10, (130, 80, 223, 240), -0.7), (148, 14, (63, 185, 80, 240), 0.45)]
+        draw.ellipse((cx - radius, cy - int(radius * 0.58), cx + radius, cy + int(radius * 0.58)), outline=(88, 96, 105, 70), width=2)
+        draw.arc((cx - radius, cy - int(radius * 0.58), cx + radius, cy + int(radius * 0.58)), 192, 350, fill=(139, 148, 158, 75), width=2)
+    for glow_r, glow_a in [(65, 8), (53, 12), (43, 18)]:
+        draw.ellipse((cx - glow_r, cy - glow_r, cx + glow_r, cy + glow_r), fill=(210, 153, 34, glow_a))
+    draw.ellipse((cx - 31, cy - 31, cx + 31, cy + 31), fill=(139, 96, 30, 245), outline=(240, 198, 98, 230), width=3)
+    draw.ellipse((cx - 22, cy - 25, cx + 16, cy + 13), fill=(240, 198, 98, 220))
+    draw.ellipse((cx - 8, cy - 16, cx + 16, cy - 3), fill=(255, 231, 150, 150))
+    planets = [(68, 8, (88, 166, 255), 1.0), (108, 11, (130, 80, 223), -0.7), (148, 15, (63, 185, 80), 0.45)]
     for radius, size, color, speed in planets:
         angle = index / FRAME_COUNT * math.pi * 2 * speed + radius / 90
         px = int(cx + math.cos(angle) * radius)
         py = int(cy + math.sin(angle) * radius * 0.58)
-        draw.ellipse((px - size, py - size, px + size, py + size), fill=color)
+        for glow in (size + 8, size + 4):
+            draw.ellipse((px - glow, py - glow, px + glow, py + glow), fill=(*color, 15 if glow > size + 4 else 28))
+        draw.ellipse((px - size, py - size, px + size, py + size), fill=(*color, 240), outline=(240, 246, 252, 125), width=1)
+        draw.ellipse((px - size // 2, py - size + 2, px + size // 2, py - 1), fill=(240, 246, 252, 55))
+        draw.arc((px - size, py - size, px + size, py + size), 200, 330, fill=(1, 4, 7, 125), width=2)
         if radius == 108:
-            draw.ellipse((px - size - 8, py - 3, px + size + 8, py + 3), outline=(130, 80, 223, 160), width=2)
+            draw.ellipse((px - size - 12, py - 4, px + size + 12, py + 4), outline=(210, 153, 34, 180), width=2)
+            draw.line((px - size - 8, py, px + size + 8, py), fill=(240, 198, 98, 120), width=1)
     draw.text((690, 475), "AYU.OS / ORBITAL INDEX", font=profile_font(15, True), fill=(139, 148, 158, 220))
 
 
@@ -240,13 +260,17 @@ def draw_transmission(draw: ImageDraw.ImageDraw, index: int) -> None:
 
 
 def draw_cloud(draw: ImageDraw.ImageDraw, x: int, y: int, scale: float, alpha: int = 170) -> None:
-    fill = (88, 96, 105, alpha)
-    cloud = Image.new("RGBA", (260, 120), (0, 0, 0, 0))
-    cloud_draw = ImageDraw.Draw(cloud)
-    cloud_draw.ellipse((12, 45, 120, 108), fill=fill)
-    cloud_draw.ellipse((70, 18, 180, 108), fill=fill)
-    cloud_draw.ellipse((140, 42, 248, 108), fill=fill)
-    cloud_draw.rounded_rectangle((34, 58, 222, 108), radius=26, fill=fill)
+    """Build multi-layer moonlit cloud banks with silver linings and transparent depth."""
+    cloud = Image.new("RGBA", (300, 145), (0, 0, 0, 0))
+    cloud_draw = ImageDraw.Draw(cloud, "RGBA")
+    cloud_draw.ellipse((8, 58, 132, 132), fill=(31, 35, 40, alpha))
+    cloud_draw.ellipse((74, 22, 194, 132), fill=(47, 54, 64, min(220, alpha + 18)))
+    cloud_draw.ellipse((154, 48, 288, 132), fill=(31, 35, 40, alpha))
+    cloud_draw.rounded_rectangle((38, 72, 260, 132), radius=30, fill=(47, 54, 64, min(215, alpha + 10)))
+    cloud_draw.arc((74, 22, 194, 132), 194, 310, fill=(139, 148, 158, min(170, alpha)), width=3)
+    cloud_draw.arc((154, 48, 288, 132), 200, 325, fill=(88, 166, 255, min(130, alpha // 2)), width=2)
+    cloud_draw.ellipse((50, 93, 225, 136), fill=(13, 17, 23, max(20, alpha // 2)))
+    cloud = cloud.filter(ImageFilter.GaussianBlur(1.2))
     cloud = cloud.resize((int(cloud.width * scale), int(cloud.height * scale)), Image.Resampling.LANCZOS)
     draw._image.alpha_composite(cloud, (x, y))
 
