@@ -37,10 +37,96 @@ def remove_checkerboard(image: Image.Image) -> Image.Image:
     return image
 
 
+PIXEL = 4
+PIXEL_PALETTE = {
+    "outline": (13, 17, 23, 255),
+    "fur": (240, 198, 98, 255),
+    "fur_light": (255, 231, 150, 255),
+    "fur_shadow": (139, 96, 30, 255),
+    "cream": (240, 246, 252, 255),
+    "pink": (255, 126, 146, 255),
+    "blue": (88, 166, 255, 255),
+    "green": (63, 185, 80, 255),
+}
+
+
+def pixel_cat(state: str, phase: int = 0) -> Image.Image:
+    """Draw Nova as a crisp 32px pixel-art character with state-specific poses."""
+    canvas = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
+    d = ImageDraw.Draw(canvas, "RGBA")
+    c = PIXEL_PALETTE
+    def r(x0, y0, x1, y1, color):
+        d.rectangle((x0, y0, x1, y1), fill=color)
+    def p(x, y, color):
+        r(x, y, x, y, color)
+
+    # Ground shadow and tiny status pixel give the sprite a relationship with the floor.
+    if state not in {"sleep", "acro_sleep"}:
+        r(6, 27, 25, 29, (1, 4, 7, 115))
+        p(26, 27, c["green"])
+
+    if state == "sleep":
+        # Curled crescent: face tucked into tail, paws folded, eyes closed.
+        r(7, 15, 24, 25, c["fur_shadow"])
+        r(9, 12, 23, 23, c["fur"])
+        r(12, 14, 22, 22, c["cream"])
+        r(9, 9, 20, 17, c["fur"])
+        r(10, 7, 13, 10, c["fur"]); r(17, 7, 20, 10, c["fur"])
+        r(11, 9, 18, 14, c["cream"])
+        r(13, 12, 14, 12, c["outline"]); r(17, 12, 18, 12, c["outline"])
+        r(14, 14, 17, 14, c["pink"])
+        for i in range(phase % 3):
+            p(25 + i, 8 - i * 3, c["blue"])
+        r(5, 21, 9, 24, c["fur"]); r(3, 23, 8, 25, c["fur"])
+    elif state == "acro_sleep":
+        # Upside-down acrobatic nap: paws in the air and tail forming a loop.
+        r(8, 15, 23, 23, c["fur_shadow"])
+        r(10, 12, 22, 21, c["fur"])
+        r(12, 14, 20, 20, c["cream"])
+        r(10, 20, 13, 25, c["fur_light"]); r(19, 20, 22, 25, c["fur_light"])
+        r(12, 8, 20, 15, c["fur"])
+        r(11, 6, 14, 10, c["fur"]); r(18, 6, 21, 10, c["fur"])
+        r(13, 9, 19, 13, c["cream"])
+        r(14, 11, 15, 11, c["outline"]); r(17, 11, 18, 11, c["outline"])
+        r(15, 13, 17, 13, c["pink"])
+        r(4, 10, 8, 13, c["fur"]); r(2, 8, 6, 10, c["fur"]); r(2, 6, 3, 8, c["fur_light"])
+        r(23, 8, 27, 11, c["fur"]); r(26, 10, 29, 13, c["fur"])
+        p(27, 6, c["blue"]); p(28, 4, c["blue"])
+    else:
+        # Upright base pose with expressive, state-driven limbs.
+        walking = state == "walk"
+        licking = state == "lick"
+        greeting = state in {"greet", "wake"}
+        r(9, 15, 22, 25, c["fur_shadow"])
+        r(10, 13, 22, 23, c["fur"])
+        r(12, 15, 20, 21, c["cream"])
+        r(7, 7, 21, 17, c["fur"])
+        r(9, 5, 13, 9, c["fur"]); r(17, 5, 21, 9, c["fur"])
+        r(10, 8, 19, 14, c["cream"])
+        p(12, 10, c["outline"]); p(17, 10, c["outline"])
+        r(14, 12, 16, 12, c["pink"])
+        r(15, 13, 16, 14, c["pink"] if licking else c["outline"])
+        # Tail waves differently while walking, resting, or waking.
+        tail_y = 18 + int(2 * math.sin(phase * 0.9)) if walking else 20
+        r(4, tail_y, 9, tail_y + 3, c["fur"]); r(2, tail_y - 2, 5, tail_y + 1, c["fur"])
+        p(1, tail_y - 3, c["fur_light"])
+        if licking:
+            r(20, 15, 23, 19, c["fur_light"]); r(21, 13, 22, 16, c["fur"])
+            r(16, 14, 17, 16, c["pink"])
+        elif greeting:
+            r(20, 11, 23, 16, c["fur_light"]); r(22, 9, 24, 12, c["fur"]); p(24, 8, c["cream"])
+        else:
+            leg_a = 24 + (phase % 2)
+            leg_b = 24 + ((phase + 1) % 2)
+            r(11, leg_a, 14, 28, c["cream"]); r(18, leg_b, 21, 28, c["cream"])
+            r(10, 28, 14, 29, c["outline"]); r(18, 28, 22, 29, c["outline"])
+        if state == "wake":
+            p(23, 4, c["blue"]); p(25, 3, c["blue"])
+    return canvas.resize((32 * PIXEL, 32 * PIXEL), Image.Resampling.NEAREST)
+
+
 def make_cat() -> Image.Image:
-    mascot = remove_checkerboard(Image.open(SOURCE))
-    mascot.thumbnail((210, 210), Image.Resampling.LANCZOS)
-    return mascot
+    return pixel_cat("walk", 0)
 
 
 def profile_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
@@ -323,41 +409,53 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     draw_transmission(draw, index)
     draw_vignette(frame)
 
-    # Nova follows a planned multi-stop route.
-    # Each stop has a short hold, a
-    # gentle settling motion, and a greeting bubble so the mascot behaves like a
-    # host rather than a sticker sliding on a rail.
+    # Nova performs a small pixel-art loop instead of sliding like a sticker.
     route = [(120, 170), (740, 455), (410, 760), (820, 1110), (220, 1390)]
-    greeting_windows = {range(6, 12): "hi — welcome to my orbit", range(22, 29): "thanks for stopping by", range(38, 46): "let's build something real"}
-    active_greeting = next((text for window, text in greeting_windows.items() if index in window), None)
-    # Reserve real time for each stop: travel occupies the gaps, greetings occupy
-    # several frames, and the mascot settles with a small breathing motion.
-    stop_centers = {8: route[1], 24: route[3], 40: route[4]}
-    if active_greeting:
-        nearest = min(stop_centers, key=lambda stop: abs(stop - index))
-        x, y = stop_centers[nearest]
+    if index < 8:
+        state, phase, route_index = "walk", index, 0
+    elif index < 12:
+        state, phase, route_index = "lick", index - 8, 1
+    elif index < 18:
+        state, phase, route_index = "walk", index - 12, 1
+    elif index < 24:
+        state, phase, route_index = "sleep", index - 18, 2
+    elif index < 29:
+        state, phase, route_index = "acro_sleep", index - 24, 2
+    elif index < 34:
+        state, phase, route_index = "wake", index - 29, 2
+    elif index < 40:
+        state, phase, route_index = "greet", index - 34, 3
     else:
-        segment = index / (FRAME_COUNT - 1) * (len(route) - 1)
-        stop_index = min(len(route) - 1, int(segment))
-        local = segment - stop_index
-        easing = local * local * (3 - 2 * local)
-        x0, y0 = route[stop_index]
-        x1, y1 = route[min(stop_index + 1, len(route) - 1)]
-        x = int(x0 + (x1 - x0) * easing + 10 * math.sin(index * 0.35))
-        y = int(y0 + (y1 - y0) * easing + 8 * math.sin(index * 0.5))
-    bob = 2.5 * math.sin(index * 0.42) if not active_greeting else 0.8 * math.sin(index * 0.5)
-    bobbed = cat.rotate(bob, resample=Image.Resampling.BICUBIC, expand=True)
-    frame.alpha_composite(bobbed, (x, y))
+        state, phase, route_index = "walk", index - 40, 4
+    x0, y0 = route[route_index]
+    if state == "walk":
+        next_point = route[min(route_index + 1, len(route) - 1)]
+        travel = phase / max(1, 8 if route_index == 0 else 7)
+        easing = min(1.0, travel) ** 2 * (3 - 2 * min(1.0, travel))
+        x = int(x0 + (next_point[0] - x0) * easing)
+        y = int(y0 + (next_point[1] - y0) * easing)
+    else:
+        x, y = x0, y0
+    sprite = pixel_cat(state, phase)
+    if state == "acro_sleep":
+        sprite = sprite.rotate(-8 + int(12 * math.sin(phase * 0.8)), resample=Image.Resampling.NEAREST, expand=True)
+    elif state == "sleep":
+        sprite = sprite.rotate(int(4 * math.sin(phase * 0.7)), resample=Image.Resampling.NEAREST, expand=True)
+    frame.alpha_composite(sprite, (x, y))
 
-    if active_greeting:
+    greeting_text = "hi — welcome to my orbit" if state == "greet" else None
+    if greeting_text:
         draw = ImageDraw.Draw(frame, "RGBA")
-        draw.ellipse((x - 20, y - 20, x + 205, y + 205), outline=(88, 166, 255, 90), width=3)
-        draw.ellipse((x - 32, y - 32, x + 217, y + 217), outline=(63, 185, 80, 40), width=2)
+        pulse = 80 + int(35 * (0.5 + 0.5 * math.sin(phase * 0.8)))
+        draw.ellipse((x - 20, y - 20, x + 145, y + 145), outline=(88, 166, 255, pulse), width=3)
         bubble_x = min(WIDTH - 390, max(25, x - 25))
         bubble_y = max(70, y - 78)
         draw.rounded_rectangle((bubble_x, bubble_y, bubble_x + 350, bubble_y + 52), radius=18, fill=(31, 35, 40, 240), outline=(88, 166, 255, 210), width=2)
         draw.polygon([(bubble_x + 44, bubble_y + 52), (bubble_x + 60, bubble_y + 52), (bubble_x + 52, bubble_y + 66)], fill=(31, 35, 40, 240))
-        draw.text((bubble_x + 18, bubble_y + 17), active_greeting, font=profile_font(17, True), fill=(240, 246, 252, 245))
+        draw.text((bubble_x + 18, bubble_y + 17), greeting_text, font=profile_font(17, True), fill=(240, 246, 252, 245))
+    elif state == "sleep":
+        draw = ImageDraw.Draw(frame, "RGBA")
+        draw.text((x + 95, y - 24), "z", font=profile_font(17, True), fill=(139, 148, 158, 190))
 
     # A tiny motion trail and status labels keep the scene tied to AYU.OS.
     draw = ImageDraw.Draw(frame, "RGBA")
