@@ -18,7 +18,7 @@ OUTPUT_GIF = ASSET_DIR / "sky-cat.gif"
 OUTPUT_STILL = ASSET_DIR / "sky-cat-still.png"
 
 WIDTH, HEIGHT = 1200, 1800
-FRAME_COUNT = 48
+FRAME_COUNT = 120
 
 
 def remove_checkerboard(image: Image.Image) -> Image.Image:
@@ -37,7 +37,7 @@ def remove_checkerboard(image: Image.Image) -> Image.Image:
     return image
 
 
-PIXEL = 4
+PIXEL = 2
 PIXEL_PALETTE = {
     "outline": (13, 17, 23, 255),
     "fur": (240, 198, 98, 255),
@@ -361,8 +361,14 @@ def draw_cloud(draw: ImageDraw.ImageDraw, x: int, y: int, scale: float, alpha: i
     draw._image.alpha_composite(cloud, (x, y))
 
 
+BASE_BACKGROUND: Image.Image | None = None
+
+
 def draw_frame(index: int, cat: Image.Image) -> Image.Image:
-    frame = gradient_background().convert("RGBA")
+    global BASE_BACKGROUND
+    if BASE_BACKGROUND is None:
+        BASE_BACKGROUND = gradient_background().convert("RGBA")
+    frame = BASE_BACKGROUND.copy()
     draw = ImageDraw.Draw(frame, "RGBA")
 
     # Layered atmospheric depth: nebulae, deep stars, and the orbital system.
@@ -409,44 +415,51 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     draw_transmission(draw, index)
     draw_vignette(frame)
 
-    # Nova performs a small pixel-art loop instead of sliding like a sticker.
+    # Nova follows a closed, slow choreography. The first and final positions match,
+    # so the GIF loops without a teleport at the seam.
     route = [(120, 170), (740, 455), (410, 760), (820, 1110), (220, 1390)]
-    if index < 8:
-        state, phase, route_index = "walk", index, 0
-    elif index < 12:
-        state, phase, route_index = "lick", index - 8, 1
-    elif index < 18:
-        state, phase, route_index = "walk", index - 12, 1
-    elif index < 24:
-        state, phase, route_index = "sleep", index - 18, 2
-    elif index < 29:
-        state, phase, route_index = "acro_sleep", index - 24, 2
-    elif index < 34:
-        state, phase, route_index = "wake", index - 29, 2
-    elif index < 40:
-        state, phase, route_index = "greet", index - 34, 3
-    else:
-        state, phase, route_index = "walk", index - 40, 4
-    x0, y0 = route[route_index]
+    segments = [
+        (0, 16, "walk", 4, 0),
+        (16, 32, "walk", 0, 1),
+        (32, 43, "lick", 1, 1),
+        (43, 62, "walk", 1, 2),
+        (62, 73, "sleep", 2, 2),
+        (73, 82, "acro_sleep", 2, 2),
+        (82, 91, "wake", 2, 2),
+        (91, 104, "walk", 2, 3),
+        (104, 114, "greet", 3, 3),
+        (114, 117, "walk", 3, 4),
+        (117, FRAME_COUNT, "walk", 4, 0),
+    ]
+    state, start, from_idx, to_idx = segments[-1][2], segments[-1][0], segments[-1][3], segments[-1][4]
+    for seg_start, seg_end, seg_state, seg_from, seg_to in segments:
+        if seg_start <= index < seg_end:
+            state, start, from_idx, to_idx = seg_state, seg_start, seg_from, seg_to
+            break
+    seg_end = next((item[1] for item in segments if item[0] == start), FRAME_COUNT)
     if state == "walk":
-        next_point = route[min(route_index + 1, len(route) - 1)]
-        travel = phase / max(1, 8 if route_index == 0 else 7)
-        easing = min(1.0, travel) ** 2 * (3 - 2 * min(1.0, travel))
-        x = int(x0 + (next_point[0] - x0) * easing)
-        y = int(y0 + (next_point[1] - y0) * easing)
+        local = (index - start) / max(1, seg_end - start - 1)
+        eased = local * local * (3 - 2 * local)
+        x0, y0 = route[from_idx]
+        x1, y1 = route[to_idx]
+        x = int(x0 + (x1 - x0) * eased)
+        y = int(y0 + (y1 - y0) * eased)
     else:
-        x, y = x0, y0
+        x, y = route[from_idx]
+    phase = index - start
     sprite = pixel_cat(state, phase)
     if state == "acro_sleep":
-        sprite = sprite.rotate(-8 + int(12 * math.sin(phase * 0.8)), resample=Image.Resampling.NEAREST, expand=True)
+        sprite = sprite.rotate(-5 + int(10 * math.sin(phase * 0.35)), resample=Image.Resampling.BICUBIC, expand=True)
     elif state == "sleep":
-        sprite = sprite.rotate(int(4 * math.sin(phase * 0.7)), resample=Image.Resampling.NEAREST, expand=True)
+        sprite = sprite.rotate(int(3 * math.sin(phase * 0.28)), resample=Image.Resampling.BICUBIC, expand=True)
+    elif state in {"walk", "wake", "greet"}:
+        sprite = sprite.rotate(int(1.5 * math.sin(phase * 0.22)), resample=Image.Resampling.BICUBIC, expand=True)
     frame.alpha_composite(sprite, (x, y))
 
     greeting_text = "hi — welcome to my orbit" if state == "greet" else None
     if greeting_text:
         draw = ImageDraw.Draw(frame, "RGBA")
-        pulse = 80 + int(35 * (0.5 + 0.5 * math.sin(phase * 0.8)))
+        pulse = 80 + int(35 * (0.5 + 0.5 * math.sin(phase * 0.35)))
         draw.ellipse((x - 20, y - 20, x + 145, y + 145), outline=(88, 166, 255, pulse), width=3)
         bubble_x = min(WIDTH - 390, max(25, x - 25))
         bubble_y = max(70, y - 78)
@@ -472,7 +485,7 @@ def main() -> None:
         raise SystemExit(f"Mascot source missing: {SOURCE}")
     cat = make_cat()
     frames = [draw_frame(index, cat) for index in range(FRAME_COUNT)]
-    frames[0].save(OUTPUT_GIF, save_all=True, append_images=frames[1:], duration=105, loop=0, optimize=True, disposal=2)
+    frames[0].save(OUTPUT_GIF, save_all=True, append_images=frames[1:], duration=130, loop=0, optimize=True, disposal=2)
     frames[FRAME_COUNT // 2].save(OUTPUT_STILL, format="PNG", optimize=True)
     print(f"Generated {OUTPUT_GIF}")
     print(f"Generated {OUTPUT_STILL}")
