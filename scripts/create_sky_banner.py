@@ -59,7 +59,9 @@ def remove_checkerboard(image: Image.Image) -> Image.Image:
 
 REAL_CAT_FILES = {
     "base": ASSET_DIR / "nova-real-clean.png",
-    "walk": ASSET_DIR / "nova-real-walk.png",
+    "walk_1": ASSET_DIR / "nova-real-walk.png",
+    "walk_2": ASSET_DIR / "nova-real-walk-2.png",
+    "walk_3": ASSET_DIR / "nova-real-walk-3.png",
     "lick": ASSET_DIR / "nova-real-lick.png",
     "sleep": ASSET_DIR / "nova-real-sleep.png",
     "stretch": ASSET_DIR / "nova-real-stretch.png",
@@ -67,13 +69,20 @@ REAL_CAT_FILES = {
 }
 
 
+def pixelate_image(image: Image.Image, pixel_size: int = 64) -> Image.Image:
+    """Apply a modern pixel-art filter by downscaling and upscaling with nearest resampling."""
+    small = image.resize((pixel_size, pixel_size), Image.Resampling.LANCZOS)
+    return small.resize(image.size, Image.Resampling.NEAREST)
+
+
 def prepare_real_cat(path: Path, size: int = 220) -> Image.Image:
-    """Normalize a generated pose into a transparent, stable-size natural cat layer."""
+    """Normalize a generated pose into a transparent, pixelated natural cat layer."""
     image = Image.open(path).convert("RGBA")
     alpha = image.getchannel("A")
     if alpha.getbbox() is None or alpha.getextrema()[0] > 0:
         image = remove_checkerboard(image)
     image.thumbnail((size, size), Image.Resampling.LANCZOS)
+    image = pixelate_image(image)
     layer = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     x = (size - image.width) // 2
     y = (size - image.height) // 2
@@ -85,24 +94,31 @@ def make_cat_poses() -> dict[str, Image.Image]:
     missing = [str(path) for path in REAL_CAT_FILES.values() if not path.exists()]
     if missing:
         raise SystemExit(f"Real cat pose assets missing: {', '.join(missing)}")
-    return {name: prepare_real_cat(path) for name, path in REAL_CAT_FILES.items()}
+    poses = {name: prepare_real_cat(path) for name, path in REAL_CAT_FILES.items()}
+    # Mirror the passing pose for the 4th frame of the walk cycle.
+    poses["walk_4"] = poses["walk_3"].transpose(Image.FLIP_LEFT_RIGHT)
+    return poses
 
 
-def real_cat(poses: dict[str, Image.Image], state: str, phase: int = 0) -> Image.Image:
-    """Return a softly breathing natural cat pose, with a blended walk stride."""
+def pixel_cat_v2(poses: dict[str, Image.Image], state: str, phase: int = 0) -> Image.Image:
+    """Return a smooth, multi-frame pixel-art cat pose with a dense walk cycle."""
     if state == "walk":
-        stride = 0.5 + 0.5 * math.sin(phase * 0.42)
-        image = Image.blend(poses["base"], poses["walk"], stride)
+        # 4-frame walk cycle: Stride 1 -> Passing -> Stride 2 -> Passing (mirrored)
+        cycle = [poses["walk_1"], poses["walk_3"], poses["walk_2"], poses["walk_4"]]
+        image = cycle[(phase // 4) % 4].copy()
     elif state == "wake":
-        image = Image.blend(poses["sleep"], poses["base"], min(1.0, phase / 9.0))
+        image = Image.blend(poses["sleep"], poses["base"], min(1.0, phase / 18.0))
     elif state == "greet":
-        image = Image.blend(poses["base"], poses["stretch"], 0.32 + 0.08 * math.sin(phase * 0.25))
+        image = Image.blend(poses["base"], poses["stretch"], 0.32 + 0.08 * math.sin(phase * 0.12))
     else:
         image = poses.get(state, poses["base"]).copy()
-    breathing = 1.0 + (0.012 * math.sin(phase * 0.18) if state in {"sleep", "acro_sleep", "greet"} else 0.004 * math.sin(phase * 0.2))
-    scaled = image.resize((int(image.width * breathing), int(image.height * breathing)), Image.Resampling.BICUBIC)
+
+    # Subtle breathing and bobbing to keep it alive.
+    breathing = 1.0 + (0.012 * math.sin(phase * 0.09) if state in {"sleep", "acro_sleep", "greet"} else 0.004 * math.sin(phase * 0.1))
+    bob = int(2 * math.sin(phase * 0.25)) if state == "walk" else 0
+    scaled = image.resize((int(image.width * breathing), int(image.height * breathing)), Image.Resampling.NEAREST)
     layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
-    layer.alpha_composite(scaled, ((image.width - scaled.width) // 2, (image.height - scaled.height) // 2))
+    layer.alpha_composite(scaled, ((image.width - scaled.width) // 2, (image.height - scaled.height) // 2 + bob))
     return layer
 
 
@@ -398,15 +414,15 @@ def draw_frame(index: int, poses: dict[str, Image.Image]) -> Image.Image:
     segments = [
         (0, 16, "walk", 4, 0),
         (16, 32, "walk", 0, 1),
-        (32, 43, "lick", 1, 1),
-        (43, 62, "walk", 1, 2),
-        (62, 73, "sleep", 2, 2),
-        (73, 82, "acro_sleep", 2, 2),
-        (82, 91, "wake", 2, 2),
-        (91, 104, "walk", 2, 3),
-        (104, 114, "greet", 3, 3),
-        (114, 117, "walk", 3, 4),
-        (117, FRAME_COUNT, "walk", 4, 0),
+        (32, 44, "lick", 1, 1),
+        (44, 64, "walk", 1, 2),
+        (64, 76, "sleep", 2, 2),
+        (76, 86, "acro_sleep", 2, 2),
+        (86, 96, "wake", 2, 2),
+        (96, 108, "walk", 2, 3),
+        (108, 116, "greet", 3, 3),
+        (116, 120, "walk", 3, 4),
+        (120, FRAME_COUNT, "walk", 4, 0),
     ]
     state, start, from_idx, to_idx = segments[-1][2], segments[-1][0], segments[-1][3], segments[-1][4]
     for seg_start, seg_end, seg_state, seg_from, seg_to in segments:
@@ -424,9 +440,9 @@ def draw_frame(index: int, poses: dict[str, Image.Image]) -> Image.Image:
     else:
         x, y = route[from_idx]
     phase = index - start
-    sprite = real_cat(poses, state, phase)
+    sprite = pixel_cat_v2(poses, state, phase)
     if state in {"walk", "wake", "greet"}:
-        sprite = sprite.rotate(int(1.2 * math.sin(phase * 0.16)), resample=Image.Resampling.BICUBIC, expand=True)
+        sprite = sprite.rotate(int(1.2 * math.sin(phase * 0.08)), resample=Image.Resampling.NEAREST, expand=True)
     frame.alpha_composite(sprite, (x, y))
 
     greeting_text = "hi — welcome to my orbit" if state == "greet" else None
@@ -456,7 +472,7 @@ def draw_frame(index: int, poses: dict[str, Image.Image]) -> Image.Image:
 def main() -> None:
     poses = make_cat_poses()
     frames = [draw_frame(index, poses) for index in range(FRAME_COUNT)]
-    frames[0].save(OUTPUT_GIF, save_all=True, append_images=frames[1:], duration=130, loop=0, optimize=True, disposal=2)
+    frames[0].save(OUTPUT_GIF, save_all=True, append_images=frames[1:], duration=65, loop=0, optimize=True, disposal=2)
     frames[FRAME_COUNT // 2].save(OUTPUT_STILL, format="PNG", optimize=True)
     print(f"Generated {OUTPUT_GIF}")
     print(f"Generated {OUTPUT_STILL}")
