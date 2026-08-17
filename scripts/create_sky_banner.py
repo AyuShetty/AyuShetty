@@ -54,13 +54,13 @@ def profile_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     return ImageFont.load_default()
 
 
-def draw_panel(draw: ImageDraw.ImageDraw, x: int, y: int, width: int, height: int, title: str, lines: list[str], accent=(177, 170, 255, 230)) -> None:
-    draw.rounded_rectangle((x, y, x + width, y + height), radius=22, fill=(8, 12, 38, 188), outline=(127, 134, 213, 135), width=2)
+def draw_panel(draw: ImageDraw.ImageDraw, x: int, y: int, width: int, height: int, title: str, lines: list[str], accent=(88, 166, 255, 230)) -> None:
+    draw.rounded_rectangle((x, y, x + width, y + height), radius=22, fill=(31, 35, 40, 226), outline=(88, 96, 105, 180), width=2)
     draw.line((x + 22, y + 22, x + 170, y + 22), fill=accent, width=3)
-    draw.text((x + 22, y + 38), title.upper(), font=profile_font(22, True), fill=(239, 237, 255, 245))
+    draw.text((x + 22, y + 38), title.upper(), font=profile_font(22, True), fill=(240, 246, 252, 245))
     cursor = y + 78
     for line in lines:
-        draw.text((x + 22, cursor), line, font=profile_font(16), fill=(194, 202, 244, 235))
+        draw.text((x + 22, cursor), line, font=profile_font(16), fill=(139, 148, 158, 235))
         cursor += 28
 
 
@@ -72,14 +72,14 @@ def draw_profile_copy(draw: ImageDraw.ImageDraw) -> None:
         "Exploring MPC/TSS security, AI infrastructure,",
         "hackathons, product thinking, and design refinement.",
         "SYSTEM STATUS  //  ONLINE",
-    ], accent=(226, 186, 255, 235))
+    ], accent=(88, 166, 255, 235))
     draw_panel(draw, 40, 480, 520, 260, "WHAT I BUILD", [
         "AI SYSTEMS       local LLMs · agents",
         "ETHEREUM         governance · EIPs",
         "PRODUCT          full-stack · DX",
         "SECURITY         MPC/TSS · privacy",
         "FOCUS            useful before impressive",
-    ], accent=(142, 194, 255, 235))
+    ], accent=(88, 166, 255, 235))
     draw_panel(draw, 640, 480, 520, 340, "SELECTED WORK", [
         "ETH.ED           Web3 learning platform",
         "EIPSINSIGHT      governance analytics",
@@ -88,7 +88,7 @@ def draw_profile_copy(draw: ImageDraw.ImageDraw) -> None:
         "ETHERWORLD IOS   scalable app architecture",
         "THIS PORTFOLIO   immersive 3D experience",
         "AYU.OS           profile as an operating system",
-    ], accent=(255, 204, 139, 235))
+    ], accent=(210, 153, 34, 235))
     draw_panel(draw, 40, 800, 520, 330, "TECHNICAL RANGE", [
         "TypeScript · Python · Solidity · Swift",
         "Next.js · React · SwiftUI · Three.js",
@@ -96,13 +96,13 @@ def draw_profile_copy(draw: ImageDraw.ImageDraw) -> None:
         "Ollama · Playwright · LangGraph · OpenCV",
         "Ethereum · ENS · Foundry · Hardhat",
         "Agents · DX · Design systems · WebGL",
-    ], accent=(123, 225, 203, 235))
+    ], accent=(63, 185, 80, 235))
     draw_panel(draw, 640, 880, 520, 265, "EXPERIENCE", [
         "PRODUCT ENGINEER     Avarch · 2023–Present",
         "PRESIDENT             COPE · 2022–2023",
         "SOFTWARE INTERN       Avarch · 2021–2022",
         "Building Web3 + AI platforms and communities.",
-    ], accent=(233, 172, 255, 235))
+    ], accent=(130, 80, 223, 235))
     draw_panel(draw, 40, 1200, 520, 340, "CURRENT OBJECTIVES", [
         "LOCAL AI INFRA v1       65%",
         "EIPSINSIGHT v2          15%",
@@ -110,7 +110,7 @@ def draw_profile_copy(draw: ImageDraw.ImageDraw) -> None:
         "FACIAL KEYGEN RESEARCH  30%",
         "Distributed inference, governance intelligence,",
         "plugin architecture, and post-quantum research.",
-    ], accent=(255, 182, 199, 235))
+    ], accent=(207, 34, 46, 235))
     draw_panel(draw, 640, 1210, 520, 300, "TELEMETRY / CONNECT", [
         "19 PUBLIC REPOSITORIES",
         "4 STARS  ·  2 FORKS  ·  368 COMMITS",
@@ -118,14 +118,14 @@ def draw_profile_copy(draw: ImageDraw.ImageDraw) -> None:
         "ayushetty.me",
         "github.com/AyuShetty",
         "linkedin.com/in/ayushetty  ·  @AyuShettyEth",
-    ], accent=(182, 210, 255, 235))
+    ], accent=(88, 166, 255, 235))
 
 
 def gradient_background() -> Image.Image:
     image = Image.new("RGB", (WIDTH, HEIGHT))
     pixels = image.load()
-    top = (5, 10, 30)
-    bottom = (26, 17, 58)
+    top = (13, 17, 23)
+    bottom = (31, 35, 40)
     for y in range(HEIGHT):
         ratio = y / max(1, HEIGHT - 1)
         for x in range(WIDTH):
@@ -142,7 +142,7 @@ def draw_nebula(frame: Image.Image, index: int, layer: int) -> None:
     cx, cy = centers[layer % len(centers)]
     drift = int(22 * math.sin(index / FRAME_COUNT * math.pi * 2 + layer))
     for radius, alpha in [(310, 8), (230, 11), (150, 16)]:
-        haze_draw.ellipse((cx + drift - radius, cy - radius, cx + drift + radius, cy + radius), fill=(116, 74, 220, alpha))
+        haze_draw.ellipse((cx + drift - radius, cy - radius, cx + drift + radius, cy + radius), fill=(47, 67, 89, alpha))
     haze = haze.filter(ImageFilter.GaussianBlur(36))
     frame.alpha_composite(haze)
 
@@ -157,34 +157,34 @@ def draw_deep_stars(draw: ImageDraw.ImageDraw, index: int) -> None:
             y = random.randint(20, 1450)
             r = random.choice([1, 1, 1, 2]) if layer < 2 else 2
             twinkle = int(130 + 100 * (0.5 + 0.5 * math.sin(index * 0.55 + x)))
-            draw.ellipse((x - r, y - r, x + r, y + r), fill=(210, 220, 255, twinkle))
+            draw.ellipse((x - r, y - r, x + r, y + r), fill=(201, 209, 217, twinkle))
 
 
 def draw_solar_system(draw: ImageDraw.ImageDraw, index: int) -> None:
     """Render a small orbital system with stable geometry and gentle motion."""
     cx, cy = 815, 285
     for radius in (68, 108, 148):
-        draw.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), outline=(138, 145, 230, 72), width=2)
-    draw.ellipse((cx - 32, cy - 32, cx + 32, cy + 32), fill=(255, 194, 105, 245), outline=(255, 231, 170, 220), width=3)
-    draw.ellipse((cx - 20, cy - 20, cx + 20, cy + 20), fill=(255, 223, 142, 220))
-    planets = [(68, 7, (117, 200, 255, 240), 1.0), (108, 10, (221, 133, 255, 240), -0.7), (148, 14, (140, 229, 193, 240), 0.45)]
+        draw.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), outline=(88, 96, 105, 88), width=2)
+    draw.ellipse((cx - 32, cy - 32, cx + 32, cy + 32), fill=(210, 153, 34, 245), outline=(240, 198, 98, 220), width=3)
+    draw.ellipse((cx - 20, cy - 20, cx + 20, cy + 20), fill=(240, 198, 98, 220))
+    planets = [(68, 7, (88, 166, 255, 240), 1.0), (108, 10, (130, 80, 223, 240), -0.7), (148, 14, (63, 185, 80, 240), 0.45)]
     for radius, size, color, speed in planets:
         angle = index / FRAME_COUNT * math.pi * 2 * speed + radius / 90
         px = int(cx + math.cos(angle) * radius)
         py = int(cy + math.sin(angle) * radius * 0.58)
         draw.ellipse((px - size, py - size, px + size, py + size), fill=color)
         if radius == 108:
-            draw.ellipse((px - size - 8, py - 3, px + size + 8, py + 3), outline=(239, 210, 255, 160), width=2)
-    draw.text((690, 475), "AYU.OS / ORBITAL INDEX", font=profile_font(15, True), fill=(195, 201, 255, 220))
+            draw.ellipse((px - size - 8, py - 3, px + size + 8, py + 3), outline=(130, 80, 223, 160), width=2)
+    draw.text((690, 475), "AYU.OS / ORBITAL INDEX", font=profile_font(15, True), fill=(139, 148, 158, 220))
 
 
 def draw_motion_guide(draw: ImageDraw.ImageDraw, index: int) -> None:
     """Sparse observatory rails guide the eye without turning the canvas into a dashboard."""
     points = [(40, 155), (590, 420), (40, 480), (1160, 820), (40, 800), (1160, 1145), (40, 1200), (1160, 1510)]
-    draw.line(points, fill=(126, 137, 219, 26), width=2)
+    draw.line(points, fill=(88, 96, 105, 34), width=2)
     pulse = points[(index // 8) % len(points)]
     glow = 4 + int(3 * (0.5 + 0.5 * math.sin(index * 0.42)))
-    draw.ellipse((pulse[0] - glow, pulse[1] - glow, pulse[0] + glow, pulse[1] + glow), fill=(216, 191, 255, 150))
+    draw.ellipse((pulse[0] - glow, pulse[1] - glow, pulse[0] + glow, pulse[1] + glow), fill=(88, 166, 255, 150))
 
 
 def draw_vignette(frame: Image.Image) -> None:
@@ -196,34 +196,34 @@ def draw_vignette(frame: Image.Image) -> None:
         for x in range(WIDTH):
             dist = math.sqrt((x - cx) ** 2 + (y - cy) ** 2) / max_dist
             alpha = int(max(0, min(105, (dist ** 2.2) * 115)))
-            px[x, y] = (0, 0, 12, alpha)
+            px[x, y] = (1, 4, 7, alpha)
     frame.alpha_composite(vignette)
 
 
 def draw_observatory(draw: ImageDraw.ImageDraw, index: int) -> None:
     """A quiet mission-control frame turns the profile into a place, not a poster."""
     scan_y = 120 + int((index * 22) % 1520)
-    draw.line((24, scan_y, WIDTH - 24, scan_y), fill=(130, 206, 255, 26), width=1)
-    draw.line((24, scan_y + 1, WIDTH - 24, scan_y + 1), fill=(202, 161, 255, 12), width=1)
-    draw.line((34, 122, 34, 1620), fill=(145, 174, 255, 55), width=2)
-    draw.line((1166, 122, 1166, 1620), fill=(145, 174, 255, 55), width=2)
+    draw.line((24, scan_y, WIDTH - 24, scan_y), fill=(88, 166, 255, 32), width=1)
+    draw.line((24, scan_y + 1, WIDTH - 24, scan_y + 1), fill=(130, 80, 223, 16), width=1)
+    draw.line((34, 122, 34, 1620), fill=(88, 96, 105, 70), width=2)
+    draw.line((1166, 122, 1166, 1620), fill=(88, 96, 105, 70), width=2)
     for y in range(155, 1580, 96):
-        draw.line((28, y, 40, y), fill=(185, 196, 255, 90), width=2)
-        draw.line((1160, y, 1172, y), fill=(185, 196, 255, 90), width=2)
-    draw.text((52, 112), "DEEP FIELD / MISSION 01", font=profile_font(14, True), fill=(167, 198, 255, 185))
-    draw.text((950, 112), "BANGALORE · UTC+5:30", font=profile_font(13), fill=(167, 198, 255, 170))
+        draw.line((28, y, 40, y), fill=(139, 148, 158, 100), width=2)
+        draw.line((1160, y, 1172, y), fill=(139, 148, 158, 100), width=2)
+    draw.text((52, 112), "DEEP FIELD / MISSION 01", font=profile_font(14, True), fill=(88, 166, 255, 205))
+    draw.text((950, 112), "BANGALORE · UTC+5:30", font=profile_font(13), fill=(139, 148, 158, 190))
     phase = (index / FRAME_COUNT) * math.pi * 2
     signal = int(50 + 28 * (0.5 + 0.5 * math.sin(phase)))
-    draw.text((52, 1645), f"SIGNAL {signal:02d}%  /  NOVA NAVIGATION ONLINE", font=profile_font(13, True), fill=(180, 206, 255, 190))
-    draw.text((920, 1645), "AYU.OS // THE DEEP FIELD", font=profile_font(13), fill=(180, 206, 255, 170))
+    draw.text((52, 1645), f"SIGNAL {signal:02d}%  /  NOVA NAVIGATION ONLINE", font=profile_font(13, True), fill=(63, 185, 80, 205))
+    draw.text((920, 1645), "AYU.OS // THE DEEP FIELD", font=profile_font(13), fill=(139, 148, 158, 185))
 
 
 def draw_signal_constellations(draw: ImageDraw.ImageDraw, index: int) -> None:
     """Turn selected work into a few intentional data constellations."""
     groups = [
-        ([(590, 470), (645, 430), (700, 450), (750, 410)], (111, 220, 255, 155)),
-        ([(500, 820), (560, 850), (620, 830), (675, 875)], (218, 151, 255, 145)),
-        ([(560, 1180), (630, 1150), (700, 1188), (760, 1140)], (255, 194, 125, 145)),
+        ([(590, 470), (645, 430), (700, 450), (750, 410)], (88, 166, 255, 155)),
+        ([(500, 820), (560, 850), (620, 830), (675, 875)], (130, 80, 223, 145)),
+        ([(560, 1180), (630, 1150), (700, 1188), (760, 1140)], (210, 153, 34, 145)),
     ]
     for gi, (points, color) in enumerate(groups):
         draw.line(points, fill=color, width=2)
@@ -239,12 +239,12 @@ def draw_transmission(draw: ImageDraw.ImageDraw, index: int) -> None:
     if index < 38:
         return
     pulse = int(90 + 45 * (0.5 + 0.5 * math.sin((index - 38) * 0.45)))
-    draw.rounded_rectangle((300, 1545, 900, 1610), radius=30, fill=(20, 22, 60, 150), outline=(255, 191, 133, pulse), width=2)
-    draw.text((362, 1568), "OPEN CHANNEL  ·  ALWAYS CURIOUS  ·  SAY HELLO", font=profile_font(17, True), fill=(255, 225, 190, 238))
+    draw.rounded_rectangle((300, 1545, 900, 1610), radius=30, fill=(31, 35, 40, 240), outline=(210, 153, 34, pulse), width=2)
+    draw.text((362, 1568), "OPEN CHANNEL  ·  ALWAYS CURIOUS  ·  SAY HELLO", font=profile_font(17, True), fill=(240, 198, 98, 238))
 
 
 def draw_cloud(draw: ImageDraw.ImageDraw, x: int, y: int, scale: float, alpha: int = 170) -> None:
-    fill = (174, 183, 226, alpha)
+    fill = (88, 96, 105, alpha)
     cloud = Image.new("RGBA", (260, 120), (0, 0, 0, 0))
     cloud_draw = ImageDraw.Draw(cloud)
     cloud_draw.ellipse((12, 45, 120, 108), fill=fill)
@@ -270,9 +270,9 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
 
     # Moon halo and soft midnight atmospheric bands.
     for radius, alpha in [(150, 10), (118, 15), (88, 24)]:
-        draw.ellipse((1040 - radius, 140 - radius, 1040 + radius, 140 + radius), fill=(157, 145, 255, alpha))
-    draw.ellipse((1010, 110, 1070, 170), fill=(231, 233, 255, 245))
-    draw.ellipse((1029, 120, 1089, 180), fill=(26, 24, 63, 240))
+        draw.ellipse((1040 - radius, 140 - radius, 1040 + radius, 140 + radius), fill=(88, 166, 255, alpha))
+    draw.ellipse((1010, 110, 1070, 170), fill=(240, 246, 252, 245))
+    draw.ellipse((1029, 120, 1089, 180), fill=(31, 35, 40, 240))
 
     # Parallax clouds: distant clouds drift slowly; the foreground cloud crosses
     # the cat's route, making the loop feel like a tiny world rather than a sticker.
@@ -285,16 +285,16 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
     draw_motion_guide(draw, index)
     # Constellation threads and an occasional shooting star.
     constellation = [(160, 240), (222, 188), (284, 230), (340, 168), (405, 218)]
-    draw.line(constellation, fill=(173, 175, 255, 120), width=1)
+    draw.line(constellation, fill=(88, 166, 255, 120), width=1)
     for x, y in constellation:
-        draw.ellipse((x - 3, y - 3, x + 3, y + 3), fill=(217, 215, 255, 230))
+        draw.ellipse((x - 3, y - 3, x + 3, y + 3), fill=(240, 246, 252, 230))
     streak_x = (index * 38) % 1320 - 120
     streak_y = 600 - (index * 5) % 300
-    draw.line((streak_x, streak_y, streak_x + 80, streak_y - 28), fill=(255, 225, 244, 190), width=2)
+    draw.line((streak_x, streak_y, streak_x + 80, streak_y - 28), fill=(88, 166, 255, 190), width=2)
     # Distant mountain silhouettes.
     mountain = [(0, 1620), (115, 1500), (220, 1605), (342, 1470), (480, 1610), (610, 1498), (755, 1618), (885, 1488), (1030, 1608), (1130, 1518), (1200, 1605), (1200, 1800), (0, 1800)]
-    draw.polygon(mountain, fill=(30, 33, 78, 235))
-    draw.polygon([(0, 1690), (170, 1578), (330, 1680), (520, 1555), (700, 1688), (920, 1568), (1200, 1690), (1200, 1800), (0, 1800)], fill=(12, 16, 43, 250))
+    draw.polygon(mountain, fill=(47, 54, 64, 235))
+    draw.polygon([(0, 1690), (170, 1578), (330, 1680), (520, 1555), (700, 1688), (920, 1568), (1200, 1690), (1200, 1800), (0, 1800)], fill=(13, 17, 23, 250))
 
 
     # The profile itself is drawn into the canvas so Nova appears to roam
@@ -331,21 +331,21 @@ def draw_frame(index: int, cat: Image.Image) -> Image.Image:
 
     if active_greeting:
         draw = ImageDraw.Draw(frame, "RGBA")
-        draw.ellipse((x - 20, y - 20, x + 205, y + 205), outline=(226, 196, 255, 90), width=3)
-        draw.ellipse((x - 32, y - 32, x + 217, y + 217), outline=(116, 211, 255, 35), width=2)
+        draw.ellipse((x - 20, y - 20, x + 205, y + 205), outline=(88, 166, 255, 90), width=3)
+        draw.ellipse((x - 32, y - 32, x + 217, y + 217), outline=(63, 185, 80, 40), width=2)
         bubble_x = min(WIDTH - 390, max(25, x - 25))
         bubble_y = max(70, y - 78)
-        draw.rounded_rectangle((bubble_x, bubble_y, bubble_x + 350, bubble_y + 52), radius=18, fill=(25, 22, 66, 225), outline=(228, 191, 255, 210), width=2)
-        draw.polygon([(bubble_x + 44, bubble_y + 52), (bubble_x + 60, bubble_y + 52), (bubble_x + 52, bubble_y + 66)], fill=(25, 22, 66, 225))
-        draw.text((bubble_x + 18, bubble_y + 17), active_greeting, font=profile_font(17, True), fill=(244, 238, 255, 245))
+        draw.rounded_rectangle((bubble_x, bubble_y, bubble_x + 350, bubble_y + 52), radius=18, fill=(31, 35, 40, 240), outline=(88, 166, 255, 210), width=2)
+        draw.polygon([(bubble_x + 44, bubble_y + 52), (bubble_x + 60, bubble_y + 52), (bubble_x + 52, bubble_y + 66)], fill=(31, 35, 40, 240))
+        draw.text((bubble_x + 18, bubble_y + 17), active_greeting, font=profile_font(17, True), fill=(240, 246, 252, 245))
 
     # A tiny motion trail and status labels keep the scene tied to AYU.OS.
     draw = ImageDraw.Draw(frame, "RGBA")
-    draw.line((40, 42, 320, 42), fill=(194, 188, 255, 180), width=2)
-    draw.text((40, 56), "AYU.OS / SINGLE-CANVAS PROFILE", fill=(235, 233, 255, 230))
-    draw.text((40, 78), "Nova // roaming through the interface", fill=(188, 198, 255, 230))
-    draw.text((40, 1730), "NOVA ROUTE COMPLETE · RETURNING TO ORBIT", fill=(206, 208, 255, 220))
-    draw.text((1010, 1730), "MOON 01 · ALT 420", fill=(206, 208, 255, 220))
+    draw.line((40, 42, 320, 42), fill=(88, 166, 255, 180), width=2)
+    draw.text((40, 56), "AYU.OS / SINGLE-CANVAS PROFILE", fill=(240, 246, 252, 230))
+    draw.text((40, 78), "Nova // roaming through the interface", fill=(139, 148, 158, 230))
+    draw.text((40, 1730), "NOVA ROUTE COMPLETE · RETURNING TO ORBIT", fill=(139, 148, 158, 220))
+    draw.text((1010, 1730), "MOON 01 · ALT 420", fill=(139, 148, 158, 220))
     return frame.convert("RGB")
 
 
