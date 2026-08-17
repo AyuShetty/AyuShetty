@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSET_DIR = ROOT / "assets" / "profile"
-EXPECTED_SIZE = (1200, 1800)
+EXPECTED_SIZE = (400, 600)
 
 
 def gif_info(path: Path) -> tuple[tuple[int, int], int]:

@@ -472,8 +472,10 @@ def draw_frame(index: int, poses: dict[str, Image.Image]) -> Image.Image:
 def main() -> None:
     poses = make_cat_poses()
     frames = [draw_frame(index, poses) for index in range(FRAME_COUNT)]
-    frames[0].save(OUTPUT_GIF, save_all=True, append_images=frames[1:], duration=65, loop=0, optimize=True, disposal=2)
-    frames[FRAME_COUNT // 2].save(OUTPUT_STILL, format="PNG", optimize=True)
+    # Downscale to 400x600 to ensure GitHub proxies the large GIF correctly.
+    downscaled = [f.resize((400, 600), Image.Resampling.LANCZOS) for f in frames]
+    downscaled[0].save(OUTPUT_GIF, save_all=True, append_images=downscaled[1:], duration=65, loop=0, optimize=True, disposal=2)
+    downscaled[FRAME_COUNT // 2].save(OUTPUT_STILL, format="PNG", optimize=True)
     print(f"Generated {OUTPUT_GIF}")
     print(f"Generated {OUTPUT_STILL}")
 
