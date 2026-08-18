@@ -57,65 +57,83 @@ def remove_checkerboard(image: Image.Image) -> Image.Image:
     return image.crop(bbox) if bbox else image
 
 
-REAL_CAT_FILES = {
-    "base": ASSET_DIR / "nova-real-clean.png",
-    "walk_1": ASSET_DIR / "nova-real-walk.png",
-    "walk_2": ASSET_DIR / "nova-real-walk-2.png",
-    "walk_3": ASSET_DIR / "nova-real-walk-3.png",
-    "lick": ASSET_DIR / "nova-real-lick.png",
-    "sleep": ASSET_DIR / "nova-real-sleep.png",
-    "stretch": ASSET_DIR / "nova-real-stretch.png",
-    "acro_sleep": ASSET_DIR / "nova-real-acro.png",
+PIXEL_CAT_FILES = {
+    "walk_0": ASSET_DIR / "nova-pixel-base.png",
+    "walk_1": ASSET_DIR / "nova-pixel-walk-1.png",
+    "walk_2": ASSET_DIR / "nova-pixel-walk-3.png",
+    "walk_3": ASSET_DIR / "nova-pixel-walk-4.png",
+    "walk_4": ASSET_DIR / "nova-pixel-walk-6.png",
+    "walk_5": ASSET_DIR / "nova-pixel-walk-5.png",
+    "walk_6": ASSET_DIR / "nova-pixel-walk-2.png",
+    "lick": ASSET_DIR / "nova-pixel-lick.png",
+    "sleep": ASSET_DIR / "nova-pixel-sleep.png",
+    "stretch": ASSET_DIR / "nova-pixel-stretch.png",
+    "acro_sleep": ASSET_DIR / "nova-pixel-acro.png",
 }
 
 
-def pixelate_image(image: Image.Image, pixel_size: int = 64) -> Image.Image:
-    """Apply a modern pixel-art filter by downscaling and upscaling with nearest resampling."""
-    small = image.resize((pixel_size, pixel_size), Image.Resampling.LANCZOS)
-    return small.resize(image.size, Image.Resampling.NEAREST)
+def background_pixel(r: int, g: int, b: int) -> bool:
+    """Recognize the generated green-screen or deep charcoal background."""
+    green_screen = g > 60 and g > r * 1.18 and g > b * 1.18
+    dark_screen = max(r, g, b) < 42
+    return green_screen or dark_screen
 
 
-def prepare_real_cat(path: Path, size: int = 220) -> Image.Image:
-    """Normalize a generated pose into a transparent, pixelated natural cat layer."""
-    image = Image.open(path).convert("RGBA")
-    alpha = image.getchannel("A")
-    if alpha.getbbox() is None or alpha.getextrema()[0] > 0:
-        image = remove_checkerboard(image)
-    image.thumbnail((size, size), Image.Resampling.LANCZOS)
-    image = pixelate_image(image)
+def remove_generated_background(image: Image.Image) -> Image.Image:
+    """Flood-remove only border-connected screen pixels, preserving cat outlines."""
+    image = image.convert("RGBA")
+    pixels = image.load()
+    width, height = image.size
+    queue: deque[tuple[int, int]] = deque()
+    seen: set[tuple[int, int]] = set()
+    for x in range(width):
+        for y in (0, height - 1):
+            queue.append((x, y)); seen.add((x, y))
+    for y in range(height):
+        for x in (0, width - 1):
+            queue.append((x, y)); seen.add((x, y))
+    while queue:
+        x, y = queue.popleft()
+        r, g, b, a = pixels[x, y]
+        if a == 0 or not background_pixel(r, g, b):
+            continue
+        pixels[x, y] = (0, 0, 0, 0)
+        for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+            if 0 <= nx < width and 0 <= ny < height and (nx, ny) not in seen:
+                seen.add((nx, ny)); queue.append((nx, ny))
+    bbox = image.getchannel("A").getbbox()
+    return image.crop(bbox) if bbox else image
+
+
+def prepare_pixel_cat(path: Path, size: int = 220) -> Image.Image:
+    """Normalize a generated pixel-art pose into a transparent stable-size layer."""
+    image = remove_generated_background(Image.open(path).convert("RGBA"))
+    image.thumbnail((size, size), Image.Resampling.NEAREST)
     layer = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    x = (size - image.width) // 2
-    y = (size - image.height) // 2
-    layer.alpha_composite(image, (x, y))
+    layer.alpha_composite(image, ((size - image.width) // 2, (size - image.height) // 2))
     return layer
 
 
 def make_cat_poses() -> dict[str, Image.Image]:
-    missing = [str(path) for path in REAL_CAT_FILES.values() if not path.exists()]
+    missing = [str(path) for path in PIXEL_CAT_FILES.values() if not path.exists()]
     if missing:
-        raise SystemExit(f"Real cat pose assets missing: {', '.join(missing)}")
-    poses = {name: prepare_real_cat(path) for name, path in REAL_CAT_FILES.items()}
-    # Mirror the passing pose for the 4th frame of the walk cycle.
-    poses["walk_4"] = poses["walk_3"].transpose(Image.FLIP_LEFT_RIGHT)
-    return poses
+        raise SystemExit(f"Pixel cat pose assets missing: {', '.join(missing)}")
+    return {name: prepare_pixel_cat(path) for name, path in PIXEL_CAT_FILES.items()}
 
 
 def pixel_cat_v2(poses: dict[str, Image.Image], state: str, phase: int = 0) -> Image.Image:
-    """Return a smooth, multi-frame pixel-art cat pose with a dense walk cycle."""
+    """Return an 8-pose, slow natural walk cycle with grounded bobbing."""
     if state == "walk":
-        # 4-frame walk cycle: Stride 1 -> Passing -> Stride 2 -> Passing (mirrored)
-        cycle = [poses["walk_1"], poses["walk_3"], poses["walk_2"], poses["walk_4"]]
-        image = cycle[(phase // 4) % 4].copy()
+        cycle = [poses[f"walk_{index}"] for index in range(7)] + [poses["walk_3"].transpose(Image.FLIP_LEFT_RIGHT)]
+        image = cycle[(phase // 2) % len(cycle)].copy()
     elif state == "wake":
-        image = Image.blend(poses["sleep"], poses["base"], min(1.0, phase / 18.0))
+        image = Image.blend(poses["sleep"], poses["walk_0"], min(1.0, phase / 18.0))
     elif state == "greet":
-        image = Image.blend(poses["base"], poses["stretch"], 0.32 + 0.08 * math.sin(phase * 0.12))
+        image = Image.blend(poses["walk_0"], poses["stretch"], 0.32 + 0.08 * math.sin(phase * 0.12))
     else:
-        image = poses.get(state, poses["base"]).copy()
-
-    # Subtle breathing and bobbing to keep it alive.
-    breathing = 1.0 + (0.012 * math.sin(phase * 0.09) if state in {"sleep", "acro_sleep", "greet"} else 0.004 * math.sin(phase * 0.1))
-    bob = int(2 * math.sin(phase * 0.25)) if state == "walk" else 0
+        image = poses.get(state, poses["walk_0"]).copy()
+    breathing = 1.0 + (0.012 * math.sin(phase * 0.09) if state in {"sleep", "acro_sleep", "greet"} else 0.003 * math.sin(phase * 0.1))
+    bob = int(2 * math.sin(phase * 0.18)) if state == "walk" else 0
     scaled = image.resize((int(image.width * breathing), int(image.height * breathing)), Image.Resampling.NEAREST)
     layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
     layer.alpha_composite(scaled, ((image.width - scaled.width) // 2, (image.height - scaled.height) // 2 + bob))
@@ -443,6 +461,14 @@ def draw_frame(index: int, poses: dict[str, Image.Image]) -> Image.Image:
     sprite = pixel_cat_v2(poses, state, phase)
     if state in {"walk", "wake", "greet"}:
         sprite = sprite.rotate(int(1.2 * math.sin(phase * 0.08)), resample=Image.Resampling.NEAREST, expand=True)
+    draw = ImageDraw.Draw(frame, "RGBA")
+    contact = 0.5 + 0.5 * math.sin(phase * 0.45)
+    shadow_width = 108 + int(10 * contact)
+    draw.ellipse((x + 42, y + 180, x + 42 + shadow_width, y + 204), fill=(1, 4, 7, 125))
+    if state == "walk" and phase % 8 in {0, 1}:
+        dust_x = x + 58 + int(70 * contact)
+        draw.ellipse((dust_x, y + 190, dust_x + 4, y + 194), fill=(139, 148, 158, 75))
+        draw.ellipse((dust_x + 12, y + 184, dust_x + 16, y + 188), fill=(139, 148, 158, 45))
     frame.alpha_composite(sprite, (x, y))
 
     greeting_text = "hi — welcome to my orbit" if state == "greet" else None
@@ -474,7 +500,7 @@ def main() -> None:
     frames = [draw_frame(index, poses) for index in range(FRAME_COUNT)]
     # Downscale to 400x600 to ensure GitHub proxies the large GIF correctly.
     downscaled = [f.resize((400, 600), Image.Resampling.LANCZOS) for f in frames]
-    downscaled[0].save(OUTPUT_GIF, save_all=True, append_images=downscaled[1:], duration=65, loop=0, optimize=True, disposal=2)
+    downscaled[0].save(OUTPUT_GIF, save_all=True, append_images=downscaled[1:], duration=95, loop=0, optimize=True, disposal=2)
     downscaled[FRAME_COUNT // 2].save(OUTPUT_STILL, format="PNG", optimize=True)
     print(f"Generated {OUTPUT_GIF}")
     print(f"Generated {OUTPUT_STILL}")
