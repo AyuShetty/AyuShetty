@@ -83,8 +83,8 @@ The strongest projects are intentionally presented as products rather than a cat
 | --- | ---: |
 | Public repositories | **22** |
 | Stars / forks | **5 / 3** |
-| Commits in the latest period | **306** |
-| Followers | **4** |
+| Commits in the latest period | **300** |
+| Followers | **5** |
 
 <p align="center"><img src="assets/profile/sky-divider.svg" alt="" width="100%"></p>
 
